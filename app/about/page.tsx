@@ -32,8 +32,8 @@ export default function AboutPage() {
             <span className="text-gradient-gold">Global Execution</span>.
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Bridging technical divides for non-technical audiences, scaling high-impact EdTech and AI
-            operations across Singapore, the United States, and over 35 sovereign partners.
+            Bridging technical divides for non-technical audiences through EdTech, AI and digital
+            readiness work across Singapore, the United States, and 35+ governments.
           </p>
         </div>
 
@@ -63,14 +63,14 @@ export default function AboutPage() {
               <div className="absolute bottom-6 inset-x-6 glass-panel p-4 rounded-2xl border border-brand-gold/30">
                 <h3 className="text-lg font-bold text-white">Aaqib Alvi</h3>
                 <p className="text-xs text-brand-gold font-medium tracking-wide">
-                  General Manager, SLL USA • INSEAD AI Mentor
+                  General Manager, SLL USA • INSEAD AI Venture Lab Mentor
                 </p>
                 <div className="mt-2 flex items-center gap-4 text-[11px] text-slate-300">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3 h-3 text-brand-cyan" /> Singapore / USA
                   </span>
                   <span>•</span>
-                  <span>12+ Yrs Leadership</span>
+                  <span>12+ Yrs EdTech Experience</span>
                 </div>
               </div>
             </div>
@@ -85,20 +85,19 @@ export default function AboutPage() {
               <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
                 <p>
                   Aaqib Alvi is a global program and business leader with more than 12 years of
-                  cross-functional leadership spanning artificial intelligence, digital readiness,
-                  sustainability, STEAM learning, enterprise operations, business development, and
-                  international policy alignment.
+                  education-technology experience spanning artificial intelligence, digital readiness,
+                  sustainability, STEAM learning, business development, operations, and cross-border innovation.
                 </p>
                 <p>
-                  Throughout his tenure, he has directed flagship Intel-linked AI skilling,
-                  upskilling, and reskilling programs in collaboration with sovereign government
-                  ministries and regional partners across 35+ countries — successfully reaching over
-                  200,000 learners from diverse socio-economic backgrounds.
+                  He managed global AI programs for Intel and launched national-level AI skilling
+                  programs for the general public, youth, vocational graduates, and working
+                  professionals. These programs were delivered with ministries and partners across
+                  35+ governments and reached more than 200,000 people.
                 </p>
                 <p>
-                  His core strength lies in bridging complex technical skills gaps for non-technical
-                  audiences, localizing sophisticated curricula for domestic regulatory environments,
-                  and architecting long-range foresight planning models that inform national policy.
+                  His work includes localization of AI curricula, AI strategies for educational
+                  institutions, SDG-oriented visioning, corporate innovation, leadership training,
+                  and stakeholder engagement.
                 </p>
               </div>
 
@@ -112,7 +111,7 @@ export default function AboutPage() {
                     "Global AI / Digital Readiness Programs",
                     "AI Skilling, Upskilling & Reskilling",
                     "GenAI Implementation",
-                    "Digital Trust & Algorithmic Ethics",
+                    "Digital Trust",
                     "Sustainability & Climate Adaptation",
                     "SDG-Oriented Visioning",
                     "Futures Thinking & Foresight",
@@ -141,8 +140,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-bold text-white">Linguistic & Cultural Fluency</h3>
               </div>
               <p className="text-sm text-slate-300 mb-6">
-                Directing cross-border teams across the Asia-Pacific, North America, Europe, and
-                South Asia with native and professional linguistic fluency:
+                Working across international teams with native and professional linguistic fluency:
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {LANGUAGES.map((lang) => (

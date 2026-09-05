@@ -4,12 +4,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
 import PremiumLoader from "@/components/PremiumLoader";
+import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aaqibalvi.com"),
   title: "Aaqib Alvi | Global AI Readiness & Sustainable Innovation",
   description:
-    "Executive platform of Aaqib Alvi — Driving Global Digital Readiness (AI/ML, Digital Trust), Future Innovation through SDGs, Climate Adaptation Strategies, and EdTech Consulting across 35+ national governments.",
+    "Executive platform of Aaqib Alvi — Global Digital Readiness, AI implementation, sustainability, SDG-oriented visioning, and EdTech experience across 35+ governments.",
   keywords: [
     "Aaqib Alvi",
     "AI Readiness",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Aaqib Alvi | Global AI & Digital Readiness Leader",
     description:
-      "Global program and business leader orchestrating AI readiness across 35+ governments and upskilling 200,000+ individuals worldwide.",
+      "Global program and business leader working in AI and digital readiness across 35+ governments and reaching more than 200,000 people.",
     images: [
       {
         url: "/logo.png",
@@ -48,15 +49,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className="min-h-screen bg-brand-dark text-slate-100 antialiased selection:bg-brand-cyan/30 selection:text-white"
-        style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-      >
-        <PremiumLoader />
-        <AmbientBackground />
-        <Navbar />
-        <main className="relative pt-20">{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-brand-dark text-slate-100 antialiased selection:bg-brand-cyan/30 selection:text-white">
+        <MotionProvider>
+          <PremiumLoader />
+          <AmbientBackground />
+          <Navbar />
+          <main className="relative pt-20">{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

@@ -27,8 +27,8 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed max-w-md">
-              Global Program & Business Leader driving Digital Readiness, Generative AI implementation,
-              Digital Trust, and Climate Adaptation initiatives across 35+ national governments and multilateral institutions.
+              Global Program & Business Leader working across Digital Readiness, Generative AI
+              implementation, Digital Trust, sustainability, and climate adaptation across 35+ governments.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-slate-300">

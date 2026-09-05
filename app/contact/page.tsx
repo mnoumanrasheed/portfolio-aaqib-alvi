@@ -24,7 +24,7 @@ const INQUIRY_TYPES = [
   "Higher Ed / College Curriculum",
   "Climate Adaptation & SDG Visioning",
   "Startup Mentorship & Advisory",
-  "Keynote / Executive Speaking",
+    "Presentations / Executive Speaking",
 ];
 
 export default function ContactPage() {
@@ -66,8 +66,8 @@ export default function ContactPage() {
             <span className="text-gradient-gold">Dialogue & Advisory</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Direct channel for sovereign ministries, university leadership, institutional partners,
-            and enterprise executives seeking consultation with Aaqib Alvi.
+            Direct channel for ministries, universities, organizations, and communities seeking
+            consultation with Aaqib Alvi.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-300">Direct Telephone / WhatsApp</div>
+                    <div className="text-xs text-slate-300">Direct Telephone</div>
                     <div className="text-sm font-bold text-white group-hover:text-brand-gold transition-colors">
                       {PERSONAL_INFO.phone}
                     </div>
@@ -324,7 +324,7 @@ export default function ContactPage() {
 
                   <div className="flex items-center justify-center gap-2 text-[11px] text-slate-300 pt-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-brand-emerald" />
-                    <span>Confidentiality Guaranteed • Direct Office Access</span>
+                    <span>Direct contact for advisory enquiries</span>
                   </div>
                 </form>
               )}

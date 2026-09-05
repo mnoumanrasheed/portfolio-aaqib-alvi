@@ -34,8 +34,8 @@ export default function GlobalReachPage() {
             <span className="text-gradient-cyan">Humanitarian Stewardship</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Deploying national capacity initiatives across 35+ sovereign nations, aligning emerging
-            technologies with the United Nations Sustainable Development Goals, and driving civic resilience.
+            AI skilling programs were delivered with ministries and partners across 35+ governments,
+            alongside work in sustainability, SDG-oriented visioning, and digital readiness.
           </p>
         </div>
 
@@ -44,15 +44,15 @@ export default function GlobalReachPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
-                Multilateral Reach
+                Global Reach
               </span>
               <h2 className="text-3xl font-bold text-white mt-1">
-                National Engagements Across 35+ Countries
+                Programs Delivered Across 35+ Governments
               </h2>
             </div>
             <p className="text-xs text-slate-300 max-w-sm">
-              Tailoring AI readiness curricula to match regional governance, linguistic identity,
-              and public sector upskilling mandates.
+              Delivering AI skilling and digital readiness programs with ministries and partners across
+              35+ governments.
             </p>
           </div>
 
@@ -78,8 +78,8 @@ export default function GlobalReachPage() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <span>Plus 25+ additional partner countries across Asia, Europe & the Americas</span>
-            <span className="text-brand-gold font-semibold">200,000+ Total Learners</span>
+            <span>Programs delivered across 35+ governments</span>
+            <span className="text-brand-gold font-semibold">200,000+ People Reached</span>
           </div>
         </div>
 
@@ -108,13 +108,13 @@ export default function GlobalReachPage() {
               {
                 sdg: "SDG 8: Decent Work & Growth",
                 focus: "Workforce Reskilling & Economic Transition",
-                desc: "Preparing sovereign workforces for algorithmic shifts, unlocking high-value career pathways in emerging digital economies.",
+                desc: "Supporting digital readiness for youth, vocational graduates, working professionals, and the general public.",
                 accent: "border-amber-500/30 text-amber-400",
               },
               {
                 sdg: "SDG 13: Climate Action",
                 focus: "Sustainable Living Lab & Climate Adaptation",
-                desc: "Directing technology-driven climate adaptation, active-aging interventions, and eco-resilience frameworks at SL2.",
+                desc: "Supporting sustainability, climate adaptation, and SDG-oriented visioning at SL2.",
                 accent: "border-emerald-500/30 text-emerald-400",
               },
             ].map((sdg) => (

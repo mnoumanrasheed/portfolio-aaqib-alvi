@@ -42,8 +42,8 @@ export default function ExpertisePage() {
             <span className="text-gradient-cyan">Global Digital Readiness</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            A comprehensive, battle-tested framework bridging bleeding-edge artificial intelligence,
-            digital trust governance, and planetary sustainability across institutions worldwide.
+            A practical portfolio of AI, digital readiness, sustainability, EdTech, and business
+            development experience across programs, institutions, and communities.
           </p>
         </div>
 
@@ -98,18 +98,18 @@ export default function ExpertisePage() {
           ))}
         </div>
 
-        {/* METHODOLOGY & OPERATIONAL FLYWHEEL */}
+        {/* PROGRAM DELIVERY FOCUS */}
         <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 mb-20">
           <div className="max-w-2xl mb-10">
             <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
-              Execution Architecture
+              Program Delivery Focus
             </span>
             <h2 className="text-3xl font-bold text-white mt-1">
-              The 5-Stage Institutional Scalability Model
+              From Planning to Measurable Impact
             </h2>
             <p className="text-sm text-slate-300 mt-2">
-              How national AI skilling and digital transformation is localized, adopted, and scaled
-              for sustainable multi-decade impact.
+              Experience spanning planning, curriculum localization, training, implementation, and
+              stakeholder engagement across AI, education, and sustainability work.
             </p>
           </div>
 
@@ -117,28 +117,28 @@ export default function ExpertisePage() {
             {[
               {
                 step: "01",
-                title: "Needs Assessment",
-                desc: "Evaluating sovereign or institutional digital gap parameters, local linguistic nuances, and regulatory prerequisites.",
+                title: "Planning",
+                desc: "Supporting program planning for AI, digital readiness, education, and sustainability initiatives.",
               },
               {
                 step: "02",
-                title: "Curricular Localization",
-                desc: "Translating complex frontier AI principles into empathetic, culturally contextualized learning tracks.",
+                title: "Curriculum Localization",
+                desc: "Localizing AI curricula and developing spoken-language and digital learning content.",
               },
               {
                 step: "03",
-                title: "Train-the-Trainer",
-                desc: "Empowering 300+ university professors and regional instructors with practical pedagogy and live tooling.",
+                title: "Professional Training",
+                desc: "Providing teacher, professor, leadership, and professional training services.",
               },
               {
                 step: "04",
-                title: "Mass Deployment",
-                desc: "Orchestrating multi-state rollout across higher-ed networks, vocational centers, and public portals.",
+                title: "Implementation",
+                desc: "Supporting AI/GenAI and digital solution implementation, deployment, and IT support.",
               },
               {
                 step: "05",
-                title: "Impact Verification",
-                desc: "Tracking measurable workforce mobility, digital trust compliance, and long-term socio-economic mobility.",
+                title: "Stakeholder Engagement",
+                desc: "Working with governments, colleges, organizations, partners, and communities.",
               },
             ].map((phase, idx) => (
               <div
@@ -162,8 +162,8 @@ export default function ExpertisePage() {
             Need Tailored AI Skilling or Digital Trust Advisory?
           </h3>
           <p className="text-sm text-slate-300 max-w-xl mb-6">
-            Partner with Aaqib Alvi to engineer resilient institutional AI curricula, enterprise GenAI
-            strategies, or sovereign workforce frameworks.
+            Partner with Aaqib Alvi on AI skilling, digital readiness, GenAI implementation, EdTech,
+            sustainability, or SDG-oriented visioning.
           </p>
           <a
             href="/contact"

@@ -77,164 +77,73 @@ export default function HomePage() {
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid min-h-[calc(100svh-7rem)] grid-cols-1 items-center gap-6 lg:grid-cols-[50%_50%] lg:gap-4">
 
-            {/* ═══ LEFT: Typography & CTA ══════════════════ */}
-            <div className="flex -translate-y-3 flex-col justify-center gap-[17px] py-8 sm:py-10 lg:-translate-y-7 lg:py-0 lg:pr-10 xl:pr-14">
-
-              {/* Eyebrow badge */}
-              <motion.div {...fadeUp(0.1)}>
-                <div
-                  className="inline-flex items-center gap-3"
-                  style={{
-                    background: "rgba(0,210,255,0.05)",
-                    border: "1px solid rgba(0,210,255,0.18)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    borderRadius: "999px",
-                    padding: "5px 13px 5px 9px",
-                    boxShadow: "0 4px 18px rgba(0,210,255,0.07)",
-                  }}
-                >
-                  <span className="relative flex h-[7px] w-[7px] flex-shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75" />
-                    <span className="relative inline-flex rounded-full h-[7px] w-[7px] bg-brand-cyan" />
-                  </span>
-                  <span
-                    className="text-[8.5px] uppercase tracking-[0.22em] font-bold text-brand-cyan sm:text-[9px]"
-                    style={{ fontFamily: "Inter, sans-serif" }}
-                  >
-                    Global AI &amp; Innovation Leader
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Name — primary focal point */}
-              <motion.div {...fadeUp(0.2)}>
-                {/* Cyan–gold accent rule */}
-                <div
-                  className="mb-2.5 w-9 h-[2px] rounded-full"
-                  style={{
-                    background: "linear-gradient(90deg, #00D2FF 0%, #D4AF37 100%)",
-                  }}
-                />
-                <h1
-                  className="font-black leading-[0.88] tracking-[-0.022em] text-white"
-                  style={{
-                    fontFamily: "Outfit, sans-serif",
-                    fontSize: "clamp(3.05rem, 6.1vw, 5.55rem)",
-                  }}
-                >
-                  Aaqib
-                  <br />
-                  <span
-                    className="inline-block pt-1.5"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #FFFFFF 0%, #DFF7FF 34%, #56DFFF 72%, #00D2FF 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                      filter: "drop-shadow(0 0 12px rgba(0,210,255,0.13))",
-                    }}
-                  >
-                    Alvi
-                  </span>
-                </h1>
-              </motion.div>
-
-              {/* Expertise lines — stacked with colored markers */}
-              <div className="space-y-2 pt-0.5">
-                {(
-                  [
-                    ["AI Leadership", "#00D2FF"],
-                    ["Digital Readiness", "#D4AF37"],
-                    ["Institutional Transformation", "rgba(255,255,255,0.28)"],
-                  ] as const
-                ).map(([label, color], i) => (
-                  <motion.div
-                    key={label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 0.3 + i * 0.1,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="flex items-center gap-3"
-                  >
-                    <div
-                      className="h-[19px] w-[2px] flex-shrink-0 rounded-full"
-                      style={{
-                        background: color,
-                        opacity: color === "rgba(255,255,255,0.28)" ? 0.85 : 1,
-                      }}
-                    />
-                    <span
-                      className="text-[14.5px] sm:text-[16px] font-semibold leading-tight tracking-normal"
-                      style={{
-                        fontFamily: "Outfit, sans-serif",
-                        color: color === "rgba(255,255,255,0.28)" ? "rgba(226,232,240,0.78)" : color,
-                      }}
-                    >
-                      {label}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Description */}
+            {/* Left: editorial introduction */}
+            <div className="relative z-10 flex min-w-0 flex-col justify-center py-10 font-sans tracking-normal sm:py-12 lg:py-6 lg:pr-10 xl:pr-14">
               <motion.p
-                {...fadeUp(0.52)}
-                className="max-w-[548px] pl-[14px] text-[13.5px] font-normal leading-[1.76] text-slate-200/90 sm:text-[14.5px]"
-                style={{ fontFamily: "Inter, sans-serif" }}
+                {...fadeUp(0.1, 8)}
+                className="text-[10px] font-medium uppercase leading-relaxed tracking-normal text-brand-cyan sm:text-[11px]"
               >
-                Transforming emerging technologies into institutional capability, workforce
-                readiness, and measurable impact across governments, universities,
-                organizations, and communities.
+                GLOBAL AI &amp; INNOVATION LEADER
               </motion.p>
 
-              {/* CTAs */}
-              <motion.div {...fadeUp(0.64)} className="flex flex-wrap items-center gap-3 pl-[14px] pt-0.5">
+              <motion.h1
+                {...fadeUp(0.18, 10)}
+                className="mt-5 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,3.75rem)] font-normal leading-[1.08] tracking-normal text-white sm:text-[clamp(3.75rem,10svh,5.5rem)]"
+              >
+                Aaqib Alvi
+              </motion.h1>
+
+              <motion.p
+                {...fadeUp(0.26, 8)}
+                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-white"
+              >
+                Turning emerging technology into institutional capability.
+              </motion.p>
+
+              <motion.p
+                {...fadeUp(0.34, 8)}
+                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-slate-300 sm:text-[15px]"
+              >
+                Advancing workforce readiness and measurable impact through emerging
+                technologies across governments, universities, organizations, and communities.
+              </motion.p>
+
+              <motion.div
+                {...fadeUp(0.42, 8)}
+                className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3"
+              >
                 <Link
                   href="/expertise"
-                  className="group inline-flex min-h-[40px] items-center gap-2.5 rounded-xl px-6 py-2.5 text-[10.5px] font-black uppercase tracking-[0.1em] btn-gold sm:px-[26px] sm:text-[11px]"
-                  style={{
-                    boxShadow:
-                      "0 4px 18px rgba(212,175,55,0.24), inset 0 1px 0 rgba(255,255,255,0.2)",
-                  }}
+                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm border border-white bg-white px-5 py-3 text-xs font-medium leading-normal text-brand-dark transition-colors duration-300 hover:border-brand-cyanLight hover:bg-brand-cyanLight focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
                 >
                   Explore Leadership
-                  <ArrowRight className="w-[15px] h-[15px] group-hover:translate-x-1 transition-transform duration-200" />
+                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transform-none" />
                 </Link>
-
                 <Link
                   href="/ventures"
-                  className="group inline-flex min-h-[40px] items-center gap-2.5 rounded-xl px-6 py-2.5 text-[10.5px] font-semibold tracking-[0.07em] btn-ghost sm:px-[26px] sm:text-[11px]"
-                  style={{
-                    background: "rgba(8,20,40,0.52)",
-                    borderColor: "rgba(255,255,255,0.1)",
-                  }}
+                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-white/25 py-3 text-xs font-medium leading-normal text-white transition-colors duration-300 hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
                 >
                   View Impact
-                  <ArrowUpRight className="w-[15px] h-[15px] text-brand-cyan group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
                 </Link>
               </motion.div>
 
-              {/* Availability indicator */}
-              <motion.div
-                {...fadeUp(0.76)}
-                className="flex items-center gap-2.5 border-t border-white/[0.045] pt-2 pl-[14px]"
+              <motion.dl
+                {...fadeUp(0.5, 6)}
+                className="mt-8 grid grid-cols-3 gap-3 border-t border-white/15 pt-5"
+                aria-label="Experience and reach"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald" />
-                </span>
-                <span
-                  className="text-[9px] uppercase tracking-[0.18em] text-slate-400/80 font-semibold"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  Available for Advisory Engagement
-                </span>
-              </motion.div>
+                {[
+                  { value: "35+", label: "Governments" },
+                  { value: "200K+", label: "People Reached" },
+                  { value: "12+", label: "Years in EdTech" },
+                ].map((metric) => (
+                  <div key={metric.label} className="flex min-w-0 flex-col gap-1">
+                    <dt className="order-2 text-[10px] leading-relaxed text-slate-400 sm:text-[11px]">{metric.label}</dt>
+                    <dd className="order-1 text-xl font-normal leading-tight tabular-nums text-white sm:text-2xl">{metric.value}</dd>
+                  </div>
+                ))}
+              </motion.dl>
             </div>
 
             {/* ═══ RIGHT: Leadership Ecosystem Visual ═════ */}
@@ -244,15 +153,6 @@ export default function HomePage() {
               transition={{ duration: 1.2, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
               className="relative flex -translate-y-2 flex-col items-center justify-center py-6 sm:py-8 lg:-translate-y-4 lg:py-0 lg:pl-2"
             >
-              {/* Ambient haze */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 70% 70% at 50% 45%, rgba(0,210,255,0.07) 0%, rgba(212,175,55,0.04) 55%, transparent 100%)",
-                  filter: "blur(20px)",
-                }}
-              />
               <HeroOrbit />
             </motion.div>
 
@@ -301,14 +201,13 @@ export default function HomePage() {
             </div>
             <h2
               className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-snug tracking-tight max-w-4xl mx-auto"
-              style={{ fontFamily: "Outfit, sans-serif" }}
+              style={{ fontFamily: "Instrument Serif, Georgia, serif" }}
             >
-              &quot;Bridging the gap between technological velocity and human readiness —
-              empowering sovereign institutions, enterprises, and emerging generations
-              with ethical AI and climate resilience.&quot;
+              Connecting technology, education, and sustainable innovation for human readiness
+              and measurable impact.
             </h2>
             <p className="text-[11px] uppercase tracking-[0.28em] text-brand-cyan font-semibold mt-6">
-              Aaqib Alvi • Executive Philosophy &amp; Mandate
+              Aaqib Alvi • Executive Focus
             </p>
           </motion.div>
         </div>
@@ -323,7 +222,7 @@ export default function HomePage() {
             </span>
             <h2
               className="text-3xl sm:text-4xl font-extrabold text-white mt-1.5 tracking-tight"
-              style={{ fontFamily: "Outfit, sans-serif" }}
+              style={{ fontFamily: "Instrument Serif, Georgia, serif" }}
             >
               Explore The Complete Platform
             </h2>
@@ -340,7 +239,7 @@ export default function HomePage() {
               href: "/about",
               icon: <ShieldCheck className="w-5 h-5" />,
               label: "Leadership Profile",
-              desc: "Executive journey, Quantic EMBA & NUS Chemical Engineering credentials, and cross-border leadership philosophy.",
+              desc: "Executive journey, Quantic Executive MBA, NUS Chemical Engineering, and cross-border experience.",
               cta: "View Profile",
               color: "cyan" as const,
             },
@@ -348,7 +247,7 @@ export default function HomePage() {
               href: "/expertise",
               icon: <Cpu className="w-5 h-5" />,
               label: "Core Capabilities",
-              desc: "Deep dive into 6 strategic pillars: AI Skilling, GenAI Deployment, Digital Trust, Climate, and EdTech.",
+              desc: "AI skilling, GenAI implementation, Digital Trust, sustainability, futures thinking, and EdTech experience.",
               cta: "Explore Pillars",
               color: "gold" as const,
             },
@@ -356,7 +255,7 @@ export default function HomePage() {
               href: "/ventures",
               icon: <Sparkles className="w-5 h-5" />,
               label: "Ventures & Impact",
-              desc: "Comprehensive case studies: Sustainable Living Lab, INSEAD AI Mentor, Whizz Kidz, and AI Teach U.",
+              desc: "Experience across Sustainable Living Lab, INSEAD AI Venture Lab, Whizz Kidz, and AI Teach U.",
               cta: "Inspect Ventures",
               color: "emerald" as const,
             },
@@ -364,7 +263,7 @@ export default function HomePage() {
               href: "/global-reach",
               icon: <Globe className="w-5 h-5" />,
               label: "Global Reach & SDGs",
-              desc: "Footprint across 35+ countries, SDG alignments, certifications catalog, and humanitarian relief initiatives.",
+              desc: "AI programs across 35+ governments, SDG-oriented visioning, certifications, and humanitarian work.",
               cta: "View Global Footprint",
               color: "sky" as const,
             },
@@ -450,14 +349,14 @@ export default function HomePage() {
               </span>
               <h2
                 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 mb-4 tracking-tight"
-                style={{ fontFamily: "Outfit, sans-serif" }}
+                style={{ fontFamily: "Instrument Serif, Georgia, serif" }}
               >
-                Collaborate on National AI Frameworks
+                Collaborate on AI Skilling & Sustainable Innovation
                 <br className="hidden sm:block" /> &amp; Sustainable Innovation
               </h2>
               <p className="text-slate-300 text-[14px] sm:text-[15px] max-w-2xl mx-auto mb-8 leading-relaxed">
-                Available for sovereign digital skilling advisory, higher education tech transformation,
-                enterprise GenAI roadmapping, and keynote presentations.
+                Available for digital skilling advisory, higher education technology work, GenAI
+                implementation, sustainability, and presentations.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link

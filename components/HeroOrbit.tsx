@@ -1,494 +1,148 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import {
+  motion,
+  useAnimationFrame,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import type { PointerEvent } from "react";
 
-const EXPERTISE = [
-  {
-    id: 0,
-    num: "01",
-    label: "AI & Digital\nReadiness",
-    shortLabel: "AI & Digital",
-    desc: "Building institutional capacity for AI adoption, digital infrastructure strategy, and workforce readiness at national scale.",
-    color: "#00D2FF",
-    glowColor: "rgba(0,210,255,0.45)",
-    angle: -90,
-    labelClass: "left-1/2 top-[4%] -translate-x-1/2",
-  },
-  {
-    id: 1,
-    num: "02",
-    label: "Sustainability &\nClimate Foresight",
-    shortLabel: "Sustainability",
-    desc: "Connecting foresight, climate adaptation, and sustainable innovation to strategic action.",
-    color: "#34D399",
-    glowColor: "rgba(52,211,153,0.45)",
-    angle: -30,
-    labelClass: "right-[1%] top-[25%]",
-  },
-  {
-    id: 2,
-    num: "03",
-    label: "EdTech &\nSTEAM Pedagogy",
-    shortLabel: "EdTech & STEAM",
-    desc: "Designing transformative STEAM learning ecosystems that activate curiosity, creativity, and critical thinking.",
-    color: "#D4AF37",
-    glowColor: "rgba(212,175,55,0.45)",
-    angle: 30,
-    labelClass: "right-[1%] bottom-[25%]",
-  },
-  {
-    id: 3,
-    num: "04",
-    label: "Global Operations\n& Governance",
-    shortLabel: "Operations",
-    desc: "Orchestrating cross-border programs, sovereign partnerships, and multi-stakeholder governance frameworks.",
-    color: "#818CF8",
-    glowColor: "rgba(129,140,248,0.45)",
-    angle: 90,
-    labelClass: "bottom-[4%] left-1/2 -translate-x-1/2",
-  },
-  {
-    id: 4,
-    num: "05",
-    label: "Stakeholder &\nCommercial Leadership",
-    shortLabel: "Commercial",
-    desc: "Driving revenue growth, executive alignment, and partner ecosystems across complex global markets.",
-    color: "#FB923C",
-    glowColor: "rgba(251,146,60,0.45)",
-    angle: 150,
-    labelClass: "bottom-[25%] left-[1%]",
-  },
-  {
-    id: 5,
-    num: "06",
-    label: "Institutional\nTransformation",
-    shortLabel: "Institutional",
-    desc: "Guiding universities, governments, and enterprises through deep structural and cultural evolution.",
-    color: "#22D3EE",
-    glowColor: "rgba(34,211,238,0.4)",
-    angle: 210,
-    labelClass: "left-[1%] top-[25%]",
-  },
+const CAPABILITIES = [
+  { label: "AI & Digital Readiness", track: 0, angle: -55 },
+  { label: "Sustainability & Climate Adaptation", track: 1, angle: 18 },
+  { label: "EdTech & STEAM Learning", track: 2, angle: 85 },
+  { label: "Program & Project Management", track: 0, angle: 145 },
+  { label: "Business Development & Stakeholder Engagement", track: 1, angle: 230 },
 ] as const;
 
-const PARTICLES = Array.from({ length: 26 }, (_, i) => ({
-  id: i,
-  cx: 48 + ((i * 67 + 13) % 504),
-  cy: 48 + ((i * 43 + 77) % 504),
-  r: 0.7 + ((i * 31) % 8) / 10,
-  delay: (i * 0.38) % 4.5,
-  dur: 3 + ((i * 23) % 4),
-}));
+const TRAJECTORIES = [
+  { rx: 208, ry: 112, tilt: -24 },
+  { rx: 202, ry: 116, tilt: 40 },
+  { rx: 198, ry: 118, tilt: 102 },
+] as const;
 
-function polar(angleDeg: number, radius: number) {
-  const angle = ((angleDeg - 90) * Math.PI) / 180;
+function nodePosition(track: number, degrees: number) {
+  const orbit = TRAJECTORIES[track];
+  const angle = degrees * Math.PI / 180;
+  const tilt = orbit.tilt * Math.PI / 180;
+  const x = orbit.rx * Math.cos(angle);
+  const y = orbit.ry * Math.sin(angle);
   return {
-    x: Math.cos(angle) * radius,
-    y: Math.sin(angle) * radius,
+    x: 260 + x * Math.cos(tilt) - y * Math.sin(tilt),
+    y: 260 + x * Math.sin(tilt) + y * Math.cos(tilt),
   };
 }
 
+const controlStyle = "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm text-slate-300 transition-colors duration-300 hover:bg-white/5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-2 disabled:opacity-40 motion-reduce:transition-none";
+
 export default function HeroOrbit() {
-  const [active, setActive] = useState(1);
+  const root = useRef<HTMLDivElement>(null);
+  const inView = useInView(root);
+  const reducedMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const rotation = useMotionValue(0);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const x = useSpring(pointerX, { stiffness: 45, damping: 22 });
+  const y = useSpring(pointerY, { stiffness: 45, damping: 22 });
+  const activePoint = nodePosition(CAPABILITIES[active].track, CAPABILITIES[active].angle);
+  const canMove = reducedMotion === false && !paused && pageVisible && inView;
 
   useEffect(() => {
-    if (paused) return;
+    const update = () => setPageVisible(document.visibilityState === "visible");
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
 
-    const cycle = window.setInterval(() => {
-      setActive((current) => (current + 1) % EXPERTISE.length);
-    }, 3400);
+  useEffect(() => {
+    if (!canMove) {
+      pointerX.set(0);
+      pointerY.set(0);
+    }
+  }, [canMove, pointerX, pointerY]);
 
-    return () => window.clearInterval(cycle);
-  }, [paused]);
+  useAnimationFrame((_, delta) => {
+    if (canMove) rotation.set((rotation.get() + Math.min(delta, 64) / 1000 * 3) % 360);
+  });
 
-  const SIZE = 300;
-  const CX = SIZE;
-  const CY = SIZE;
-  const R1 = 106;
-  const R2 = 148;
-  const activeItem = EXPERTISE[active];
-  const activePoint = polar(activeItem.angle, R2);
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (!canMove || event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 8);
+    pointerY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 6);
+  };
 
-  const selectItem = (id: number) => {
-    setActive(id);
-    setPaused(true);
-    window.setTimeout(() => setPaused(false), 5200);
+  const select = (direction: number) => {
+    setActive((current) => (current + direction + CAPABILITIES.length) % CAPABILITIES.length);
   };
 
   return (
-    <div className="relative flex w-full select-none flex-col items-center">
+    <div ref={root} role="region" aria-label="Leadership expertise network" className="relative flex w-full min-w-0 max-w-[500px] flex-col items-center font-sans tracking-normal">
       <div
-        className="relative aspect-square w-full max-w-[430px] sm:max-w-[470px] lg:max-w-[500px]"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        className="relative aspect-square w-full max-w-[440px] overflow-hidden lg:max-w-[min(440px,60svh)]"
+        onPointerMove={onPointerMove}
+        onPointerLeave={() => { pointerX.set(0); pointerY.set(0); }}
       >
-        <div className="absolute inset-[11%] rounded-full bg-brand-cyan/[0.04] blur-2xl" />
-
-        <svg
-          viewBox={`0 0 ${SIZE * 2} ${SIZE * 2}`}
-          className="relative z-0 h-full w-full"
-          style={{ overflow: "visible" }}
-        >
-          <defs>
-            <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#00D2FF" stopOpacity="0.34" />
-              <stop offset="58%" stopColor="#0284C7" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#030712" stopOpacity="0" />
-            </radialGradient>
-
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-
-            <filter id="glowStrong" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="7" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {PARTICLES.map((particle) => (
-            <motion.circle
-              key={particle.id}
-              cx={particle.cx}
-              cy={particle.cy}
-              r={particle.r}
-              fill={particle.id % 3 === 0 ? "#D4AF37" : "#00D2FF"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.46, 0] }}
-              transition={{
-                duration: particle.dur,
-                delay: particle.delay,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-
-          <motion.circle
-            cx={CX}
-            cy={CY}
-            r={R2}
-            fill="none"
-            stroke="rgba(0,210,255,0.18)"
-            strokeWidth="1.2"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
-          />
-
-          <motion.circle
-            cx={CX}
-            cy={CY}
-            r={R1}
-            fill="none"
-            stroke="rgba(212,175,55,0.15)"
-            strokeDasharray="5 8"
-            strokeWidth="1.2"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 58, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
-          />
-
-          <circle
-            cx={CX}
-            cy={CY}
-            r={62}
-            fill="none"
-            stroke="rgba(255,255,255,0.08)"
-            strokeWidth="1"
-          />
-
-          <circle cx={CX} cy={CY} r={94} fill="url(#coreGlow)" />
-
-          <motion.line
-            key={activeItem.id}
-            x1={CX + activePoint.x}
-            y1={CY + activePoint.y}
-            x2={CX}
-            y2={CY}
-            stroke={activeItem.color}
-            strokeWidth="1.5"
-            strokeOpacity="0.5"
-            strokeDasharray="4 6"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 0.55 }}
-          />
-
-          {EXPERTISE.map((item, index) => {
-            const from = polar(item.angle, R2);
-            const to = polar(EXPERTISE[(index + 2) % EXPERTISE.length].angle, R2);
-
-            return (
-              <line
-                key={`web-${item.id}`}
-                x1={CX + from.x}
-                y1={CY + from.y}
-                x2={CX + to.x}
-                y2={CY + to.y}
-                stroke="rgba(255,255,255,0.045)"
-                strokeWidth="0.7"
-              />
-            );
-          })}
-
-          <motion.line
-            x1={CX}
-            y1={CY}
-            x2={CX}
-            y2={CY - R1}
-            stroke="#00D2FF"
-            strokeOpacity="0.38"
-            strokeWidth="1"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 13, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
-          />
-
-          <motion.circle
-            cx={CX}
-            cy={CY}
-            r={41}
-            fill="none"
-            stroke="#00D2FF"
-            strokeOpacity="0.32"
-            strokeWidth="1"
-            animate={{ r: [41, 49, 41], opacity: [0.32, 0, 0.32] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          <circle
-            cx={CX}
-            cy={CY}
-            r={36}
-            fill="rgba(3,7,18,0.96)"
-            stroke="rgba(0,210,255,0.56)"
-            strokeWidth="1.6"
-            filter="url(#glow)"
-          />
-
-          <text
-            x={CX}
-            y={CY - 5}
-            textAnchor="middle"
-            fill="#FFFFFF"
-            fontSize="17"
-            fontWeight="800"
-            fontFamily="Outfit, sans-serif"
-            letterSpacing="2"
-          >
-            AA
-          </text>
-          <text
-            x={CX}
-            y={CY + 12}
-            textAnchor="middle"
-            fill="rgba(126,231,252,0.86)"
-            fontSize="6"
-            fontWeight="700"
-            fontFamily="Inter, sans-serif"
-            letterSpacing="2"
-          >
-            LEADERSHIP
-          </text>
-
-          {EXPERTISE.map((item) => {
-            const point = polar(item.angle, R2);
-            const isActive = item.id === active;
-            const nodeRadius = isActive ? 13 : 9;
-
-            return (
-              <g key={item.id}>
-                {isActive && (
-                  <motion.circle
-                    cx={CX + point.x}
-                    cy={CY + point.y}
-                    r={22}
-                    fill="none"
-                    stroke={item.color}
-                    strokeOpacity="0.52"
-                    strokeWidth="1.2"
-                    animate={{ r: [22, 31, 22], opacity: [0.52, 0, 0.52] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                )}
-
-                <motion.circle
-                  cx={CX + point.x}
-                  cy={CY + point.y}
-                  r={nodeRadius}
-                  fill={isActive ? item.color : "rgba(3,7,18,0.94)"}
-                  stroke={item.color}
-                  strokeOpacity={isActive ? 1 : 0.68}
-                  strokeWidth={isActive ? 2 : 1.2}
-                  filter={isActive ? "url(#glowStrong)" : undefined}
-                  animate={{ r: nodeRadius }}
-                  transition={{ duration: 0.35 }}
-                />
-
-                <text
-                  x={CX + point.x}
-                  y={CY + point.y + 4}
-                  textAnchor="middle"
-                  fill={isActive ? "#031018" : item.color}
-                  fontSize={isActive ? "7" : "6"}
-                  fontWeight="800"
-                  fontFamily="Inter, sans-serif"
-                >
-                  {item.num}
-                </text>
-              </g>
-            );
-          })}
-
-          {EXPERTISE.map((item) => {
-            const point = polar(item.angle + 30, R1);
-
-            return (
-              <motion.circle
-                key={`inner-${item.id}`}
-                cx={CX + point.x}
-                cy={CY + point.y}
-                r={2.5}
-                fill={item.color}
-                animate={{ opacity: [0.24, 0.76, 0.24] }}
-                transition={{
-                  duration: 2.5,
-                  delay: item.id * 0.35,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            );
-          })}
-        </svg>
-
-        {EXPERTISE.map((item) => {
-          const isActive = item.id === active;
-
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => selectItem(item.id)}
-              onMouseEnter={() => {
-                setActive(item.id);
-                setPaused(true);
-              }}
-              onMouseLeave={() => setPaused(false)}
-              className={`absolute z-10 hidden max-w-[142px] rounded-xl border px-3 py-2 text-left backdrop-blur-xl transition-all duration-300 sm:block ${item.labelClass}`}
-              style={{
-                background: isActive ? "rgba(6,12,26,0.9)" : "rgba(6,12,26,0.68)",
-                borderColor: isActive ? `${item.color}80` : "rgba(255,255,255,0.12)",
-                boxShadow: isActive
-                  ? `0 0 26px ${item.glowColor}, inset 0 1px 0 rgba(255,255,255,0.08)`
-                  : "0 8px 24px rgba(0,0,0,0.34)",
-              }}
-              aria-pressed={isActive}
-            >
-              <span
-                className="block text-[9px] font-black leading-none tracking-[0.18em]"
-                style={{ color: isActive ? item.color : "rgba(226,232,240,0.72)" }}
-              >
-                {item.num}
-              </span>
-              <span
-                className="mt-1.5 block whitespace-nowrap text-[11px] font-extrabold leading-none tracking-[0.04em]"
-                style={{
-                  color: isActive ? "#FFFFFF" : "rgba(226,232,240,0.86)",
-                  fontFamily: "Outfit, system-ui, sans-serif",
-                }}
-              >
-                {item.shortLabel}
-              </span>
-            </button>
-          );
-        })}
-
-        <div
-          className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#030712]/75 px-3 py-1.5 text-[10px] font-black tracking-[0.18em] backdrop-blur-xl"
-          style={{ color: activeItem.color, fontFamily: "Inter, sans-serif" }}
-        >
-          {String(active + 1).padStart(2, "0")} / 06
-        </div>
-      </div>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-[500px] lg:-mt-1"
-        >
-          <div
-            className="relative overflow-hidden rounded-2xl px-5 py-4 sm:px-6"
-            style={{
-              background: "rgba(6,12,26,0.86)",
-              border: `1px solid ${activeItem.color}42`,
-              boxShadow: `0 0 28px ${activeItem.glowColor}24, inset 0 1px 0 rgba(255,255,255,0.055)`,
-              backdropFilter: "blur(20px)",
-            }}
-          >
-            <div
-              className="absolute left-8 right-8 top-0 h-[1px]"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${activeItem.color}82, transparent)`,
-              }}
-            />
-
-            <div className="flex items-start gap-3.5">
-              <div
-                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-[11px] font-black"
-                style={{
-                  background: `${activeItem.color}18`,
-                  border: `1px solid ${activeItem.color}55`,
-                  color: activeItem.color,
-                  fontFamily: "Inter, sans-serif",
-                }}
-              >
-                {activeItem.num}
-              </div>
-              <div>
-                <h3
-                  className="text-[15px] font-extrabold leading-snug"
-                  style={{ color: activeItem.color, fontFamily: "Outfit, sans-serif" }}
-                >
-                  {activeItem.label.replace("\n", " ")}
-                </h3>
-                <p className="mt-1.5 text-[12.5px] leading-relaxed text-slate-300/90">
-                  {activeItem.desc}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-3.5 flex gap-1.5">
-              {EXPERTISE.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  aria-label={`Show ${item.shortLabel}`}
-                  onClick={() => selectItem(item.id)}
-                  className="h-[3px] flex-1 rounded-full transition-transform duration-200 hover:scale-y-150"
-                  style={{
-                    background: item.id === active ? item.color : "rgba(255,255,255,0.1)",
-                  }}
+        <motion.div className="absolute inset-0" style={{ x: reducedMotion ? 0 : x, y: reducedMotion ? 0 : y }}>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 520 520" className="block h-full w-full overflow-hidden">
+            <motion.g style={{ rotate: rotation, originX: "260px", originY: "260px" }}>
+              {TRAJECTORIES.map((orbit, index) => (
+                <ellipse
+                  key={orbit.tilt}
+                  cx="260" cy="260" rx={orbit.rx} ry={orbit.ry}
+                  transform={`rotate(${orbit.tilt} 260 260)`}
+                  fill="none"
+                  stroke={index === 1 ? "#C5A96A" : "#89AFC6"}
+                  strokeOpacity={index === 1 ? 0.24 : 0.3}
+                  strokeWidth="1"
                 />
               ))}
-            </div>
-          </div>
+              <line
+                x1="260" y1="260" x2={activePoint.x} y2={activePoint.y}
+                stroke="#B7CFDC" strokeOpacity="0.55" strokeWidth="1"
+              />
+              {CAPABILITIES.map((item, index) => {
+                const point = nodePosition(item.track, item.angle);
+                const selected = index === active;
+                return (
+                  <g key={item.label}>
+                    <circle cx={point.x} cy={point.y} r={selected ? 10 : 7} fill="#0B1726" stroke={selected ? "#E2D3AC" : "#89AFC6"} strokeOpacity={selected ? 0.9 : 0.65} strokeWidth="1" />
+                    <circle cx={point.x} cy={point.y} r={selected ? 3 : 2} fill={selected ? "#F3EFE5" : "#89AFC6"} />
+                  </g>
+                );
+              })}
+            </motion.g>
+            <circle cx="260" cy="260" r="63" fill="#0B1726" stroke="#89AFC6" strokeOpacity="0.25" strokeWidth="1" />
+            <path d="M 207 226 A 63 63 0 0 1 290 205" fill="none" stroke="#F3EFE5" strokeOpacity="0.25" strokeWidth="1" />
+            <text x="260" y="263" textAnchor="middle" dominantBaseline="middle" fontFamily="Instrument Serif, Georgia, serif" fontSize="60" fontWeight="400" letterSpacing="0" fill="#F3EFE5">AA</text>
+          </svg>
         </motion.div>
-      </AnimatePresence>
+      </div>
+
+      <div className="w-full max-w-[440px] border-t border-white/15 pt-4">
+        <p aria-live="polite" aria-atomic="true" className="mx-auto flex min-h-[60px] max-w-[360px] items-center justify-center px-3 text-center text-[15px] font-medium leading-6 text-white">
+          {CAPABILITIES[active].label}
+        </p>
+        <div role="group" aria-label="Explore capabilities" className="mt-1 flex items-center justify-center gap-3">
+          <button type="button" onClick={() => select(-1)} aria-label="Previous capability" title="Previous capability" className={controlStyle}>
+            <ArrowLeft aria-hidden="true" className="h-4 w-4" />
+          </button>
+          <button type="button" onClick={() => setPaused((value) => !value)} disabled={!!reducedMotion} aria-label={reducedMotion ? "Motion disabled by your preference" : paused ? "Resume orbital motion" : "Pause orbital motion"} title={reducedMotion ? "Motion disabled by your preference" : paused ? "Resume orbital motion" : "Pause orbital motion"} className={controlStyle}>
+            {paused || reducedMotion ? <Play aria-hidden="true" className="h-3.5 w-3.5" /> : <Pause aria-hidden="true" className="h-3.5 w-3.5" />}
+          </button>
+          <button type="button" onClick={() => select(1)} aria-label="Next capability" title="Next capability" className={controlStyle}>
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

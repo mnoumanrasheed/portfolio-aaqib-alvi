@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Globe, Menu, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -13,179 +13,120 @@ const NAV_ITEMS = [
   { label: "Leadership & Expertise", href: "/expertise" },
   { label: "Impact", href: "/ventures" },
 ];
+const focus = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4";
+const cta = "group inline-flex min-h-11 items-center gap-4 border-b border-brand-gold/60 py-2 text-sm font-medium text-white transition-colors duration-300 hover:border-brand-cyan hover:text-brand-cyan";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const reducedMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const update = () => setScrolled(window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  useEffect(() => { setOpen(false); }, [pathname]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const update = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener("change", update);
+    return () => desktop.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    panel.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        toggle.current?.focus();
+      }
+      if (event.key !== "Tab") return;
+      const links = panel.current?.querySelectorAll<HTMLAnchorElement>("a[href]");
+      const last = links?.[links.length - 1];
+      if (event.shiftKey && document.activeElement === toggle.current) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        toggle.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", keydown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", keydown);
+    };
+  }, [open]);
+
+  const active = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "py-2.5 bg-[#030712]/85 backdrop-blur-2xl border-b border-white/[0.07] shadow-[0_1px_40px_rgba(0,0,0,0.6)]"
-            : "py-4 bg-transparent"
-        )}
-      >
-        <div
-          className={cn(
-            "absolute top-0 inset-x-0 h-[1px] transition-opacity duration-500",
-            scrolled ? "opacity-100" : "opacity-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(0,210,255,0.5) 30%, rgba(212,175,55,0.4) 70%, transparent 100%)",
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-brand-gold/35 group-hover:border-brand-cyan/60 transition-all duration-400 shadow-[0_0_18px_rgba(0,210,255,0.2)]">
-              <Image
-                src="/logo.png"
-                alt="Aaqib Alvi"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-400"
-                priority
-              />
-            </div>
-            <div className="flex flex-col leading-none">
-              <span
-                className="text-[15px] font-bold tracking-[0.12em] text-white group-hover:text-brand-cyan transition-colors duration-300"
-                style={{ fontFamily: "Outfit, sans-serif" }}
-              >
-                AAQIB ALVI
-              </span>
-              <span className="text-[9px] tracking-[0.22em] uppercase text-brand-gold font-semibold mt-0.5 opacity-90">
-                AI • Innovation • Impact
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-0.5 px-1.5 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.025] backdrop-blur-xl">
-            {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "relative px-3.5 py-2 text-[10.5px] uppercase tracking-[0.13em] font-semibold rounded-full transition-colors duration-200 xl:px-4 xl:text-[11px]",
-                    isActive ? "text-white" : "text-slate-400 hover:text-slate-100"
-                  )}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full -z-10"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, rgba(0,210,255,0.18) 0%, rgba(212,175,55,0.12) 100%)",
-                        border: "1px solid rgba(0,210,255,0.35)",
-                        boxShadow: "0 0 18px rgba(0,210,255,0.25)",
-                      }}
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    />
-                  )}
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="hidden lg:flex items-center gap-2.5">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-emerald/30 bg-brand-emerald/[0.08]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald" />
-              </span>
-              <span className="text-[10px] tracking-wider text-brand-emeraldLight font-semibold">
-                Available for Advisory
-              </span>
-            </div>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full text-[10.5px] font-bold uppercase tracking-[0.13em] btn-gold xl:px-5 xl:text-[11px]"
-            >
-              Start a Conversation
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+    <header className="fixed inset-x-0 top-0 z-50 font-sans tracking-normal">
+      <div aria-hidden="true" className={cn(
+        "pointer-events-none absolute inset-0 border-b transition-colors duration-500 motion-reduce:transition-none",
+        scrolled || open ? "border-white/10 bg-brand-dark/95 backdrop-blur-xl" : "border-transparent bg-transparent"
+      )} />
+      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between gap-8 px-5 sm:px-8 lg:px-10">
+        <Link href="/" aria-label="Aaqib Alvi homepage" className={cn("group flex shrink-0 items-center gap-3", focus)}>
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/20 transition-colors duration-300 group-hover:border-brand-gold/60">
+            <Image src="/logo.png" alt="" fill sizes="40px" className="object-cover" priority />
           </div>
-
-          <div className="flex items-center gap-2 lg:hidden">
-            <Link
-              href="/contact"
-              className="px-3.5 py-1.5 text-[9.5px] font-bold uppercase tracking-[0.12em] rounded-full btn-gold whitespace-nowrap sm:text-[10px]"
-            >
-              Start a Conversation
-            </Link>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-              className="p-2 rounded-xl text-slate-300 hover:text-white bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+          <div className="flex flex-col gap-1">
+            <span className="font-display text-[24px] font-normal leading-none text-white">AAQIB ALVI</span>
+            <span className="text-[9px] font-medium leading-normal text-brand-gold">AI &bull; Innovation &bull; Impact</span>
           </div>
-        </div>
-      </header>
-
+        </Link>
+        <nav aria-label="Main navigation" className="hidden items-center gap-8 lg:flex xl:gap-12">
+          {NAV_ITEMS.map((item) => (
+            <Link key={item.href} href={item.href} aria-current={active(item.href) ? "page" : undefined}
+              className={cn("group relative flex min-h-11 items-center whitespace-nowrap text-[13px] font-medium transition-colors duration-300 hover:text-white", focus, active(item.href) ? "text-white" : "text-slate-300")}>
+              {item.label}
+              <span aria-hidden="true" className={cn("absolute inset-x-0 bottom-0 h-px origin-left bg-brand-cyan transition-transform duration-500 motion-reduce:transition-none", active(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100")} />
+            </Link>
+          ))}
+        </nav>
+        <Link href="/contact" aria-current={active("/contact") ? "page" : undefined} className={cn(cta, focus, "hidden shrink-0 lg:inline-flex")}>
+          Start a Conversation
+          <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
+        </Link>
+        <button ref={toggle} type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation"
+          onClick={() => setOpen((value) => !value)} className={cn("flex h-11 w-11 shrink-0 items-center justify-center text-white hover:text-brand-cyan lg:hidden", focus)}>
+          {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
+        </button>
+      </div>
       <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-x-4 top-[72px] z-40 lg:hidden"
-          >
-            <div className="glass-panel rounded-2xl p-5 border border-white/12 shadow-glass-elevated">
-              <div className="flex flex-col gap-1">
-                {NAV_ITEMS.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={cn(
-                        "flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200",
-                        isActive
-                          ? "bg-brand-cyan/12 text-brand-cyan border border-brand-cyan/25"
-                          : "text-slate-300 hover:bg-white/[0.04] hover:text-white border border-transparent"
-                      )}
-                    >
-                      <span>{item.label}</span>
-                      <ArrowUpRight className="w-4 h-4 opacity-60" />
-                    </Link>
-                  );
-                })}
-              </div>
-              <div className="mt-5 pt-4 border-t border-white/8 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <Globe className="w-3.5 h-3.5 text-brand-cyan" />
-                  <span>Singapore • USA</span>
-                </div>
-                <div className="text-xs text-brand-gold font-semibold tracking-wide">
-                  +65 8339 0549
-                </div>
-              </div>
-            </div>
+        {open && (
+          <motion.div id="mobile-navigation" ref={panel}
+            initial={{ opacity: 0, y: reducedMotion ? 0 : -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -6 }}
+            transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 top-20 overflow-y-auto border-t border-white/10 bg-brand-dark px-6 py-8 sm:px-10 lg:hidden">
+            <nav aria-label="Mobile navigation" className="mx-auto flex max-w-xl flex-col">
+              {NAV_ITEMS.map((item) => (
+                <Link key={item.href} href={item.href} onClick={() => setOpen(false)} aria-current={active(item.href) ? "page" : undefined}
+                  className={cn("group flex min-h-20 items-center justify-between gap-5 border-b border-white/10 py-5 font-display text-[28px] leading-tight transition-colors duration-300 hover:text-brand-cyan", focus, active(item.href) ? "text-brand-cyan" : "text-white")}>
+                  <span>{item.label}</span>
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-brand-cyan" />
+                </Link>
+              ))}
+              <Link href="/contact" onClick={() => setOpen(false)} aria-current={active("/contact") ? "page" : undefined} className={cn(cta, focus, "mt-10 self-start")}>
+                Start a Conversation
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

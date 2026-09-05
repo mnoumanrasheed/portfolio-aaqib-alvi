@@ -36,8 +36,8 @@ export default function VenturesPage() {
             <span className="text-gradient-gold">Global Milestones</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            From commercial scaling and venture mentorship to orchestrating multi-million-dollar
-            initiatives across sovereign governments, top-tier research labs, and academic consortia.
+            From commercial scaling and venture mentorship to AI skilling, EdTech, and sustainable
+            innovation work across international programs and organizations.
           </p>
         </div>
 
@@ -160,13 +160,14 @@ export default function VenturesPage() {
                 Sustainable Living Lab: Transpacific Expansion
               </h3>
               <p className="text-sm text-slate-300 leading-relaxed">
-                Spearheaded the commercial and institutional rollout of Sustainable Living
-                Laboratory LLC USA. Today, the operation is scaling across 35+ US states, partnering
-                with 100+ higher-ed colleges to embed cutting-edge AI and climate adaptation curricula,
-                training 300+ university professors via train-the-trainer models.
+                Formalized and scaled the U.S. presence of Sustainable Living Laboratory LLC USA,
+                providing consultation services, AI learning and digital-skills tools, deployment and
+                IT support, professional training services, and AI/GenAI implementation. The operation
+                is scaling to 35+ U.S. states, collaborating with 100+ colleges, training 300+ professors,
+                and creating more than 1,000 hours of content.
               </p>
               <div className="pt-2 text-xs font-semibold text-brand-cyan tracking-wider">
-                35+ US States • 100+ Colleges • 1,000+ Content Hours
+                Scaling to 35+ U.S. States • 100+ Colleges • 1,000+ Content Hours
               </div>
             </div>
 
@@ -176,16 +177,15 @@ export default function VenturesPage() {
                 <Award className="w-6 h-6" />
               </div>
               <h3 className="text-2xl font-bold text-white">
-                Whizz Kidz: 350% Scale & Triple Industry Win
+                Whizz Kidz: Revenue Growth & Industry Awards
               </h3>
               <p className="text-sm text-slate-300 leading-relaxed">
-                Ran company operations end-to-end for 3 years, growing annual turnover from $200k to
-                over $700k. Brought 25 top international schools onto long-term enrichment contracts,
-                launched the STICK conference series, and won the Expat Living Awards for Best
-                Enrichment Classes for 3 consecutive years (2018, 2019, 2020).
+                Supported revenue growth from 200k in late 2013 to more than 700k by early 2019,
+                worked with 25 of 45 schools, introduced Science Technology Innovation Creativity
+                &apos;K&apos;onferences with Youth Ambassadors Singapore, and received the Expat Living Awards.
               </p>
               <div className="pt-2 text-xs font-semibold text-brand-gold tracking-wider">
-                3.5x Revenue Growth • Expat Living Awards 2018-2020
+                200k to 700k+ Revenue • Expat Living Awards 2018-2020
               </div>
             </div>
           </div>
