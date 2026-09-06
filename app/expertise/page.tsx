@@ -1,178 +1,343 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import {
-  Globe2,
-  Cpu,
-  ShieldCheck,
-  Leaf,
-  Compass,
-  GraduationCap,
-  CheckCircle,
-  ArrowRight,
-  Sparkles,
-  Layers,
-  Users,
-} from "lucide-react";
-import { CORE_PILLARS, PERSONAL_INFO } from "@/data/content";
+  CERTIFICATIONS,
+  CORE_PILLARS,
+  EDUCATION,
+  EXPERIENCES,
+  VOLUNTEERING,
+} from "@/data/content";
+import { AmbientLightSweep, CinematicHeroImage, LeadershipNetworkTrace } from "@/components/PremiumHeroMotion";
 
-const ICON_MAP: Record<string, React.ReactNode> = {
-  Globe2: <Globe2 className="w-6 h-6" />,
-  Cpu: <Cpu className="w-6 h-6" />,
-  ShieldCheck: <ShieldCheck className="w-6 h-6" />,
-  Leaf: <Leaf className="w-6 h-6" />,
-  Compass: <Compass className="w-6 h-6" />,
-  GraduationCap: <GraduationCap className="w-6 h-6" />,
+const primaryExpertise = CORE_PILLARS.slice(0, 3);
+const supportingExpertise = CORE_PILLARS.slice(3);
+
+const journeyIds = [
+  "insead",
+  "sll-usa-gm",
+  "sll-country-manager",
+  "aiteachu",
+  "whizzkidz-director",
+  "whizzkidz-bdm",
+];
+
+const professionalJourney = journeyIds
+  .map((id) => EXPERIENCES.find((item) => item.id === id))
+  .filter(Boolean);
+
+const contributionIds = ["wupa", "astar", "nus-development"];
+const selectedContributions = contributionIds
+  .map((id) => EXPERIENCES.find((item) => item.id === id))
+  .filter(Boolean);
+
+const selectedCredentials = [
+  "Introduction to Generative AI",
+  "Blue Ocean Strategy",
+  "Finance: Time Value of Money",
+  "Marketing Fundamentals",
+  "The Science of Well-Being",
+];
+
+const secondaryCredentials = CERTIFICATIONS.filter(
+  (cert) => !selectedCredentials.includes(cert.name)
+);
+
+const reveal = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.18 },
+  transition: { duration: 0.75, ease: "easeOut" as const },
 };
 
+function mostImportantOutcome(description: string[]) {
+  return description[0] || "";
+}
+
 export default function ExpertisePage() {
-  const [selectedPillar, setSelectedPillar] = useState<string>(CORE_PILLARS[0].id);
-
   return (
-    <div className="relative py-12 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-xs uppercase tracking-widest text-brand-cyan font-medium">
-            Core Competencies
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-            Architecting <br />
-            <span className="text-gradient-cyan">Global Digital Readiness</span>
-          </h1>
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            A practical portfolio of AI, digital readiness, sustainability, EdTech, and business
-            development experience across programs, institutions, and communities.
-          </p>
+    <div className="relative -mt-20 font-sans tracking-normal">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-white/10 pt-20">
+        <CinematicHeroImage src="/leadership-expertise-hero.png" objectPosition="object-center" intensity="calm" />
+        <LeadershipNetworkTrace />
+        <AmbientLightSweep tone="cyan" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,12,27,0.84)_0%,rgba(3,12,27,0.62)_45%,rgba(3,12,27,0.30)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,12,27,0.28)_0%,rgba(3,12,27,0.16)_48%,rgba(3,12,27,0.52)_100%)]"
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-cyan">
+              Leadership & Expertise
+            </p>
+            <h1 className="mt-7 max-w-4xl font-display text-[clamp(3rem,8svh,6rem)] font-normal leading-[0.99] text-white">
+              Where AI readiness becomes institutional capability.
+            </h1>
+            <p className="mt-8 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+              A practical portfolio of AI, digital readiness, sustainability, EdTech, and business
+              development experience across programs, institutions, and communities.
+            </p>
+          </motion.div>
         </div>
+      </section>
 
-        {/* 6 Strategic Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-          {CORE_PILLARS.map((pillar, idx) => (
-            <motion.div
-              key={pillar.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group relative p-8 rounded-3xl glass-panel border border-white/10 hover:border-brand-cyan/40 hover:shadow-glow-cyan/20 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 rounded-2xl bg-brand-cyan/10 text-brand-cyan group-hover:bg-brand-gold/20 group-hover:text-brand-gold transition-colors">
-                    {ICON_MAP[pillar.iconName]}
+      <section aria-labelledby="core-expertise">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
+          <motion.div {...reveal} className="grid grid-cols-1 gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+            <div>
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+                Core Expertise
+              </p>
+              <h2 id="core-expertise" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+                Strategic domains with delivery depth.
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-7 text-slate-300">
+                Aaqib&apos;s work brings together AI skilling, GenAI implementation, Digital Trust,
+                sustainability, foresight, EdTech strategy, and stakeholder engagement.
+              </p>
+            </div>
+
+            <div className="divide-y divide-white/10 border-y border-white/10">
+              {primaryExpertise.map((pillar, index) => (
+                <article key={pillar.id} className="grid grid-cols-1 gap-6 py-8 md:grid-cols-[0.25fr_1fr] md:gap-10">
+                  <div>
+                    <span className="font-display text-5xl font-normal text-white/20">
+                      0{index + 1}
+                    </span>
+                    <p className="mt-3 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-brand-gold">
+                      {pillar.badge}
+                    </p>
                   </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">
-                    {pillar.badge}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-cyan transition-colors mb-2">
-                  {pillar.title}
-                </h3>
-                <div className="text-xs text-brand-gold font-medium tracking-wide mb-4">
-                  {pillar.subtitle}
-                </div>
-
-                <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                  {pillar.description}
-                </p>
-
-                <div className="space-y-2.5 mb-6">
-                  {pillar.highlights.map((h, hIdx) => (
-                    <div key={hIdx} className="flex items-start gap-2.5 text-xs text-slate-200">
-                      <CheckCircle className="w-3.5 h-3.5 text-brand-emerald shrink-0 mt-0.5" />
-                      <span className="leading-snug">{h}</span>
+                  <div>
+                    <h3 className="text-2xl font-medium leading-tight text-white sm:text-3xl">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-2 text-sm font-medium text-brand-cyan">{pillar.subtitle}</p>
+                    <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300">
+                      {pillar.description}
+                    </p>
+                    <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {pillar.highlights.slice(0, 2).map((highlight) => (
+                        <p key={highlight} className="flex items-start gap-3 text-sm leading-6 text-slate-200">
+                          <span className="mt-2.5 h-px w-5 shrink-0 bg-brand-cyan/70" aria-hidden="true" />
+                          <span>{highlight}</span>
+                        </p>
+                      ))}
                     </div>
+                    <p className="mt-6 text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                      {pillar.metrics}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div {...reveal} className="mt-14 border-t border-white/10 pt-10">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+              Supporting Practice Areas
+            </p>
+            <div className="mt-7 grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-3">
+              {supportingExpertise.map((pillar) => (
+                <article key={pillar.id} className="border-l border-white/15 pl-5">
+                  <h3 className="text-base font-medium text-white">{pillar.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{pillar.description}</p>
+                </article>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-labelledby="professional-journey" className="border-y border-white/10 bg-white/[0.015]">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
+          <motion.div {...reveal} className="max-w-3xl">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+              Professional Journey
+            </p>
+            <h2 id="professional-journey" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              A progression from learning ventures to global AI programs.
+            </h2>
+              <p className="mt-6 text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
+                Career progression across AI programs, learning ventures, business development,
+                operations, startup mentorship, and institutional implementation.
+              </p>
+          </motion.div>
+
+          <div className="mt-14 border-y border-white/10">
+            {professionalJourney.map((experience, index) => {
+              if (!experience) return null;
+
+              return (
+                <motion.article
+                  key={experience.id}
+                  {...reveal}
+                  transition={{ duration: 0.75, delay: index * 0.05, ease: "easeOut" }}
+                  className="relative grid grid-cols-1 gap-8 border-b border-white/10 py-9 last:border-b-0 lg:grid-cols-[0.32fr_0.38fr_1fr] lg:gap-12"
+                >
+                  <div className="flex items-center gap-4 lg:block">
+                    <div className="h-3 w-3 rounded-full border border-brand-gold bg-brand-dark" aria-hidden="true" />
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-gold lg:mt-4">
+                      {experience.period}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-medium leading-tight text-white sm:text-2xl">
+                      {experience.role}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-brand-cyan">
+                      {experience.organization}
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-slate-400">{experience.location}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-slate-400">
+                      Leadership Responsibility
+                    </p>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-200">
+                      {experience.highlight}
+                    </p>
+                    <p className="mt-5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-slate-400">
+                      Important Outcome
+                    </p>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+                      {mostImportantOutcome(experience.description)}
+                    </p>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="institutional-contribution">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24 lg:px-10 lg:py-24">
+          <motion.div {...reveal}>
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+              Institutional & Community Contribution
+            </p>
+            <h2 id="institutional-contribution" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              Selected contributions beyond core roles.
+            </h2>
+          </motion.div>
+
+          <motion.div {...reveal} className="divide-y divide-white/10 border-y border-white/10">
+            {selectedContributions.map((item) => {
+              if (!item) return null;
+
+              return (
+                <article key={item.id} className="py-7">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                    <h3 className="text-lg font-medium text-white">{item.organization}</h3>
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                      {item.period}
+                    </p>
+                  </div>
+                  <p className="mt-2 text-sm text-brand-cyan">{item.role}</p>
+                  <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">{item.highlight}</p>
+                </article>
+              );
+            })}
+
+            {VOLUNTEERING.map((item) => (
+              <article key={item.title} className="py-7">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                  <h3 className="text-lg font-medium text-white">{item.title}</h3>
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                    {item.period}
+                  </p>
+                </div>
+                <p className="mt-2 text-sm text-brand-cyan">{item.role}</p>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">{item.details}</p>
+              </article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-labelledby="selected-credentials" className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
+          <motion.div {...reveal} className="grid grid-cols-1 gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+            <div>
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+                Selected Education & Credentials
+              </p>
+              <h2 id="selected-credentials" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+                Academic grounding with continued professional learning.
+              </h2>
+              <Link
+                href="/contact"
+                className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+              >
+                Start a Conversation
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="space-y-12">
+              <div className="divide-y divide-white/10 border-y border-white/10">
+                {EDUCATION.map((item) => (
+                  <article key={item.institution} className="grid grid-cols-1 gap-3 py-6 sm:grid-cols-[0.32fr_1fr] sm:gap-8">
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                      {item.period}
+                    </p>
+                    <div>
+                      <h3 className="text-lg font-medium text-white">{item.degree}</h3>
+                      <p className="mt-2 text-sm leading-6 text-brand-cyan">
+                        {item.institution} · {item.location}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <div>
+                <p className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-slate-400">
+                  Selected Credentials
+                </p>
+                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {selectedCredentials.map((credential) => (
+                    <p key={credential} className="border-l border-brand-cyan/50 pl-4 text-sm leading-6 text-slate-200">
+                      {credential}
+                    </p>
                   ))}
                 </div>
+
+                {secondaryCredentials.length > 0 && (
+                  <details className="mt-8 border-t border-white/10 pt-6">
+                    <summary className="cursor-pointer text-sm font-medium text-white transition-colors hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
+                      Additional credentials
+                    </summary>
+                    <div className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
+                      {secondaryCredentials.map((credential) => (
+                        <p key={credential.name} className="text-sm leading-6 text-slate-400">
+                          {credential.name}
+                        </p>
+                      ))}
+                    </div>
+                  </details>
+                )}
               </div>
-
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-semibold text-brand-cyan tracking-wider">
-                  {pillar.metrics}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
         </div>
-
-        {/* PROGRAM DELIVERY FOCUS */}
-        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 mb-20">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
-              Program Delivery Focus
-            </span>
-            <h2 className="text-3xl font-bold text-white mt-1">
-              From Planning to Measurable Impact
-            </h2>
-            <p className="text-sm text-slate-300 mt-2">
-              Experience spanning planning, curriculum localization, training, implementation, and
-              stakeholder engagement across AI, education, and sustainability work.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            {[
-              {
-                step: "01",
-                title: "Planning",
-                desc: "Supporting program planning for AI, digital readiness, education, and sustainability initiatives.",
-              },
-              {
-                step: "02",
-                title: "Curriculum Localization",
-                desc: "Localizing AI curricula and developing spoken-language and digital learning content.",
-              },
-              {
-                step: "03",
-                title: "Professional Training",
-                desc: "Providing teacher, professor, leadership, and professional training services.",
-              },
-              {
-                step: "04",
-                title: "Implementation",
-                desc: "Supporting AI/GenAI and digital solution implementation, deployment, and IT support.",
-              },
-              {
-                step: "05",
-                title: "Stakeholder Engagement",
-                desc: "Working with governments, colleges, organizations, partners, and communities.",
-              },
-            ].map((phase, idx) => (
-              <div
-                key={phase.step}
-                className="relative p-5 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-brand-gold/40 transition-all"
-              >
-                <div className="text-2xl font-extrabold text-gradient-gold mb-2">
-                  {phase.step}
-                </div>
-                <h4 className="text-sm font-bold text-white mb-2">{phase.title}</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">{phase.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CONSULTATION BANNER */}
-        <div className="text-center p-10 rounded-3xl glass-card border border-brand-cyan/30 flex flex-col items-center">
-          <Sparkles className="w-8 h-8 text-brand-cyan mb-4 animate-pulse" />
-          <h3 className="text-2xl font-bold text-white mb-2">
-            Need Tailored AI Skilling or Digital Trust Advisory?
-          </h3>
-          <p className="text-sm text-slate-300 max-w-xl mb-6">
-            Partner with Aaqib Alvi on AI skilling, digital readiness, GenAI implementation, EdTech,
-            sustainability, or SDG-oriented visioning.
-          </p>
-          <a
-            href="/contact"
-            className="px-6 py-3 rounded-xl text-xs font-semibold uppercase tracking-widest text-black bg-gradient-to-r from-brand-goldLight to-brand-gold shadow-glow-gold hover:scale-105 transition-all"
-          >
-            Initiate Consultation
-          </a>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

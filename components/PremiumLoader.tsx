@@ -1,34 +1,43 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const INITIAL_LOAD_MS = 1500;
-const ROUTE_LOAD_MS = 760;
 
 export default function PremiumLoader() {
-  const pathname = usePathname();
-  const didMount = useRef(false);
   const [visible, setVisible] = useState(true);
   const [settling, setSettling] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    const loadTime = didMount.current ? ROUTE_LOAD_MS : INITIAL_LOAD_MS;
-    didMount.current = true;
-    setVisible(true);
-    setSettling(false);
+    // Check if this is the first load
+    const hasLoadedBefore = sessionStorage.getItem("premium-loader-shown");
+    
+    if (hasLoadedBefore) {
+      // If already loaded in this session, don't show loader
+      setVisible(false);
+      setHasLoaded(true);
+      return;
+    }
 
-    const settleTimer = window.setTimeout(() => setSettling(true), loadTime - 260);
-    const hideTimer = window.setTimeout(() => setVisible(false), loadTime);
+    // Mark as loaded in session storage
+    sessionStorage.setItem("premium-loader-shown", "true");
+
+    // Show loader for initial load only
+    const settleTimer = window.setTimeout(() => setSettling(true), INITIAL_LOAD_MS - 260);
+    const hideTimer = window.setTimeout(() => {
+      setVisible(false);
+      setHasLoaded(true);
+    }, INITIAL_LOAD_MS);
 
     return () => {
       window.clearTimeout(settleTimer);
       window.clearTimeout(hideTimer);
     };
-  }, [pathname]);
+  }, []);
 
-  if (!visible) return null;
+  if (!visible || hasLoaded) return null;
 
   return (
     <div

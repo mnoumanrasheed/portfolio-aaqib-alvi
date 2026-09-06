@@ -1,333 +1,372 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import confetti from "canvas-confetti";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
   Phone,
   MapPin,
   Linkedin,
-  Globe,
-  Send,
+  Loader2,
   CheckCircle2,
-  Calendar,
-  Sparkles,
-  ArrowUpRight,
-  ShieldCheck,
+  AlertCircle,
 } from "lucide-react";
 import { PERSONAL_INFO } from "@/data/content";
+import { AmbientLightSweep, CinematicHeroImage } from "@/components/PremiumHeroMotion";
 
-const INQUIRY_TYPES = [
-  "National AI Skilling Program",
+const CONVERSATION_CATEGORIES = [
+  "AI Skilling & Government Programs",
   "Enterprise GenAI Strategy",
-  "Higher Ed / College Curriculum",
-  "Climate Adaptation & SDG Visioning",
-  "Startup Mentorship & Advisory",
-    "Presentations / Executive Speaking",
+  "Higher Education Partnerships",
+  "Climate & Sustainability Advisory",
+  "Startup Mentorship",
+  "Speaking & Presentations",
+  "Other Collaboration",
 ];
 
-export default function ContactPage() {
-  const [inquiryType, setInquiryType] = useState(INQUIRY_TYPES[0]);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    organization: "",
-    workEmail: "",
-    country: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+type FormState = "idle" | "loading" | "success" | "error";
 
-  const handleSubmit = (e: React.FormEvent) => {
+interface FormData {
+  name: string;
+  email: string;
+  organization: string;
+  message: string;
+  honeypot: string;
+  timestamp: number;
+}
+
+export default function ContactPage() {
+  const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    organization: "",
+    message: "",
+    honeypot: "",
+    timestamp: Date.now(),
+  });
+
+  // Set timestamp on mount
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, timestamp: Date.now() }));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setFormState("loading");
+    setErrorMessage("");
+
     try {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ["#00D2FF", "#D4AF37", "#10B981"],
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    } catch (err) {
-      // ignore
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      setFormState("success");
+    } catch (error) {
+      setFormState("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     }
   };
 
+  const resetForm = () => {
+    setFormState("idle");
+    setErrorMessage("");
+    setFormData({
+      name: "",
+      email: "",
+      organization: "",
+      message: "",
+      honeypot: "",
+      timestamp: Date.now(),
+    });
+  };
+
   return (
-    <div className="relative py-12 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-xs uppercase tracking-widest text-brand-gold font-medium">
-            Direct Concierge
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-            Initiate Executive <br />
-            <span className="text-gradient-gold">Dialogue & Advisory</span>
-          </h1>
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Direct channel for ministries, universities, organizations, and communities seeking
-            consultation with Aaqib Alvi.
-          </p>
+    <div className="relative -mt-20 pb-12 lg:pb-20">
+      <section aria-labelledby="contact-heading" className="relative isolate flex min-h-[100svh] items-center overflow-hidden border-b border-white/10 pt-20">
+        <CinematicHeroImage src="/contact-hero.png" objectPosition="object-[center_48%]" intensity="calm" />
+        <AmbientLightSweep />
+        <div aria-hidden="true" className="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(3,12,27,0.90)_0%,rgba(3,12,27,0.70)_42%,rgba(3,12,27,0.30)_100%)]" />
+        {/* Background gradients */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-20"
+          style={{
+            background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(137, 175, 198, 0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(197, 169, 106, 0.1) 0%, transparent 60%)",
+          }}
+        />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-dark via-transparent to-brand-dark" />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-14 font-sans tracking-normal sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+          <motion.h1
+            id="contact-heading"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-xl font-display text-5xl font-normal leading-[1.08] tracking-normal text-white sm:text-6xl lg:text-7xl"
+          >
+            Let&apos;s Connect
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 max-w-[500px] text-base leading-7 text-slate-200 sm:text-lg sm:leading-8"
+          >
+            For ministries, institutions, and organizations seeking advisory on AI, digital readiness, or sustainability initiatives.
+          </motion.p>
         </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-4 pt-12 sm:px-6 lg:px-8 lg:pt-20">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
-          {/* Left Column: Direct Contacts & Channels */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
-              <h3 className="text-xl font-bold text-white tracking-tight">
-                Direct Contact Points
-              </h3>
-
-              <div className="space-y-4">
-                {/* Phone */}
-                <a
-                  href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, "")}`}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-gold/40 transition-colors group"
-                >
-                  <div className="p-2.5 rounded-xl bg-brand-gold/15 text-brand-gold shrink-0">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-300">Direct Telephone</div>
-                    <div className="text-sm font-bold text-white group-hover:text-brand-gold transition-colors">
-                      {PERSONAL_INFO.phone}
-                    </div>
-                  </div>
-                </a>
-
-                {/* Email 1 */}
-                <a
-                  href={`mailto:${PERSONAL_INFO.emails[0]}`}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-cyan/40 transition-colors group"
-                >
-                  <div className="p-2.5 rounded-xl bg-brand-cyan/15 text-brand-cyan shrink-0">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-300">Official Institutional Email</div>
-                    <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors truncate">
-                      {PERSONAL_INFO.emails[0]}
-                    </div>
-                  </div>
-                </a>
-
-                {/* Email 2 */}
-                <a
-                  href={`mailto:${PERSONAL_INFO.emails[1]}`}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-cyan/40 transition-colors group"
-                >
-                  <div className="p-2.5 rounded-xl bg-brand-cyan/15 text-brand-cyan shrink-0">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-300">Advisory Direct Email</div>
-                    <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors truncate">
-                      {PERSONAL_INFO.emails[1]}
-                    </div>
-                  </div>
-                </a>
-
-                {/* LinkedIn */}
-                <a
-                  href={PERSONAL_INFO.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-cyan/40 transition-colors group"
-                >
-                  <div className="p-2.5 rounded-xl bg-sky-500/15 text-sky-400 shrink-0">
-                    <Linkedin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-300">Executive LinkedIn Profile</div>
-                    <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors">
-                      {PERSONAL_INFO.linkedinHandle}
-                    </div>
-                  </div>
-                </a>
-              </div>
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+          {/* Left Column: Invitation & Contact Info */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Invitation */}
+            <div className="space-y-4">
+              <p className="text-slate-300 leading-relaxed">
+                I work with governments, universities, and enterprises on AI implementation, digital transformation, and climate adaptation. If you&apos;re exploring initiatives in these areas, I&apos;d welcome a conversation.
+              </p>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Response within 24 business hours.
+              </p>
             </div>
 
-            {/* Global Geographic Hubs */}
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-4">
-              <h4 className="text-xs uppercase tracking-widest text-slate-300 font-semibold flex items-center gap-2">
-                <Globe className="w-4 h-4 text-brand-cyan" />
-                Operational Hubs
-              </h4>
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
-                  <div className="font-bold text-white">Singapore (APAC HQ)</div>
-                  <div className="text-slate-300 mt-1">Sustainable Living Lab / Whizz Kidz</div>
-                </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
-                  <div className="font-bold text-white">United States (Americas)</div>
-                  <div className="text-slate-300 mt-1">Sustainable Living Lab LLC USA</div>
-                </div>
+            {/* Conversation Categories */}
+            <div className="space-y-3">
+              <h2 className="text-xs uppercase tracking-widest text-slate-500 font-medium">
+                Conversation Topics
+              </h2>
+              <ul className="space-y-2">
+                {CONVERSATION_CATEGORIES.map((category) => (
+                  <li key={category} className="text-sm text-slate-400 flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-brand-cyan/50" />
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-4 pt-4 border-t border-white/5">
+              <h2 className="text-xs uppercase tracking-widest text-slate-500 font-medium">
+                Direct Contact
+              </h2>
+
+              {/* Phone */}
+              <a
+                href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, "")}`}
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+              >
+                <Phone className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <span>{PERSONAL_INFO.phone}</span>
+              </a>
+
+              {/* Primary Email */}
+              <a
+                href={`mailto:${PERSONAL_INFO.emails[0]}`}
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+              >
+                <Mail className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <span>{PERSONAL_INFO.emails[0]}</span>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href={PERSONAL_INFO.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+              >
+                <Linkedin className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <span>LinkedIn Profile</span>
+              </a>
+
+              {/* Locations */}
+              <div className="flex items-center gap-3 text-sm text-slate-400 pt-2">
+                <MapPin className="w-4 h-4 text-brand-cyan/50" />
+                <span>Singapore · United States</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Executive Consultation Form */}
-          <div className="lg:col-span-7">
-            <div className="glass-panel p-8 md:p-10 rounded-3xl border border-brand-cyan/20 relative shadow-glass-elevated">
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-16 text-center space-y-6"
-                >
-                  <div className="w-16 h-16 rounded-full bg-brand-emerald/20 text-brand-emerald mx-auto flex items-center justify-center border border-brand-emerald/40 shadow-glow-cyan/20">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">
-                    Executive Inquiry Transmitted
-                  </h3>
-                  <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                    Thank you for contacting the executive office of Aaqib Alvi. Your brief will be
-                    reviewed directly by the advisory office, and our response will follow within
-                    24 business hours.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        fullName: "",
-                        organization: "",
-                        workEmail: "",
-                        country: "",
-                        message: "",
-                      });
-                    }}
-                    className="px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-slate-300 glass-card hover:text-white"
+          {/* Right Column: Contact Form */}
+          <div className="lg:col-span-3">
+            <div className="relative">
+              <AnimatePresence mode="wait">
+                {formState === "success" ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="py-16 text-center space-y-6"
                   >
-                    Submit Another Inquiry
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white tracking-tight mb-1">
-                      Consultation Brief
-                    </h3>
-                    <p className="text-xs text-slate-300">
-                      Select your engagement parameters and detail your institutional objectives.
-                    </p>
-                  </div>
-
-                  {/* Inquiry Type Selector */}
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-2">
-                      Engagement Category
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {INQUIRY_TYPES.map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setInquiryType(type)}
-                          className={`p-2.5 rounded-xl text-xs text-left font-medium transition-all ${
-                            inquiryType === type
-                              ? "bg-brand-cyan/20 border border-brand-cyan/50 text-white font-bold shadow-glow-cyan/20"
-                              : "bg-white/[0.02] border border-white/5 text-slate-300 hover:border-white/20"
-                          }`}
-                        >
-                          {type}
-                        </button>
-                      ))}
+                    <div className="w-12 h-12 rounded-full bg-brand-emerald/15 border border-brand-emerald/30 mx-auto flex items-center justify-center">
+                      <CheckCircle2 className="w-6 h-6 text-brand-emerald" />
                     </div>
-                  </div>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-light text-white">
+                        Message Sent
+                      </h3>
+                      <p className="text-sm text-slate-400 max-w-sm mx-auto">
+                        Thank you for reaching out. I&apos;ll review your message and respond within 24 business hours.
+                      </p>
+                    </div>
+                    <button
+                      onClick={resetForm}
+                      className="text-xs uppercase tracking-widest text-slate-400 hover:text-white transition-colors underline underline-offset-4"
+                    >
+                      Send Another Message
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
+                    {/* Error State */}
+                    {formState === "error" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-start gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/20"
+                      >
+                        <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="text-sm text-red-300">{errorMessage}</p>
+                          <button
+                            type="button"
+                            onClick={() => setFormState("idle")}
+                            className="text-xs text-red-400 hover:text-red-300 underline"
+                          >
+                            Try Again
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
 
-                  {/* Input Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-1.5">
-                        Full Name *
+                    {/* Honeypot (hidden) */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={formData.honeypot}
+                      onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                      className="absolute opacity-0 pointer-events-none"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                    />
+
+                    {/* Name */}
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
+                        Name <span className="text-brand-cyan">*</span>
                       </label>
                       <input
+                        id="name"
+                        name="name"
                         type="text"
                         required
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        placeholder="Dr. / Director / Executive Name"
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm focus:outline-none focus:border-brand-cyan/60 transition-colors"
+                        disabled={formState === "loading"}
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Your name"
+                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-1.5">
-                        Organization / Ministry *
+                    {/* Email */}
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
+                        Email <span className="text-brand-cyan">*</span>
                       </label>
                       <input
-                        type="text"
-                        required
-                        value={formData.organization}
-                        onChange={(e) =>
-                          setFormData({ ...formData, organization: e.target.value })
-                        }
-                        placeholder="e.g. Ministry / College / Enterprise"
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm focus:outline-none focus:border-brand-cyan/60 transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-1.5">
-                        Institutional Email *
-                      </label>
-                      <input
+                        id="email"
+                        name="email"
                         type="email"
                         required
-                        value={formData.workEmail}
-                        onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                        placeholder="leader@institution.org"
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm focus:outline-none focus:border-brand-cyan/60 transition-colors"
+                        disabled={formState === "loading"}
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="email@institution.org"
+                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-1.5">
-                        Country / Jurisdiction *
+                    {/* Organization */}
+                    <div className="space-y-2">
+                      <label htmlFor="organization" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
+                        Organization <span className="text-brand-cyan">*</span>
                       </label>
                       <input
+                        id="organization"
+                        name="organization"
                         type="text"
                         required
-                        value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        placeholder="e.g. United States, Singapore"
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm focus:outline-none focus:border-brand-cyan/60 transition-colors"
+                        disabled={formState === "loading"}
+                        value={formData.organization}
+                        onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                        placeholder="Ministry, University, or Company"
+                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-slate-300 font-semibold mb-1.5">
-                      Executive Brief / Requirements *
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Outline scope, timeline, and strategic objectives for collaboration..."
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm focus:outline-none focus:border-brand-cyan/60 transition-colors resize-none"
-                    />
-                  </div>
+                    {/* Message */}
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
+                        Message <span className="text-brand-cyan">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        required
+                        rows={5}
+                        disabled={formState === "loading"}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Describe your initiative, goals, or questions..."
+                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors resize-none disabled:opacity-50"
+                      />
+                    </div>
 
-                  <button
-                    type="submit"
-                    className="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-widest text-black bg-gradient-to-r from-brand-goldLight via-brand-gold to-yellow-500 shadow-glow-gold hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
-                  >
-                    <span>Transmit Executive Brief</span>
-                    <Send className="w-4 h-4" />
-                  </button>
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={formState === "loading"}
+                      className="w-full py-3.5 rounded-lg text-sm font-medium text-brand-dark bg-brand-gold hover:bg-brand-goldLight transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
+                    >
+                      {formState === "loading" ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                        </>
+                      )}
+                    </button>
 
-                  <div className="flex items-center justify-center gap-2 text-[11px] text-slate-300 pt-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-brand-emerald" />
-                    <span>Direct contact for advisory enquiries</span>
-                  </div>
-                </form>
-              )}
+                    <p className="text-xs text-slate-500 text-center">
+                      I read every message personally
+                    </p>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

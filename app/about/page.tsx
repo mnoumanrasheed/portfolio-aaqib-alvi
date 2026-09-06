@@ -5,229 +5,309 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  GraduationCap,
-  Globe2,
   Award,
-  BookOpen,
   Languages,
-  CheckCircle2,
   Building2,
   Calendar,
   MapPin,
-  ArrowRight,
+  ArrowUpRight,
 } from "lucide-react";
-import { PERSONAL_INFO, EDUCATION, LANGUAGES } from "@/data/content";
+import { EDUCATION, LANGUAGES } from "@/data/content";
+import { AmbientLightSweep, CinematicHeroImage } from "@/components/PremiumHeroMotion";
+
+const biographyParagraphs = [
+  "Aaqib Alvi is a global program and business leader with more than 12 years of education-technology experience spanning artificial intelligence, digital readiness, sustainability, STEAM learning, business development, operations, and cross-border innovation.",
+  "He managed global AI programs for Intel and launched national-level AI skilling programs for the general public, youth, vocational graduates, and working professionals. These programs were delivered with ministries and partners across 35+ governments and reached more than 200,000 people.",
+  "His work includes localization of AI curricula, AI strategies for educational institutions, SDG-oriented visioning, corporate innovation, leadership training, and stakeholder engagement.",
+];
+
+const capabilityGroups = [
+  {
+    label: "Leadership Perspective",
+    text: "Aaqib works at the intersection of emerging technology, education, and institutional readiness, translating complex AI and digital shifts into programs that can be understood, adopted, and scaled.",
+  },
+  {
+    label: "Institutional / Technology Journey",
+    text: "His journey spans Intel global AI programs, Sustainable Living Lab, Whizz Kidz, AI Teach U / AI Love Venture, INSEAD AI Venture Lab mentorship, and earlier research and development work in Singapore.",
+  },
+  {
+    label: "How Aaqib Works",
+    text: "The through-line is practical implementation: curriculum localization, team management, stakeholder engagement, business development, professional training, deployment support, and measured execution.",
+  },
+];
+
+const coreCapabilities = [
+  "Global AI / Digital Readiness Programs",
+  "AI Skilling, Upskilling & Reskilling",
+  "GenAI Implementation",
+  "Digital Trust",
+  "Sustainability & Climate Adaptation",
+  "SDG-Oriented Visioning",
+  "Futures Thinking & Foresight",
+  "EdTech Strategy & Product Management",
+  "STEAM Curricula",
+  "Financial Control & Team Building",
+  "High-Pressure Crisis Management",
+];
+
+const evidenceItems = [
+  "Managed global AI programs for Intel across 35+ governments, reaching more than 200,000 people.",
+  "General Manager, Sustainable Living Laboratory LLC USA, formalizing and scaling the U.S. presence from Jan 2025.",
+  "Mentor top-selected startups under the INSEAD AI Venture Lab.",
+  "Supported Whizz Kidz revenue growth from 200k in late 2013 to more than 700k by early 2019.",
+];
+
+const fadeIn = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.24 },
+  transition: { duration: 0.75, ease: "easeOut" as const },
+};
 
 export default function AboutPage() {
   return (
-    <div className="relative py-12 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-xs uppercase tracking-widest text-brand-gold font-medium">
-            Executive Leadership
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-            Strategic Vision, <br />
-            <span className="text-gradient-gold">Global Execution</span>.
-          </h1>
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Bridging technical divides for non-technical audiences through EdTech, AI and digital
-            readiness work across Singapore, the United States, and 35+ governments.
-          </p>
-        </div>
-
-        {/* Profile & Biography Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
-          {/* Left Column: Portrait Showcase */}
+    <div className="relative -mt-20 font-sans tracking-normal">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-white/10 pt-20">
+        <CinematicHeroImage src="/about-hero.png" objectPosition="object-[center_45%]" />
+        <AmbientLightSweep />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,12,27,0.84)_0%,rgba(3,12,27,0.64)_45%,rgba(3,12,27,0.28)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,12,27,0.26)_0%,rgba(3,12,27,0.18)_48%,rgba(3,12,27,0.50)_100%)]"
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-5 relative"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
           >
-            <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/15 shadow-glass-elevated group">
-              {/* Image Frame */}
-              <div className="relative aspect-[3/4] w-full">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
+              Executive Biography
+            </p>
+            <h1 className="mt-7 max-w-4xl font-display text-[clamp(3.1rem,8svh,6.35rem)] font-normal leading-[0.98] text-white">
+              Building readiness for technology-led change.
+            </h1>
+            <p className="mt-8 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+              Bridging technical divides for non-technical audiences through EdTech, AI and digital
+              readiness work across Singapore, the United States, and 35+ governments.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-labelledby="leadership-perspective">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:gap-24 lg:px-10 lg:py-28">
+          <motion.aside {...fadeIn} className="lg:sticky lg:top-28 lg:self-start">
+            <div className="relative max-w-[390px] overflow-hidden rounded-lg border border-white/10 bg-white/[0.025]">
+              <div className="relative aspect-[4/5]">
                 <Image
                   src="/profile.jpeg"
                   alt="Aaqib Alvi Executive Portrait"
                   fill
-                  className="object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1023px) 90vw, 390px"
+                  className="object-cover object-top"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/75 via-transparent to-transparent" />
               </div>
-
-              {/* Holographic Bottom Tag */}
-              <div className="absolute bottom-6 inset-x-6 glass-panel p-4 rounded-2xl border border-brand-gold/30">
-                <h3 className="text-lg font-bold text-white">Aaqib Alvi</h3>
-                <p className="text-xs text-brand-gold font-medium tracking-wide">
-                  General Manager, SLL USA • INSEAD AI Venture Lab Mentor
+              <div className="absolute inset-x-5 bottom-5 border-t border-white/20 pt-4">
+                <h2 className="font-display text-3xl font-normal text-white">Aaqib Alvi</h2>
+                <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                  General Manager, SLL USA
                 </p>
-                <div className="mt-2 flex items-center gap-4 text-[11px] text-slate-300">
-                  <span className="flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-brand-cyan" /> Singapore / USA
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-200">
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5 text-brand-cyan" aria-hidden="true" />
+                    Singapore / USA
                   </span>
-                  <span>•</span>
                   <span>12+ Yrs EdTech Experience</span>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.aside>
 
-          {/* Right Column: Executive Narrative */}
-          <div className="lg:col-span-7 space-y-8">
-            <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
-              <h2 className="text-2xl font-bold text-white tracking-tight">
-                Executive Profile & Mandate
-              </h2>
-              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                  Aaqib Alvi is a global program and business leader with more than 12 years of
-                  education-technology experience spanning artificial intelligence, digital readiness,
-                  sustainability, STEAM learning, business development, operations, and cross-border innovation.
-                </p>
-                <p>
-                  He managed global AI programs for Intel and launched national-level AI skilling
-                  programs for the general public, youth, vocational graduates, and working
-                  professionals. These programs were delivered with ministries and partners across
-                  35+ governments and reached more than 200,000 people.
-                </p>
-                <p>
-                  His work includes localization of AI curricula, AI strategies for educational
-                  institutions, SDG-oriented visioning, corporate innovation, leadership training,
-                  and stakeholder engagement.
-                </p>
+          <div className="space-y-16">
+            <motion.div {...fadeIn} className="max-w-3xl">
+              <p id="leadership-perspective" className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+                Leadership Perspective
+              </p>
+              <div className="mt-6 space-y-6 text-base leading-8 text-slate-200 sm:text-lg sm:leading-9">
+                {biographyParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
+            </motion.div>
 
-              {/* Key Competency Pills */}
-              <div className="pt-4 border-t border-white/10">
-                <h3 className="text-xs uppercase tracking-widest text-slate-300 font-semibold mb-3">
-                  Core Competencies & Capabilities
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Global AI / Digital Readiness Programs",
-                    "AI Skilling, Upskilling & Reskilling",
-                    "GenAI Implementation",
-                    "Digital Trust",
-                    "Sustainability & Climate Adaptation",
-                    "SDG-Oriented Visioning",
-                    "Futures Thinking & Foresight",
-                    "EdTech Strategy & Product Management",
-                    "STEAM Curricula",
-                    "Financial Control & Team Building",
-                    "High-Pressure Crisis Management",
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/[0.04] border border-white/10 text-slate-200 hover:border-brand-cyan/40 transition-colors"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <motion.blockquote
+              {...fadeIn}
+              className="max-w-3xl border-y border-white/10 py-8"
+            >
+              <p className="font-display text-3xl font-normal leading-tight text-white sm:text-4xl">
+                Practical implementation is the center of the story: programs, curricula, teams,
+                institutions, and people moving from ambition into readiness.
+              </p>
+            </motion.blockquote>
+
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+              {capabilityGroups.map((item) => (
+                <motion.div key={item.label} {...fadeIn} className="border-l border-white/15 pl-5">
+                  <h3 className="text-sm font-semibold text-white">{item.label}</h3>
+                  <p className="mt-4 text-sm leading-7 text-slate-300">{item.text}</p>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Global Citizenship & Languages */}
-            <div className="glass-panel p-8 rounded-3xl border border-white/10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-xl bg-brand-cyan/15 text-brand-cyan">
-                  <Languages className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-bold text-white">Linguistic & Cultural Fluency</h3>
-              </div>
-              <p className="text-sm text-slate-300 mb-6">
-                Working across international teams with native and professional linguistic fluency:
+            <motion.div {...fadeIn} className="max-w-4xl border-t border-white/10 pt-10">
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+                Core Competencies & Capabilities
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {LANGUAGES.map((lang) => (
-                  <div
-                    key={lang.language}
-                    className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10"
-                  >
-                    <div className="text-sm font-semibold text-white">{lang.language}</div>
-                    <div className="text-xs text-brand-gold mt-0.5">{lang.level}</div>
+              <div className="mt-7 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
+                {coreCapabilities.map((skill) => (
+                  <div key={skill} className="flex items-start gap-3 text-sm leading-6 text-slate-200">
+                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-cyan/70" aria-hidden="true" />
+                    <span>{skill}</span>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        {/* ACADEMIC PEDIGREE & HIGHER EDUCATION */}
-        <div className="mb-24">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
-              Rigorous Pedigree
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-1">
-              Education & Academic Honors
+      <section aria-labelledby="selected-credibility" className="border-y border-white/10 bg-white/[0.015]">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24 lg:px-10 lg:py-24">
+          <motion.div {...fadeIn}>
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+              Selected Evidence
+            </p>
+            <h2 id="selected-credibility" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              Credibility across institutions, ventures and learning systems.
             </h2>
-            <p className="text-sm text-slate-300 mt-2">
+          </motion.div>
+
+          <motion.div {...fadeIn} className="divide-y divide-white/10">
+            {evidenceItems.map((item) => (
+              <p key={item} className="py-6 text-base leading-8 text-slate-200 first:pt-0 last:pb-0">
+                {item}
+              </p>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-labelledby="cultural-fluency">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+          <motion.div {...fadeIn} className="grid grid-cols-1 gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+            <div>
+              <div className="flex items-center gap-3 text-brand-cyan">
+                <Languages className="h-5 w-5" aria-hidden="true" />
+                <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+                  Cultural Fluency
+                </p>
+              </div>
+              <h2 id="cultural-fluency" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+                Working across international teams.
+              </h2>
+              <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">
+                Working across international teams with native and professional linguistic fluency.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 border-y border-white/10 sm:grid-cols-2 lg:grid-cols-4">
+              {LANGUAGES.map((lang) => (
+                <div
+                  key={lang.language}
+                  className="border-b border-white/10 py-6 sm:border-r sm:px-6 sm:last:border-r-0 lg:border-b-0"
+                >
+                  <div className="text-base font-medium text-white">{lang.language}</div>
+                  <div className="mt-2 text-xs leading-5 text-brand-gold">{lang.level}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-labelledby="education" className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
+          <motion.div {...fadeIn} className="max-w-3xl">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
+              Education & Academic Honors
+            </p>
+            <h2 id="education" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              Engineering discipline, executive management training and formative academic leadership.
+            </h2>
+            <p className="mt-6 text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
               Combining world-class engineering discipline from the National University of
               Singapore with executive management training at Quantic.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-6">
+          <div className="mt-14 divide-y divide-white/10 border-y border-white/10">
             {EDUCATION.map((edu, idx) => (
-              <motion.div
+              <motion.article
                 key={edu.institution}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="glass-panel p-8 rounded-3xl border border-white/10 hover:border-brand-gold/30 transition-all"
+                {...fadeIn}
+                transition={{ duration: 0.75, delay: idx * 0.06, ease: "easeOut" }}
+                className="grid grid-cols-1 gap-8 py-9 lg:grid-cols-[0.42fr_1fr] lg:gap-16"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">{edu.degree}</h3>
-                    <div className="flex items-center gap-2 text-sm text-brand-cyan font-medium mt-1">
-                      <Building2 className="w-4 h-4" />
-                      <span>{edu.institution}</span>
-                      <span>•</span>
-                      <span>{edu.location}</span>
-                    </div>
+                <div>
+                  <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
+                    <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                    {edu.period}
                   </div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 font-medium">
-                    <Calendar className="w-3.5 h-3.5 text-brand-gold" />
-                    <span>{edu.period}</span>
+                  <div className="mt-4 flex items-start gap-2 text-sm leading-6 text-brand-cyan">
+                    <Building2 className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />
+                    <span>
+                      {edu.institution} · {edu.location}
+                    </span>
                   </div>
                 </div>
 
-                {edu.description && (
-                  <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                    {edu.description}
-                  </p>
-                )}
+                <div>
+                  <h3 className="text-2xl font-medium leading-tight text-white sm:text-3xl">{edu.degree}</h3>
+                  {edu.description && (
+                    <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300">
+                      {edu.description}
+                    </p>
+                  )}
 
-                {edu.honors && (
-                  <div className="pt-4 border-t border-white/10">
-                    <h4 className="text-xs uppercase tracking-widest text-slate-300 font-semibold mb-3 flex items-center gap-2">
-                      <Award className="w-4 h-4 text-brand-gold" />
-                      Distinctions, Leadership & Projects
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {edu.honors.map((honor, hIdx) => (
-                        <div
-                          key={hIdx}
-                          className="flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed bg-white/[0.02] p-2.5 rounded-xl border border-white/5"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-emerald shrink-0 mt-0.5" />
-                          <span>{honor}</span>
-                        </div>
-                      ))}
+                  {edu.honors && (
+                    <div className="mt-7">
+                      <h4 className="flex items-center gap-2 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-slate-300">
+                        <Award className="h-4 w-4 text-brand-gold" aria-hidden="true" />
+                        Distinctions, Leadership & Projects
+                      </h4>
+                      <div className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3 md:grid-cols-2">
+                        {edu.honors.map((honor) => (
+                          <p key={honor} className="flex items-start gap-3 text-sm leading-7 text-slate-200">
+                            <span className="mt-3 h-px w-4 shrink-0 bg-brand-emerald/80" aria-hidden="true" />
+                            <span>{honor}</span>
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </motion.div>
+                  )}
+                </div>
+              </motion.article>
             ))}
           </div>
+
+          <motion.div {...fadeIn} className="mt-12">
+            <Link
+              href="/ventures"
+              className="inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+            >
+              View full leadership journey
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </motion.div>
         </div>
+      </section>
       </div>
-    </div>
   );
 }
