@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-// Initialize Resend with API key from environment
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Rate limiting - simple in-memory store (use Redis in production)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
@@ -118,6 +115,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send email using Resend
+    const resend = new Resend(resendApiKey);
     const { data, error } = await resend.emails.send({
       from: fromEmail || "noreply@aaqibalvi.com",
       to: [contactEmail],
