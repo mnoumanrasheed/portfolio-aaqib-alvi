@@ -91,20 +91,20 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative -mt-20 pb-12 lg:pb-20">
-      <section aria-labelledby="contact-heading" className="relative isolate flex min-h-[100svh] items-center overflow-hidden border-b border-white/10 pt-20">
+    <div className="section-teal relative -mt-20 pb-12 lg:pb-20">
+      <section aria-labelledby="contact-heading" className="section-page relative isolate flex min-h-[100svh] items-center overflow-hidden border-b border-border pt-20">
         <CinematicHeroImage src="/contact-hero.png" objectPosition="object-[center_48%]" intensity="calm" />
         <AmbientLightSweep />
-        <div aria-hidden="true" className="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(3,12,27,0.90)_0%,rgba(3,12,27,0.70)_42%,rgba(3,12,27,0.30)_100%)]" />
+        <div aria-hidden="true" className="editorial-hero-overlay absolute inset-0 z-0" />
         {/* Background gradients */}
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-20"
           style={{
-            background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(137, 175, 198, 0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(197, 169, 106, 0.1) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(39, 107, 109, 0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(162, 124, 66, 0.07) 0%, transparent 60%)",
           }}
         />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-dark via-transparent to-brand-dark" />
+        <div aria-hidden="true" className="editorial-hero-bottom absolute inset-0 -z-10" />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-14 font-sans tracking-normal sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <motion.h1
             id="contact-heading"
@@ -285,7 +285,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your name"
-                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
+                        className="editorial-input w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors disabled:opacity-50"
                       />
                     </div>
 
@@ -303,7 +303,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="email@institution.org"
-                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
+                        className="editorial-input w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors disabled:opacity-50"
                       />
                     </div>
 
@@ -321,7 +321,7 @@ export default function ContactPage() {
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         placeholder="Ministry, University, or Company"
-                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors disabled:opacity-50"
+                        className="editorial-input w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors disabled:opacity-50"
                       />
                     </div>
 
@@ -339,7 +339,7 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Describe your initiative, goals, or questions..."
-                        className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:border-brand-cyan/50 focus:bg-white/[0.03] transition-colors resize-none disabled:opacity-50"
+                        className="editorial-input w-full px-4 py-3 rounded-lg text-sm focus:outline-none transition-colors resize-none disabled:opacity-50"
                       />
                     </div>
 
@@ -347,7 +347,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={formState === "loading"}
-                      className="w-full py-3.5 rounded-lg text-sm font-medium text-brand-dark bg-brand-gold hover:bg-brand-goldLight transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
+                      className="w-full py-3.5 rounded-lg text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
                     >
                       {formState === "loading" ? (
                         <>

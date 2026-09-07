@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f3f5; color: #6c757d; font-size: 13px; font-weight: 500;">Email</td>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f3f5; font-size: 15px;">
-                  <a href="mailto:${escapeHtml(email)}" style="color: #89AFC6; text-decoration: none;">${escapeHtml(email)}</a>
+                  <a href="mailto:${escapeHtml(email)}" style="color: #276B6D; text-decoration: none;">${escapeHtml(email)}</a>
                 </td>
               </tr>
               <tr>

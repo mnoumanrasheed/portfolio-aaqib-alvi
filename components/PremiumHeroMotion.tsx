@@ -62,7 +62,7 @@ export function AmbientLightSweep({ tone = "gold" }: { tone?: "gold" | "cyan" })
       initial={{ opacity: 0 }}
       animate={reducedMotion ? { opacity: 0.08 } : { opacity: [0.04, 0.11, 0.04], x: ["-5%", "5%", "-5%"] }}
       transition={reducedMotion ? undefined : { duration: tone === "gold" ? 13 : 16, ease: "easeInOut", repeat: Infinity }}
-      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(197,169,106,0.32),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(137,175,198,0.20),transparent_68%)]"}`}
+      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(162,124,66,0.13),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(39,107,109,0.10),transparent_68%)]"}`}
     />
   );
 }
@@ -75,12 +75,12 @@ export function LeadershipNetworkTrace() {
       viewBox="0 0 620 460"
       className="pointer-events-none absolute right-[-8%] top-1/2 h-[68%] w-[58%] -translate-y-1/2 opacity-60 sm:right-0 lg:h-[76%] lg:w-[52%]"
     >
-      <path d="M70 285 C180 95 390 60 560 180" fill="none" stroke="rgba(137,175,198,.26)" strokeWidth="1" strokeDasharray="2 14" />
-      <path d="M95 130 C240 260 405 330 565 245" fill="none" stroke="rgba(197,169,106,.22)" strokeWidth="1" strokeDasharray="1 18" />
+      <path d="M70 285 C180 95 390 60 560 180" fill="none" stroke="rgba(39,107,109,.22)" strokeWidth="1" strokeDasharray="2 14" />
+      <path d="M95 130 C240 260 405 330 565 245" fill="none" stroke="rgba(162,124,66,.20)" strokeWidth="1" strokeDasharray="1 18" />
       <motion.path
         d="M120 306 C250 180 365 122 540 166"
         fill="none"
-        stroke="rgba(197,169,106,.5)"
+        stroke="rgba(162,124,66,.42)"
         strokeWidth="1"
         strokeDasharray="3 180"
         initial={{ strokeDashoffset: 0, opacity: 0.25 }}
@@ -100,7 +100,7 @@ export function LeadershipNetworkTrace() {
           cx={cx}
           cy={cy}
           r={index === 3 ? 3 : 2}
-          fill={tone === "gold" ? "#c5a96a" : "#89afc6"}
+          fill={tone === "gold" ? "#A27C42" : "#276B6D"}
           initial={{ opacity: 0.3 }}
           animate={reducedMotion ? { opacity: 0.3 } : { opacity: index === 3 ? [0.35, 0.8, 0.35] : 0.42 }}
           transition={reducedMotion ? undefined : { duration: 5, delay: index * 0.35, repeat: Infinity, ease: "easeInOut" }}

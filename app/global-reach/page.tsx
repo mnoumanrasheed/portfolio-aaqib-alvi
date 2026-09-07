@@ -22,7 +22,7 @@ import {
 
 export default function GlobalReachPage() {
   return (
-    <div className="relative py-12 lg:py-20">
+    <div className="section-soft relative py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-16 space-y-4">
@@ -40,7 +40,7 @@ export default function GlobalReachPage() {
         </div>
 
         {/* 35+ GOVERNMENTS FOOTPRINT MATRIX */}
-        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 mb-20">
+        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-border mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
@@ -64,7 +64,7 @@ export default function GlobalReachPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
-                className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-cyan/30 transition-all group"
+                className="p-4 rounded-2xl bg-surface-teal border border-border hover:border-brand-cyan/30 transition-all group"
               >
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <MapPin className="w-4 h-4 text-brand-cyan group-hover:scale-110 transition-transform" />
@@ -77,7 +77,7 @@ export default function GlobalReachPage() {
             ))}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+          <div className="mt-8 pt-6 border-t border-border flex items-center justify-between text-xs text-slate-400">
             <span>Programs delivered across 35+ governments</span>
             <span className="text-brand-gold font-semibold">200,000+ People Reached</span>
           </div>
@@ -120,7 +120,7 @@ export default function GlobalReachPage() {
             ].map((sdg) => (
               <div
                 key={sdg.sdg}
-                className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-white/20 transition-all space-y-3"
+                className="glass-panel p-6 rounded-3xl border border-border hover:border-accent/20 transition-all space-y-3"
               >
                 <div className="text-xs font-bold uppercase tracking-wider text-white">
                   {sdg.sdg}
@@ -151,7 +151,7 @@ export default function GlobalReachPage() {
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.name}
-                className="p-5 rounded-2xl glass-card border border-white/10 hover:border-brand-gold/40 transition-all"
+                className="p-5 rounded-2xl glass-card border border-border hover:border-brand-gold/40 transition-all"
               >
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h4 className="text-sm font-bold text-white">{cert.name}</h4>
@@ -188,7 +188,7 @@ export default function GlobalReachPage() {
             {VOLUNTEERING.map((vol) => (
               <div
                 key={vol.title}
-                className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3"
+                className="p-6 rounded-2xl bg-surface-warm border border-border space-y-3"
               >
                 <div className="flex items-center justify-between">
                   <h4 className="text-base font-bold text-white">{vol.title}</h4>

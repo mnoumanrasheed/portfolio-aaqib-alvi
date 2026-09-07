@@ -102,16 +102,16 @@ export default function VenturesPage() {
 
   return (
     <div className="relative -mt-20 font-sans tracking-normal">
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-white/10 pt-20">
+      <section className="section-page relative flex min-h-[100svh] items-center overflow-hidden border-b border-border pt-20">
         <CinematicHeroImage src="/impact-hero.png" objectPosition="object-[center_42%]" />
         <AmbientLightSweep />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,12,27,0.82)_0%,rgba(3,12,27,0.60)_45%,rgba(3,12,27,0.26)_100%)]"
+          className="editorial-hero-overlay absolute inset-0"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,12,27,0.24)_0%,rgba(3,12,27,0.14)_48%,rgba(3,12,27,0.50)_100%)]"
+          className="editorial-hero-bottom absolute inset-0"
         />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
           <motion.div
@@ -157,7 +157,7 @@ export default function VenturesPage() {
         </div>
       </section>
 
-      <section aria-labelledby="impact-stories">
+      <section aria-labelledby="impact-stories" className="section-page">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
           <motion.div {...reveal} className="max-w-3xl">
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
@@ -237,7 +237,7 @@ export default function VenturesPage() {
         </div>
       </section>
 
-      <section aria-labelledby="evidence-index" className="border-y border-white/10 bg-white/[0.015]">
+      <section aria-labelledby="evidence-index" className="section-soft border-y border-border">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.65fr_1.35fr] lg:gap-24 lg:px-10 lg:py-24">
           <motion.div {...reveal}>
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
@@ -278,7 +278,7 @@ export default function VenturesPage() {
         </div>
       </section>
 
-      <section aria-labelledby="impact-conversation">
+      <section aria-labelledby="impact-conversation" className="section-warm">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
           <motion.div {...reveal} className="grid grid-cols-1 gap-10 border-t border-white/10 pt-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-16">
             <div>

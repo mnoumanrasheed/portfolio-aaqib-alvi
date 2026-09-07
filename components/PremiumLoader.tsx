@@ -43,7 +43,7 @@ export default function PremiumLoader() {
     <div
       aria-live="polite"
       aria-busy="true"
-      className={`premium-loader fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-brand-dark transition-opacity duration-500 ${
+      className={`premium-loader fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-page transition-opacity duration-500 ${
         settling ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -54,25 +54,25 @@ export default function PremiumLoader() {
           width={56}
           height={56}
           priority
-          className="h-14 w-14 rounded-full border border-white/15 object-cover"
+          className="h-14 w-14 rounded-full border border-ink/10 object-cover"
         />
 
         <div className="mt-7 text-center">
-          <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-brand-cyan">
+          <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-accent">
             Executive Platform
           </p>
           <h2
-            className="mt-2 text-3xl leading-none text-white sm:text-4xl"
+            className="mt-2 text-3xl leading-none text-ink sm:text-4xl"
             style={{ fontFamily: "Instrument Serif, Georgia, serif" }}
           >
             Aaqib Alvi
           </h2>
-          <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.16em] text-brand-gold/90">
+          <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.16em] text-gold">
             AI Readiness | Innovation | Impact
           </p>
         </div>
 
-        <div className="mt-8 h-px w-full overflow-hidden bg-white/[0.1]">
+        <div className="mt-8 h-px w-full overflow-hidden bg-border">
           <div className="premium-loader__progress h-full" />
         </div>
       </div>

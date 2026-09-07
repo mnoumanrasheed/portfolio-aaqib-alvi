@@ -17,7 +17,7 @@ const editorialReveal = {
   viewport: { once: true, amount: 0.1 },
   transition: { duration: 0.8, ease: "easeOut" as const },
 };
-const editorialLink = "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4";
+const editorialLink = "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-accent/35 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent-dark hover:text-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4";
 
 /* ── Animation helpers ──────────────────────────────────── */
 const fadeUp = (delay = 0, y = 24) => ({
@@ -32,14 +32,14 @@ export default function HomePage() {
     <div className="relative -mt-20 min-h-screen overflow-hidden">
 
       {/* ══════════════ HERO SECTION ══════════════ */}
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-8 sm:pt-20 lg:pt-16 lg:pb-6">
+      <section className="section-page relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-8 sm:pt-20 lg:pt-16 lg:pb-6">
         {/* ── Background atmosphere ─────────────────────── */}
 
         {/* Left radial glow (behind typography) */}
         <div
           className="absolute top-1/2 -translate-y-1/2 left-[-12%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(0,210,255,0.06) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(39,107,109,0.05) 0%, transparent 70%)",
             filter: "blur(50px)",
           }}
         />
@@ -48,17 +48,17 @@ export default function HomePage() {
         <div
           className="absolute top-1/2 -translate-y-1/2 right-[-10%] w-[55vw] h-[55vw] max-w-[680px] max-h-[680px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(162,124,66,0.05) 0%, transparent 70%)",
             filter: "blur(55px)",
           }}
         />
 
         {/* Subtle grid overlay — center-masked */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none opacity-35"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0,210,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,210,255,0.02) 1px, transparent 1px)",
+              "linear-gradient(rgba(20,35,45,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(20,35,45,0.018) 1px, transparent 1px)",
             backgroundSize: "54px 54px",
             maskImage:
               "radial-gradient(ellipse 85% 90% at 50% 50%, black 10%, transparent 100%)",
@@ -72,7 +72,7 @@ export default function HomePage() {
           className="absolute top-[12%] bottom-[12%] left-1/2 -translate-x-1/2 w-[1px] pointer-events-none hidden min-[1180px]:block"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.04) 25%, rgba(0,210,255,0.1) 50%, rgba(255,255,255,0.04) 75%, transparent 100%)",
+              "linear-gradient(to bottom, transparent 0%, rgba(20,35,45,0.05) 25%, rgba(39,107,109,0.12) 50%, rgba(20,35,45,0.05) 75%, transparent 100%)",
           }}
         />
 
@@ -91,21 +91,21 @@ export default function HomePage() {
 
               <motion.h1
                 {...fadeUp(0.18, 10)}
-                className="mt-5 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,3.75rem)] font-normal leading-[1.08] tracking-normal text-white sm:text-[clamp(3.75rem,10svh,5.5rem)]"
+                className="mt-5 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,3.75rem)] font-normal leading-[1.08] tracking-normal text-ink sm:text-[clamp(3.75rem,10svh,5.5rem)]"
               >
                 Aaqib Alvi
               </motion.h1>
 
               <motion.p
                 {...fadeUp(0.26, 8)}
-                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-white"
+                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-ink"
               >
                 Turning emerging technology into institutional capability.
               </motion.p>
 
               <motion.p
                 {...fadeUp(0.34, 8)}
-                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-slate-300 sm:text-[15px]"
+                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-text sm:text-[15px]"
               >
                 Advancing workforce readiness and measurable impact through emerging
                 technologies across governments, universities, organizations, and communities.
@@ -117,14 +117,14 @@ export default function HomePage() {
               >
                 <Link
                   href="/expertise"
-                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm border border-white bg-white px-5 py-3 text-xs font-medium leading-normal text-brand-dark transition-colors duration-300 hover:border-brand-cyanLight hover:bg-brand-cyanLight focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm border border-accent bg-accent px-5 py-3 text-xs font-medium leading-normal text-white transition-colors duration-300 hover:border-accent-dark hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
                 >
                   Explore Leadership
                   <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transform-none" />
                 </Link>
                 <Link
                   href="/ventures"
-                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-white/25 py-3 text-xs font-medium leading-normal text-white transition-colors duration-300 hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-accent/35 py-3 text-xs font-medium leading-normal text-accent transition-colors duration-300 hover:border-accent-dark hover:text-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
                 >
                   View Impact
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
@@ -133,7 +133,7 @@ export default function HomePage() {
 
               <motion.dl
                 {...fadeUp(0.5, 6)}
-                className="mt-8 grid grid-cols-3 gap-3 border-t border-white/15 pt-5"
+                className="mt-8 grid grid-cols-3 gap-3 border-t border-border pt-5"
                 aria-label="Experience and reach"
               >
                 {[
@@ -143,7 +143,7 @@ export default function HomePage() {
                 ].map((metric) => (
                   <div key={metric.label} className="flex min-w-0 flex-col gap-1">
                     <dt className="order-2 text-[10px] leading-relaxed text-slate-400 sm:text-[11px]">{metric.label}</dt>
-                    <dd className="order-1 text-xl font-normal leading-tight tabular-nums text-white sm:text-2xl">{metric.value}</dd>
+                    <dd className="order-1 text-xl font-normal leading-tight tabular-nums text-ink sm:text-2xl">{metric.value}</dd>
                   </div>
                 ))}
               </motion.dl>
@@ -165,12 +165,12 @@ export default function HomePage() {
         {/* Bottom fade into next section */}
         <div
           className="absolute bottom-0 inset-x-0 h-28 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(3,7,18,1) 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(to top, rgba(255,255,255,0.42) 0%, transparent 100%)" }}
         />
       </section>
 
       <div className="font-sans tracking-normal">
-        <section aria-labelledby="executive-introduction" className="border-t border-white/10">
+        <section aria-labelledby="executive-introduction" className="section-surface border-t border-border">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-[0.8fr_1.5fr] md:items-center lg:gap-24 lg:px-10 lg:py-28">
             <figure className="max-w-[360px]">
               <div className="relative aspect-[4/5] overflow-hidden">
@@ -202,7 +202,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section aria-labelledby="selected-evidence" className="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+        <section aria-labelledby="selected-evidence" className="section-teal px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+          <div className="mx-auto max-w-7xl">
           <motion.div {...editorialReveal} className="border-t border-white/15 pt-10">
             <div className="grid gap-5 md:grid-cols-[1fr_2fr] md:gap-12">
               <p className="text-xs text-brand-gold">Selected evidence</p>
@@ -269,9 +270,11 @@ export default function HomePage() {
               </Link>
             </div>
           </motion.div>
+          </div>
         </section>
 
-        <section aria-labelledby="expertise-preview" className="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+        <section aria-labelledby="expertise-preview" className="section-warm px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+          <div className="mx-auto max-w-7xl">
           <motion.div {...editorialReveal} className="grid gap-12 border-t border-white/15 pt-10 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
             <div className="max-w-[430px]">
               <p className="text-xs text-brand-gold">Leadership &amp; expertise</p>
@@ -310,9 +313,10 @@ export default function HomePage() {
               </div>
             </dl>
           </motion.div>
+          </div>
         </section>
 
-        <section aria-labelledby="institutional-footprint" className="relative border-y border-white/10 overflow-hidden">
+        <section aria-labelledby="institutional-footprint" className="section-soft relative overflow-hidden border-y border-border">
           {/* Premium background treatment */}
           <div className="absolute inset-0 pointer-events-none">
             {/* Subtle radial gradient top-left */}
@@ -335,7 +339,7 @@ export default function HomePage() {
             <div
               className="absolute inset-0"
               style={{
-                backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
+                backgroundImage: "linear-gradient(rgba(20,35,45,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(20,35,45,0.018) 1px, transparent 1px)",
                 backgroundSize: "48px 48px",
                 maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
                 WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
@@ -491,7 +495,8 @@ export default function HomePage() {
           </motion.div>
         </section>
 
-        <section aria-labelledby="conversation-heading" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <section aria-labelledby="conversation-heading" className="section-footer px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+          <div className="mx-auto max-w-7xl">
           <motion.div {...editorialReveal} className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end lg:gap-24">
             <div>
               <p className="text-xs text-brand-gold">Conversation &amp; advisory</p>
@@ -508,12 +513,13 @@ export default function HomePage() {
                 <Link href="/contact" className="inline-flex min-h-11 items-center gap-3 rounded-sm border border-white bg-white px-5 py-3 text-sm font-medium text-brand-dark transition-colors hover:border-brand-cyanLight hover:bg-brand-cyanLight focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
                   Start a Conversation <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
-                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-slate-300 transition-colors hover:border-brand-cyan hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
+                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-[#BFC8C9] transition-colors hover:border-brand-cyan hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
                   Connect on LinkedIn <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </a>
               </div>
             </div>
           </motion.div>
+          </div>
         </section>
       </div>
     </div>
