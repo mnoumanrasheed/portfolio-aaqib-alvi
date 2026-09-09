@@ -60,9 +60,9 @@ export function AmbientLightSweep({ tone = "gold" }: { tone?: "gold" | "cyan" })
     <motion.div
       aria-hidden="true"
       initial={{ opacity: 0 }}
-      animate={reducedMotion ? { opacity: 0.08 } : { opacity: [0.04, 0.11, 0.04], x: ["-5%", "5%", "-5%"] }}
+      animate={reducedMotion ? { opacity: 0.12 } : { opacity: [0.06, 0.16, 0.06], x: ["-5%", "5%", "-5%"] }}
       transition={reducedMotion ? undefined : { duration: tone === "gold" ? 13 : 16, ease: "easeInOut", repeat: Infinity }}
-      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(162,124,66,0.13),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(39,107,109,0.10),transparent_68%)]"}`}
+      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(197,160,89,0.18),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(223,183,108,0.15),transparent_68%)]"}`}
     />
   );
 }
@@ -73,36 +73,36 @@ export function LeadershipNetworkTrace() {
     <motion.svg
       aria-hidden="true"
       viewBox="0 0 620 460"
-      className="pointer-events-none absolute right-[-8%] top-1/2 h-[68%] w-[58%] -translate-y-1/2 opacity-60 sm:right-0 lg:h-[76%] lg:w-[52%]"
+      className="pointer-events-none absolute right-[-8%] top-1/2 h-[68%] w-[58%] -translate-y-1/2 opacity-70 sm:right-0 lg:h-[76%] lg:w-[52%]"
     >
-      <path d="M70 285 C180 95 390 60 560 180" fill="none" stroke="rgba(39,107,109,.22)" strokeWidth="1" strokeDasharray="2 14" />
-      <path d="M95 130 C240 260 405 330 565 245" fill="none" stroke="rgba(162,124,66,.20)" strokeWidth="1" strokeDasharray="1 18" />
+      <path d="M70 285 C180 95 390 60 560 180" fill="none" stroke="rgba(197,160,89,.26)" strokeWidth="1" strokeDasharray="2 14" />
+      <path d="M95 130 C240 260 405 330 565 245" fill="none" stroke="rgba(223,183,108,.24)" strokeWidth="1" strokeDasharray="1 18" />
       <motion.path
         d="M120 306 C250 180 365 122 540 166"
         fill="none"
-        stroke="rgba(162,124,66,.42)"
-        strokeWidth="1"
+        stroke="rgba(197,160,89,.55)"
+        strokeWidth="1.2"
         strokeDasharray="3 180"
         initial={{ strokeDashoffset: 0, opacity: 0.25 }}
-        animate={reducedMotion ? { strokeDashoffset: 0, opacity: 0.25 } : { strokeDashoffset: -180, opacity: [0.18, 0.48, 0.18] }}
+        animate={reducedMotion ? { strokeDashoffset: 0, opacity: 0.25 } : { strokeDashoffset: -180, opacity: [0.25, 0.65, 0.25] }}
         transition={reducedMotion ? undefined : { duration: 14, ease: "linear", repeat: Infinity }}
       />
       {[
-        [118, 306, "cyan"],
-        [224, 139, "gold"],
-        [372, 111, "cyan"],
-        [540, 166, "gold"],
-        [465, 308, "cyan"],
-        [286, 328, "gold"],
+        [118, 306, "gold"],
+        [224, 139, "light"],
+        [372, 111, "gold"],
+        [540, 166, "light"],
+        [465, 308, "gold"],
+        [286, 328, "light"],
       ].map(([cx, cy, tone], index) => (
         <motion.circle
           key={`${cx}-${cy}`}
           cx={cx}
           cy={cy}
-          r={index === 3 ? 3 : 2}
-          fill={tone === "gold" ? "#A27C42" : "#276B6D"}
-          initial={{ opacity: 0.3 }}
-          animate={reducedMotion ? { opacity: 0.3 } : { opacity: index === 3 ? [0.35, 0.8, 0.35] : 0.42 }}
+          r={index === 3 ? 3.5 : 2.2}
+          fill={tone === "gold" ? "#C5A059" : "#DFB76C"}
+          initial={{ opacity: 0.4 }}
+          animate={reducedMotion ? { opacity: 0.4 } : { opacity: index === 3 ? [0.4, 0.95, 0.4] : 0.55 }}
           transition={reducedMotion ? undefined : { duration: 5, delay: index * 0.35, repeat: Infinity, ease: "easeInOut" }}
         />
       ))}

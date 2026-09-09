@@ -17,7 +17,7 @@ const editorialReveal = {
   viewport: { once: true, amount: 0.1 },
   transition: { duration: 0.8, ease: "easeOut" as const },
 };
-const editorialLink = "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-accent/35 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent-dark hover:text-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4";
+const editorialLink = "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-brand-gold/40 py-2 text-sm text-brand-gold transition-colors duration-300 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4";
 
 /* ── Animation helpers ──────────────────────────────────── */
 const fadeUp = (delay = 0, y = 24) => ({
@@ -39,7 +39,7 @@ export default function HomePage() {
         <div
           className="absolute top-1/2 -translate-y-1/2 left-[-12%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(39,107,109,0.05) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%)",
             filter: "blur(50px)",
           }}
         />
@@ -48,17 +48,17 @@ export default function HomePage() {
         <div
           className="absolute top-1/2 -translate-y-1/2 right-[-10%] w-[55vw] h-[55vw] max-w-[680px] max-h-[680px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(162,124,66,0.05) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(212, 175, 55, 0.07) 0%, transparent 70%)",
             filter: "blur(55px)",
           }}
         />
 
         {/* Subtle grid overlay — center-masked */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-35"
+          className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(20,35,45,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(20,35,45,0.018) 1px, transparent 1px)",
+              "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
             backgroundSize: "54px 54px",
             maskImage:
               "radial-gradient(ellipse 85% 90% at 50% 50%, black 10%, transparent 100%)",
@@ -72,7 +72,7 @@ export default function HomePage() {
           className="absolute top-[12%] bottom-[12%] left-1/2 -translate-x-1/2 w-[1px] pointer-events-none hidden min-[1180px]:block"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, rgba(20,35,45,0.05) 25%, rgba(39,107,109,0.12) 50%, rgba(20,35,45,0.05) 75%, transparent 100%)",
+              "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.04) 25%, rgba(197, 160, 89, 0.25) 50%, rgba(255, 255, 255, 0.04) 75%, transparent 100%)",
           }}
         />
 
@@ -82,30 +82,33 @@ export default function HomePage() {
 
             {/* Left: editorial introduction */}
             <div className="relative z-10 flex min-w-0 flex-col justify-center py-10 font-sans tracking-normal sm:py-12 min-[1180px]:py-6 min-[1180px]:pr-10 xl:pr-14">
-              <motion.p
+              <motion.div
                 {...fadeUp(0.1, 8)}
-                className="text-[10px] font-medium uppercase leading-relaxed tracking-normal text-brand-cyan sm:text-[11px]"
+                className="inline-flex items-center gap-2 self-start rounded-full border border-brand-gold/30 bg-brand-gold/10 px-3.5 py-1"
               >
-                GLOBAL AI &amp; INNOVATION LEADER
-              </motion.p>
+                <div className="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse" />
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-gold sm:text-[11px]">
+                  GLOBAL AI &amp; INNOVATION LEADER
+                </span>
+              </motion.div>
 
               <motion.h1
                 {...fadeUp(0.18, 10)}
-                className="mt-5 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,3.75rem)] font-normal leading-[1.08] tracking-normal text-ink sm:text-[clamp(3.75rem,10svh,5.5rem)]"
+                className="mt-6 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,4rem)] font-normal leading-[1.08] tracking-normal text-gradient-hero sm:text-[clamp(3.75rem,10svh,5.5rem)]"
               >
                 Aaqib Alvi
               </motion.h1>
 
               <motion.p
                 {...fadeUp(0.26, 8)}
-                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-ink"
+                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-white"
               >
                 Turning emerging technology into institutional capability.
               </motion.p>
 
               <motion.p
                 {...fadeUp(0.34, 8)}
-                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-text sm:text-[15px]"
+                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-slate-300 sm:text-[15px]"
               >
                 Advancing workforce readiness and measurable impact through emerging
                 technologies across governments, universities, organizations, and communities.
@@ -113,18 +116,18 @@ export default function HomePage() {
 
               <motion.div
                 {...fadeUp(0.42, 8)}
-                className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3"
+                className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4"
               >
                 <Link
                   href="/expertise"
-                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm border border-accent bg-accent px-5 py-3 text-xs font-medium leading-normal text-white transition-colors duration-300 hover:border-accent-dark hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
+                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm btn-gold px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
                 >
                   Explore Leadership
-                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transform-none" />
+                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
                 </Link>
                 <Link
                   href="/ventures"
-                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-accent/35 py-3 text-xs font-medium leading-normal text-accent transition-colors duration-300 hover:border-accent-dark hover:text-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
+                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-brand-gold/40 py-3 text-xs font-medium text-brand-gold transition-colors duration-300 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
                 >
                   View Impact
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
@@ -133,7 +136,7 @@ export default function HomePage() {
 
               <motion.dl
                 {...fadeUp(0.5, 6)}
-                className="mt-8 grid grid-cols-3 gap-3 border-t border-border pt-5"
+                className="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-6"
                 aria-label="Experience and reach"
               >
                 {[
@@ -142,8 +145,8 @@ export default function HomePage() {
                   { value: "12+", label: "Years in EdTech" },
                 ].map((metric) => (
                   <div key={metric.label} className="flex min-w-0 flex-col gap-1">
-                    <dt className="order-2 text-[10px] leading-relaxed text-slate-400 sm:text-[11px]">{metric.label}</dt>
-                    <dd className="order-1 text-xl font-normal leading-tight tabular-nums text-ink sm:text-2xl">{metric.value}</dd>
+                    <dt className="order-2 text-[10px] uppercase tracking-wider text-slate-400 sm:text-[11px]">{metric.label}</dt>
+                    <dd className="order-1 font-display text-2xl font-normal leading-tight tabular-nums text-white sm:text-3xl">{metric.value}</dd>
                   </div>
                 ))}
               </motion.dl>
@@ -165,7 +168,7 @@ export default function HomePage() {
         {/* Bottom fade into next section */}
         <div
           className="absolute bottom-0 inset-x-0 h-28 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(255,255,255,0.42) 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(to top, rgba(8, 12, 20, 0.95) 0%, transparent 100%)" }}
         />
       </section>
 
@@ -323,7 +326,7 @@ export default function HomePage() {
             <div
               className="absolute top-0 left-0 w-[600px] h-[600px]"
               style={{
-                background: "radial-gradient(circle at top left, rgba(137, 175, 198, 0.04) 0%, transparent 60%)",
+                background: "radial-gradient(circle at top left, rgba(197, 160, 89, 0.07) 0%, transparent 60%)",
                 filter: "blur(40px)",
               }}
             />
@@ -331,7 +334,7 @@ export default function HomePage() {
             <div
               className="absolute bottom-0 right-0 w-[500px] h-[500px]"
               style={{
-                background: "radial-gradient(circle at bottom right, rgba(197, 169, 106, 0.03) 0%, transparent 60%)",
+                background: "radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.05) 0%, transparent 60%)",
                 filter: "blur(40px)",
               }}
             />
@@ -339,7 +342,7 @@ export default function HomePage() {
             <div
               className="absolute inset-0"
               style={{
-                backgroundImage: "linear-gradient(rgba(20,35,45,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(20,35,45,0.018) 1px, transparent 1px)",
+                backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px)",
                 backgroundSize: "48px 48px",
                 maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
                 WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
@@ -356,7 +359,7 @@ export default function HomePage() {
               </div>
               <h2 id="institutional-footprint" className="mt-6 max-w-[820px] font-display text-4xl leading-[1.12] text-white sm:text-5xl lg:text-6xl">
                 International reach.<br />
-                <span className="text-gradient-cyan">Local learning contexts.</span>
+                <span className="text-gradient-gold">Local learning contexts.</span>
               </h2>
             </div>
 
@@ -369,12 +372,12 @@ export default function HomePage() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-brand-cyan/15 flex items-center justify-center">
-                          <svg className="w-4 h-4 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-8 h-8 rounded-lg bg-brand-gold/15 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
-                        <span className="text-xs uppercase tracking-wider text-brand-cyan font-medium">Intel Global Programs</span>
+                        <span className="text-xs uppercase tracking-wider text-brand-gold font-medium">Intel Global Programs</span>
                       </div>
                       <p className="text-base leading-7 text-slate-200">
                         Managed global AI programs for Intel and launched national-level skilling programs with ministries and partners across multiple continents.
@@ -401,8 +404,8 @@ export default function HomePage() {
                 <div className="space-y-4">
                   <div className="glass-card p-6 rounded-xl border border-white/5">
                     <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-md bg-brand-emerald/15 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg className="w-3.5 h-3.5 text-brand-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-6 h-6 rounded-md bg-brand-gold/15 flex items-center justify-center shrink-0 mt-0.5">
+                        <svg className="w-3.5 h-3.5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                       </div>
@@ -435,20 +438,20 @@ export default function HomePage() {
 
               {/* Right: Countries visualization */}
               <div className="space-y-6">
-                <div className="glass-panel p-8 rounded-2xl border border-brand-cyan/20 relative overflow-hidden">
+                <div className="glass-panel p-8 rounded-2xl border border-brand-gold/25 relative overflow-hidden">
                   {/* Decorative element */}
                   <div
                     className="absolute top-0 right-0 w-32 h-32 pointer-events-none"
                     style={{
-                      background: "radial-gradient(circle, rgba(137, 175, 198, 0.08) 0%, transparent 70%)",
+                      background: "radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, transparent 70%)",
                       filter: "blur(20px)",
                     }}
                   />
                   
                   <div className="relative">
                     <div className="flex items-center gap-2 mb-6">
-                      <div className="w-7 h-7 rounded-lg bg-brand-cyan/20 border border-brand-cyan/30 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-7 h-7 rounded-lg bg-brand-gold/20 border border-brand-gold/30 flex items-center justify-center">
+                        <svg className="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                         </svg>
                       </div>
@@ -463,9 +466,9 @@ export default function HomePage() {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: i * 0.05, duration: 0.4 }}
-                          className="group flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-white/[0.02] transition-colors"
+                          className="group flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-white/[0.04] transition-colors"
                         >
-                          <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan/50 group-hover:bg-brand-cyan transition-colors" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/60 group-hover:bg-brand-gold transition-colors" />
                           <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{country}</span>
                         </motion.li>
                       ))}
@@ -486,10 +489,10 @@ export default function HomePage() {
             {/* Bottom CTA */}
             <div className="mt-12 lg:mt-16 pt-8 border-t border-white/10">
               <Link href="/global-reach" className="group inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
-                <span className="border-b border-brand-cyan/30 group-hover:border-brand-cyan transition-colors">
+                <span className="border-b border-brand-gold/40 group-hover:border-brand-gold text-brand-gold transition-colors">
                   View complete global reach &amp; community work
                 </span>
-                <ArrowUpRight className="w-4 h-4 text-brand-cyan transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-4 h-4 text-brand-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
           </motion.div>
@@ -499,7 +502,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl">
           <motion.div {...editorialReveal} className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end lg:gap-24">
             <div>
-              <p className="text-xs text-brand-gold">Conversation &amp; advisory</p>
+              <p className="text-xs text-brand-gold uppercase tracking-widest font-medium">Conversation &amp; advisory</p>
               <h2 id="conversation-heading" className="mt-5 max-w-[660px] font-display text-4xl leading-[1.12] text-white sm:text-5xl">
                 Collaborate on AI skilling &amp; sustainable innovation.
               </h2>
@@ -510,10 +513,10 @@ export default function HomePage() {
                 GenAI implementation, sustainability, and presentations.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-5">
-                <Link href="/contact" className="inline-flex min-h-11 items-center gap-3 rounded-sm border border-white bg-white px-5 py-3 text-sm font-medium text-brand-dark transition-colors hover:border-brand-cyanLight hover:bg-brand-cyanLight focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
+                <Link href="/contact" className="inline-flex min-h-11 items-center gap-3 rounded-sm btn-gold px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4">
                   Start a Conversation <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
-                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-[#BFC8C9] transition-colors hover:border-brand-cyan hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
+                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-slate-300 transition-colors hover:border-gold hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4">
                   Connect on LinkedIn <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </a>
               </div>

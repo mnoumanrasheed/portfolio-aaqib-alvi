@@ -75,12 +75,12 @@ export default function ExpertisePage() {
         />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-cyan">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
               Leadership & Expertise
             </p>
             <h1 className="mt-7 max-w-4xl font-display text-[clamp(3rem,8svh,6rem)] font-normal leading-[0.99] text-white">
@@ -125,14 +125,14 @@ export default function ExpertisePage() {
                     <h3 className="text-2xl font-medium leading-tight text-white sm:text-3xl">
                       {pillar.title}
                     </h3>
-                    <p className="mt-2 text-sm font-medium text-brand-cyan">{pillar.subtitle}</p>
+                    <p className="mt-2 text-sm font-medium text-brand-gold">{pillar.subtitle}</p>
                     <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300">
                       {pillar.description}
                     </p>
                     <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {pillar.highlights.slice(0, 2).map((highlight) => (
                         <p key={highlight} className="flex items-start gap-3 text-sm leading-6 text-slate-200">
-                          <span className="mt-2.5 h-px w-5 shrink-0 bg-brand-cyan/70" aria-hidden="true" />
+                          <span className="mt-2.5 h-px w-5 shrink-0 bg-brand-gold/70" aria-hidden="true" />
                           <span>{highlight}</span>
                         </p>
                       ))}
@@ -147,7 +147,7 @@ export default function ExpertisePage() {
           </motion.div>
 
           <motion.div {...reveal} className="mt-14 border-t border-white/10 pt-10">
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Supporting Practice Areas
             </p>
             <div className="mt-7 grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-3">
@@ -199,7 +199,7 @@ export default function ExpertisePage() {
                     <h3 className="text-xl font-medium leading-tight text-white sm:text-2xl">
                       {experience.role}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-brand-cyan">
+                    <p className="mt-2 text-sm leading-6 text-brand-gold">
                       {experience.organization}
                     </p>
                     <p className="mt-1 text-xs leading-5 text-slate-400">{experience.location}</p>
@@ -229,7 +229,7 @@ export default function ExpertisePage() {
       <section aria-labelledby="institutional-contribution" className="section-teal">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24 lg:px-10 lg:py-24">
           <motion.div {...reveal}>
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Institutional & Community Contribution
             </p>
             <h2 id="institutional-contribution" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
@@ -249,7 +249,7 @@ export default function ExpertisePage() {
                       {item.period}
                     </p>
                   </div>
-                  <p className="mt-2 text-sm text-brand-cyan">{item.role}</p>
+                  <p className="mt-2 text-sm text-brand-gold">{item.role}</p>
                   <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">{item.highlight}</p>
                 </article>
               );
@@ -263,7 +263,7 @@ export default function ExpertisePage() {
                     {item.period}
                   </p>
                 </div>
-                <p className="mt-2 text-sm text-brand-cyan">{item.role}</p>
+                <p className="mt-2 text-sm text-brand-gold">{item.role}</p>
                 <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">{item.details}</p>
               </article>
             ))}
@@ -283,7 +283,7 @@ export default function ExpertisePage() {
               </h2>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
               >
                 Start a Conversation
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -299,7 +299,7 @@ export default function ExpertisePage() {
                     </p>
                     <div>
                       <h3 className="text-lg font-medium text-white">{item.degree}</h3>
-                      <p className="mt-2 text-sm leading-6 text-brand-cyan">
+                      <p className="mt-2 text-sm leading-6 text-brand-gold">
                         {item.institution} · {item.location}
                       </p>
                     </div>
@@ -313,7 +313,7 @@ export default function ExpertisePage() {
                 </p>
                 <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {selectedCredentials.map((credential) => (
-                    <p key={credential} className="border-l border-brand-cyan/50 pl-4 text-sm leading-6 text-slate-200">
+                    <p key={credential} className="border-l border-brand-gold/50 pl-4 text-sm leading-6 text-slate-200">
                       {credential}
                     </p>
                   ))}
@@ -321,7 +321,7 @@ export default function ExpertisePage() {
 
                 {secondaryCredentials.length > 0 && (
                   <details className="mt-8 border-t border-white/10 pt-6">
-                    <summary className="cursor-pointer text-sm font-medium text-white transition-colors hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4">
+                    <summary className="cursor-pointer text-sm font-medium text-white transition-colors hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4">
                       Additional credentials
                     </summary>
                     <div className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">

@@ -160,7 +160,7 @@ export default function VenturesPage() {
       <section aria-labelledby="impact-stories" className="section-page">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
           <motion.div {...reveal} className="max-w-3xl">
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Flagship Impact Stories
             </p>
             <h2 id="impact-stories" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
@@ -183,7 +183,7 @@ export default function VenturesPage() {
                   <p className="mt-5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-brand-gold">
                     {story.label}
                   </p>
-                  <p className="mt-8 max-w-xs border-t border-brand-cyan/30 pt-5 font-display text-4xl font-normal leading-none text-white">
+                  <p className="mt-8 max-w-xs border-t border-brand-gold/40 pt-5 font-display text-4xl font-normal leading-none text-white">
                     {story.measure}
                   </p>
                 </aside>
@@ -210,7 +210,7 @@ export default function VenturesPage() {
                   </div>
 
                   <section className="mt-9 border-y border-white/10 py-7">
-                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-brand-cyan">
+                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-brand-gold">
                       Outcome
                     </p>
                     <p className="mt-4 max-w-3xl text-base leading-8 text-slate-100">
@@ -240,7 +240,7 @@ export default function VenturesPage() {
       <section aria-labelledby="evidence-index" className="section-soft border-y border-border">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.65fr_1.35fr] lg:gap-24 lg:px-10 lg:py-24">
           <motion.div {...reveal}>
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-cyan">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Evidence Index
             </p>
             <h2 id="evidence-index" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
@@ -265,7 +265,7 @@ export default function VenturesPage() {
                     <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand-gold">
                       {period}
                     </p>
-                    <p className="mt-2 text-sm leading-6 text-brand-cyan">{role}</p>
+                    <p className="mt-2 text-sm leading-6 text-brand-gold">{role}</p>
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-white">{title}</h3>
@@ -292,7 +292,7 @@ export default function VenturesPage() {
             <div className="lg:justify-self-end">
               <Link
                 href="/contact"
-                className="inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                className="inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
               >
                 Start a Conversation
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

@@ -21,7 +21,7 @@ export default function Footer() {
             <Link
               href="/"
               aria-label="Aaqib Alvi homepage"
-              className="group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+              className="group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
             >
               <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-white/15">
                 <Image src="/logo.png" alt="Aaqib Alvi Logo" fill sizes="44px" className="object-cover" />
@@ -52,7 +52,7 @@ export default function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-slate-300 transition-colors duration-300 hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                      className="text-slate-300 transition-colors duration-300 hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
                     >
                       {item.label}
                     </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm text-slate-300 transition-colors duration-300 hover:text-brand-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan focus-visible:outline-offset-4"
+                className="mt-5 inline-flex items-center gap-2 text-sm text-slate-300 transition-colors duration-300 hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
               >
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
                 <span>LinkedIn</span>

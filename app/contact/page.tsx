@@ -91,7 +91,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="section-teal relative -mt-20 pb-12 lg:pb-20">
+    <div className="section-page relative -mt-20 pb-12 lg:pb-20">
       <section aria-labelledby="contact-heading" className="section-page relative isolate flex min-h-[100svh] items-center overflow-hidden border-b border-border pt-20">
         <CinematicHeroImage src="/contact-hero.png" objectPosition="object-[center_48%]" intensity="calm" />
         <AmbientLightSweep />
@@ -101,7 +101,7 @@ export default function ContactPage() {
           aria-hidden="true"
           className="absolute inset-0 -z-20"
           style={{
-            background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(39, 107, 109, 0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(162, 124, 66, 0.07) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(197, 160, 89, 0.12) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(197, 160, 89, 0.06) 0%, transparent 60%)",
           }}
         />
         <div aria-hidden="true" className="editorial-hero-bottom absolute inset-0 -z-10" />
@@ -149,7 +149,7 @@ export default function ContactPage() {
               <ul className="space-y-2">
                 {CONVERSATION_CATEGORIES.map((category) => (
                   <li key={category} className="text-sm text-slate-400 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-brand-cyan/50" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/70" />
                     {category}
                   </li>
                 ))}
@@ -165,18 +165,18 @@ export default function ContactPage() {
               {/* Phone */}
               <a
                 href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, "")}`}
-                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-brand-gold transition-colors group"
               >
-                <Phone className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <Phone className="w-4 h-4 text-brand-gold/70 group-hover:text-brand-gold" />
                 <span>{PERSONAL_INFO.phone}</span>
               </a>
 
               {/* Primary Email */}
               <a
                 href={`mailto:${PERSONAL_INFO.emails[0]}`}
-                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-brand-gold transition-colors group"
               >
-                <Mail className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <Mail className="w-4 h-4 text-brand-gold/70 group-hover:text-brand-gold" />
                 <span>{PERSONAL_INFO.emails[0]}</span>
               </a>
 
@@ -185,15 +185,15 @@ export default function ContactPage() {
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors group"
+                className="flex items-center gap-3 text-sm text-slate-300 hover:text-brand-gold transition-colors group"
               >
-                <Linkedin className="w-4 h-4 text-brand-cyan/70 group-hover:text-brand-cyan" />
+                <Linkedin className="w-4 h-4 text-brand-gold/70 group-hover:text-brand-gold" />
                 <span>LinkedIn Profile</span>
               </a>
 
               {/* Locations */}
               <div className="flex items-center gap-3 text-sm text-slate-400 pt-2">
-                <MapPin className="w-4 h-4 text-brand-cyan/50" />
+                <MapPin className="w-4 h-4 text-brand-gold/70" />
                 <span>Singapore · United States</span>
               </div>
             </div>
@@ -273,8 +273,8 @@ export default function ContactPage() {
 
                     {/* Name */}
                     <div className="space-y-2">
-                      <label htmlFor="name" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
-                        Name <span className="text-brand-cyan">*</span>
+                      <label htmlFor="name" className="block text-xs uppercase tracking-widest text-slate-400 font-medium">
+                        Name <span className="text-brand-gold">*</span>
                       </label>
                       <input
                         id="name"
@@ -291,8 +291,8 @@ export default function ContactPage() {
 
                     {/* Email */}
                     <div className="space-y-2">
-                      <label htmlFor="email" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
-                        Email <span className="text-brand-cyan">*</span>
+                      <label htmlFor="email" className="block text-xs uppercase tracking-widest text-slate-400 font-medium">
+                        Email <span className="text-brand-gold">*</span>
                       </label>
                       <input
                         id="email"
@@ -309,8 +309,8 @@ export default function ContactPage() {
 
                     {/* Organization */}
                     <div className="space-y-2">
-                      <label htmlFor="organization" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
-                        Organization <span className="text-brand-cyan">*</span>
+                      <label htmlFor="organization" className="block text-xs uppercase tracking-widest text-slate-400 font-medium">
+                        Organization <span className="text-brand-gold">*</span>
                       </label>
                       <input
                         id="organization"
@@ -327,8 +327,8 @@ export default function ContactPage() {
 
                     {/* Message */}
                     <div className="space-y-2">
-                      <label htmlFor="message" className="block text-xs uppercase tracking-widest text-slate-500 font-medium">
-                        Message <span className="text-brand-cyan">*</span>
+                      <label htmlFor="message" className="block text-xs uppercase tracking-widest text-slate-400 font-medium">
+                        Message <span className="text-brand-gold">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -347,11 +347,11 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={formState === "loading"}
-                      className="w-full py-3.5 rounded-lg text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
+                      className="w-full py-3.5 rounded-lg text-xs uppercase tracking-widest font-semibold text-brand-dark btn-gold transition-all disabled:opacity-70 flex items-center justify-center gap-2"
                     >
                       {formState === "loading" ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <Loader2 className="w-4 h-4 animate-spin text-brand-dark" />
                           <span>Sending...</span>
                         </>
                       ) : (

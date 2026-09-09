@@ -26,12 +26,12 @@ export default function GlobalReachPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-xs uppercase tracking-widest text-brand-cyan font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-xs uppercase tracking-widest text-brand-gold font-medium">
             Planetary Footprint
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Global Footprint, SDGs & <br />
-            <span className="text-gradient-cyan">Humanitarian Stewardship</span>
+            <span className="text-gradient-gold">Humanitarian Stewardship</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
             AI skilling programs were delivered with ministries and partners across 35+ governments,
@@ -40,7 +40,7 @@ export default function GlobalReachPage() {
         </div>
 
         {/* 35+ GOVERNMENTS FOOTPRINT MATRIX */}
-        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-border mb-20">
+        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <span className="text-xs uppercase tracking-[0.2em] font-medium text-brand-gold">
@@ -64,11 +64,11 @@ export default function GlobalReachPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
-                className="p-4 rounded-2xl bg-surface-teal border border-border hover:border-brand-cyan/30 transition-all group"
+                className="p-4 rounded-2xl bg-[#0E131F] border border-white/10 hover:border-brand-gold/40 transition-all group"
               >
                 <div className="flex items-center gap-2.5 mb-1.5">
-                  <MapPin className="w-4 h-4 text-brand-cyan group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors">
+                  <MapPin className="w-4 h-4 text-brand-gold group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-bold text-white group-hover:text-brand-gold transition-colors">
                     {item.country}
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export default function GlobalReachPage() {
             ].map((sdg) => (
               <div
                 key={sdg.sdg}
-                className="glass-panel p-6 rounded-3xl border border-border hover:border-accent/20 transition-all space-y-3"
+                className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-brand-gold/30 transition-all space-y-3"
               >
                 <div className="text-xs font-bold uppercase tracking-wider text-white">
                   {sdg.sdg}
@@ -151,13 +151,13 @@ export default function GlobalReachPage() {
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.name}
-                className="p-5 rounded-2xl glass-card border border-border hover:border-brand-gold/40 transition-all"
+                className="p-5 rounded-2xl glass-card border border-white/10 hover:border-brand-gold/40 transition-all"
               >
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h4 className="text-sm font-bold text-white">{cert.name}</h4>
                   <Award className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
                 </div>
-                <div className="text-xs text-brand-cyan">{cert.issuer}</div>
+                <div className="text-xs text-brand-gold">{cert.issuer}</div>
                 {cert.credentialId && (
                   <div className="text-[10px] text-slate-300 font-mono mt-2 truncate">
                     ID: {cert.credentialId}
@@ -169,9 +169,9 @@ export default function GlobalReachPage() {
         </div>
 
         {/* HUMANITARIAN & COMMUNITY SERVICE */}
-        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-brand-emerald/20">
+        <div className="glass-panel p-8 md:p-12 rounded-3xl border border-brand-gold/25">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 rounded-2xl bg-brand-emerald/15 text-brand-emerald">
+            <div className="p-3 rounded-2xl bg-brand-gold/15 text-brand-gold">
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div>
@@ -188,13 +188,13 @@ export default function GlobalReachPage() {
             {VOLUNTEERING.map((vol) => (
               <div
                 key={vol.title}
-                className="p-6 rounded-2xl bg-surface-warm border border-border space-y-3"
+                className="p-6 rounded-2xl bg-[#0E131F] border border-white/10 space-y-3"
               >
                 <div className="flex items-center justify-between">
                   <h4 className="text-base font-bold text-white">{vol.title}</h4>
                   <span className="text-xs text-brand-gold font-medium">{vol.period}</span>
                 </div>
-                <div className="text-xs text-brand-emerald font-semibold uppercase tracking-wider">
+                <div className="text-xs text-brand-gold font-semibold uppercase tracking-wider">
                   {vol.role}
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">{vol.details}</p>
