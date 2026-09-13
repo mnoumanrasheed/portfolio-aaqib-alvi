@@ -3,198 +3,304 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  ArrowUpRight,
-} from "lucide-react";
-import HeroOrbit from "@/components/HeroOrbit";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Download, ArrowUpRight } from "lucide-react";
+import ExecutiveHeroRight from "@/components/ExecutiveHeroRight";
+import HomepageHeroBackground from "@/components/HomepageHeroBackground";
+import AnimatedProfilePortrait from "@/components/AnimatedProfilePortrait";
 import { PERSONAL_INFO } from "@/data/content";
 
+/* ── Shared animation presets ───────────────────────────── */
 const editorialReveal = {
   initial: { opacity: 0.85 },
   whileInView: { opacity: 1 },
   viewport: { once: true, amount: 0.1 },
   transition: { duration: 0.8, ease: "easeOut" as const },
 };
-const editorialLink = "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-brand-gold/40 py-2 text-sm text-brand-gold transition-colors duration-300 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4";
 
-/* ── Animation helpers ──────────────────────────────────── */
-const fadeUp = (delay = 0, y = 24) => ({
+const editorialLink =
+  "mt-7 inline-flex min-h-11 items-center gap-3 border-b border-gold/40 py-2 text-sm font-medium text-gold transition-colors duration-300 hover:border-foreground hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4";
+
+const fadeUp = (delay = 0, y = 20) => ({
   initial: { opacity: 0, y },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
+  transition: { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] as const },
 });
 
 /* ══════════════════════════════════════════════════════════ */
 export default function HomePage() {
+  const prefersReduced = useReducedMotion();
   return (
-    <div className="relative -mt-20 min-h-screen overflow-hidden">
+    <div className="relative -mt-20 min-h-screen overflow-x-hidden">
 
-      {/* ══════════════ HERO SECTION ══════════════ */}
-      <section className="section-page relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-8 sm:pt-20 lg:pt-16 lg:pb-6">
-        {/* ── Background atmosphere ─────────────────────── */}
+      {/* ══════════════════════════════════════════════════════
+          PREMIUM EXECUTIVE HERO — 100vh, interactive 3D cards
+      ══════════════════════════════════════════════════════ */}
+      <section
+        aria-label="Executive profile introduction"
+        className="relative flex h-[100svh] max-h-[100svh] items-center overflow-hidden bg-white dark:bg-[#05070D]"
+      >
+        {/* ── Premium subtle animated background ── */}
+        <HomepageHeroBackground />
 
-        {/* Left radial glow (behind typography) */}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 left-[-12%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%)",
-            filter: "blur(50px)",
+        {/* ── Premium animated background atmosphere ── */}
+        <motion.div
+          animate={{
+            opacity: [0.015, 0.04, 0.015],
           }}
-        />
-
-        {/* Right radial glow (behind orbit) */}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 right-[-10%] w-[55vw] h-[55vw] max-w-[680px] max-h-[680px] pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(212, 175, 55, 0.07) 0%, transparent 70%)",
-            filter: "blur(55px)",
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
-        />
-
-        {/* Subtle grid overlay — center-masked */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-40"
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
-            backgroundSize: "54px 54px",
-            maskImage:
-              "radial-gradient(ellipse 85% 90% at 50% 50%, black 10%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 85% 90% at 50% 50%, black 10%, transparent 100%)",
+              "radial-gradient(circle at 20% 30%, rgba(201,162,39,0.08) 0px, transparent 450px), radial-gradient(circle at 80% 70%, rgba(201,162,39,0.05) 0px, transparent 550px), radial-gradient(circle at 50% 50%, rgba(201,162,39,0.03) 0px, transparent 600px)",
           }}
         />
 
-        {/* Vertical center divider (desktop only) */}
-        <div
-          className="absolute top-[12%] bottom-[12%] left-1/2 -translate-x-1/2 w-[1px] pointer-events-none hidden min-[1180px]:block"
+        {/* Ambient gradient meshes */}
+        <motion.div
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"],
+            opacity: [0.08, 0.15, 0.08],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.04) 25%, rgba(197, 160, 89, 0.25) 50%, rgba(255, 255, 255, 0.04) 75%, transparent 100%)",
+            backgroundImage:
+              "conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(201,162,39,0.15) 90deg, transparent 180deg, rgba(201,162,39,0.1) 270deg, transparent 360deg)",
+            backgroundSize: "200% 200%",
+            filter: "blur(80px)",
           }}
         />
 
-        {/* ── Content ──────────────────────────────────── */}
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid min-h-[calc(100svh-7rem)] grid-cols-1 items-center gap-6 min-[1180px]:grid-cols-[50%_50%] min-[1180px]:gap-4">
+        {/* Premium grain texture overlay */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none opacity-[0.02]"
+          style={{
+            backgroundImage:
+              "url(data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E)",
+          }}
+        />
 
-            {/* Left: editorial introduction */}
-            <div className="relative z-10 flex min-w-0 flex-col justify-center py-10 font-sans tracking-normal sm:py-12 min-[1180px]:py-6 min-[1180px]:pr-10 xl:pr-14">
-              <motion.div
-                {...fadeUp(0.1, 8)}
-                className="inline-flex items-center gap-2 self-start rounded-full border border-brand-gold/30 bg-brand-gold/10 px-3.5 py-1"
-              >
-                <div className="h-1.5 w-1.5 rounded-full bg-brand-gold animate-pulse" />
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-gold sm:text-[11px]">
-                  GLOBAL AI &amp; INNOVATION LEADER
-                </span>
+        {/* Futuristic AI particles */}
+        <motion.div
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"],
+          }}
+          transition={{
+            duration: 90,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none opacity-[0.12]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(201,162,39,0.5) 1px, transparent 1px)",
+            backgroundSize: "90px 90px",
+            maskImage:
+              "radial-gradient(ellipse 65% 55% at 70% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 65% 55% at 70% 50%, black 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Noise texture movement */}
+        <motion.div
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 40,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "url(data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)'/%3E%3C/svg%3E)",
+            backgroundSize: "400px 400px",
+          }}
+        />
+
+        {/* ── Main content grid ─────────────────────────── */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-12">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[46%_54%] lg:gap-20 xl:gap-24 items-center min-h-[calc(100svh-8rem)]">
+
+            {/* ════════════════════════════════════════════
+                LEFT — Executive identity & impact
+            ════════════════════════════════════════════ */}
+            <div className="flex flex-col justify-center pt-24 pb-8 lg:pt-0 lg:pb-0">
+
+              {/* Badge */}
+              <motion.div {...fadeUp(0.1, 15)} className="mb-7">
+                <div className="inline-flex items-center gap-2.5 rounded-full border border-[#C9A227]/20 bg-[#C9A227]/5 px-5 py-2.5 backdrop-blur-sm">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-[#C9A227]"
+                    style={{ boxShadow: "0 0 10px rgba(201,162,39,0.9)" }}
+                  />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A227]">
+                    Global AI &amp; Innovation Leader
+                  </span>
+                </div>
               </motion.div>
 
+              {/* Name — large editorial heading */}
               <motion.h1
-                {...fadeUp(0.18, 10)}
-                className="mt-6 whitespace-nowrap font-display text-[clamp(3.25rem,8svh,4rem)] font-normal leading-[1.08] tracking-normal text-gradient-hero sm:text-[clamp(3.75rem,10svh,5.5rem)]"
+                {...fadeUp(0.2, 20)}
+                className="hero-name font-display text-[clamp(3.8rem,9vh,7rem)] font-normal leading-[0.92] tracking-[-0.025em] mb-7"
+                style={{ letterSpacing: "-0.02em" }}
               >
                 Aaqib Alvi
               </motion.h1>
 
+              {/* Main headline — strong statement */}
               <motion.p
-                {...fadeUp(0.26, 8)}
-                className="mt-6 max-w-[480px] text-[clamp(1.125rem,2.8svh,1.375rem)] font-medium leading-[1.4] text-white"
+                {...fadeUp(0.3, 18)}
+                className="text-[clamp(1.2rem,2.6vh,1.65rem)] font-semibold leading-[1.35] text-gray-900 dark:text-white max-w-[560px] mb-5"
+                style={{ letterSpacing: "-0.01em" }}
               >
                 Turning emerging technology into institutional capability.
               </motion.p>
 
-              <motion.p
-                {...fadeUp(0.34, 8)}
-                className="mt-4 max-w-[500px] text-sm font-normal leading-[1.75] text-slate-300 sm:text-[15px]"
-              >
-                Advancing workforce readiness and measurable impact through emerging
-                technologies across governments, universities, organizations, and communities.
+              {/* Supporting paragraph */}
+                <motion.p
+                  {...fadeUp(0.4, 16)}
+                  className="text-[clamp(0.95rem,1.85vh,1.1rem)] leading-[1.75] text-gray-800 dark:text-gray-400 max-w-[560px] mb-9"
+                  style={{ letterSpacing: "-0.002em" }}
+                >
+                Advancing workforce readiness and measurable impact through AI,
+                digital transformation and education technology across governments,
+                universities, organizations and communities.
               </motion.p>
 
+              {/* CTAs — premium buttons */}
               <motion.div
-                {...fadeUp(0.42, 8)}
-                className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4"
+                {...fadeUp(0.5, 14)}
+                className="flex flex-wrap items-center gap-4 mb-12"
               >
                 <Link
                   href="/expertise"
-                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-sm btn-gold px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
+                  className="group inline-flex items-center gap-2.5 rounded-lg px-8 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white dark:text-[#05070D] transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(201,162,39,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-gradient-to-r from-[#b58c2a] to-[#8a6518] dark:from-[#E8D9A6] dark:to-[#C9A227] shadow-[0_8px_25px_-5px_rgba(138,101,24,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(201,162,39,0.3)]"
                 >
-                  Explore Leadership
-                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
+                  <span>Explore Leadership</span>
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1.5"
+                    aria-hidden="true"
+                  />
                 </Link>
-                <Link
-                  href="/ventures"
-                  className="group inline-flex min-h-11 items-center justify-center gap-2 border-b border-brand-gold/40 py-3 text-xs font-medium text-brand-gold transition-colors duration-300 hover:border-white hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
+
+                <a
+                  href="/aaqib-alvi-profile.pdf"
+                  download="Aaqib-Alvi-Executive-Profile.pdf"
+                  className="group inline-flex items-center gap-2.5 rounded-lg border border-[#C9A227]/40 dark:border-[#C9A227]/25 px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-800 dark:text-white backdrop-blur-sm transition-all duration-500 hover:border-[#C9A227] dark:hover:border-[#C9A227]/50 hover:bg-[#C9A227]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-white/40 dark:bg-[#101522]/50 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.4)]"
                 >
-                  View Impact
-                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
-                </Link>
+                  <Download
+                    className="h-4 w-4 text-[#C9A227] transition-transform duration-500 group-hover:translate-y-0.5"
+                    aria-hidden="true"
+                  />
+                  <span>Download Profile</span>
+                </a>
               </motion.div>
 
-              <motion.dl
-                {...fadeUp(0.5, 6)}
-                className="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-6"
-                aria-label="Experience and reach"
-              >
-                {[
-                  { value: "35+", label: "Governments" },
-                  { value: "200K+", label: "People Reached" },
-                  { value: "12+", label: "Years in EdTech" },
-                ].map((metric) => (
-                  <div key={metric.label} className="flex min-w-0 flex-col gap-1">
-                    <dt className="order-2 text-[10px] uppercase tracking-wider text-slate-400 sm:text-[11px]">{metric.label}</dt>
-                    <dd className="order-1 font-display text-2xl font-normal leading-tight tabular-nums text-white sm:text-3xl">{metric.value}</dd>
+              {/* Impact metrics — refined presentation */}
+                <motion.dl
+                  {...fadeUp(0.6, 12)}
+                  aria-label="Career reach and impact metrics"
+                  className="grid grid-cols-3 gap-7 border-t border-[#C9A227]/8 pt-9"
+                >
+                  {[
+                    { value: "35+", label: "Governments" },
+                    { value: "200K+", label: "People Reached" },
+                    { value: "12+", label: "Years Experience" },
+                  ].map((m, i) => (
+                    <div key={m.label} className="flex flex-col"
+                    >
+                      <dd className="font-display text-[clamp(2.2rem,4.5vh,3.5rem)] font-normal leading-none tabular-nums text-black dark:text-white mb-2">
+                        {m.value}
+                      </dd>
+                    <dt className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-gray-500">
+                      {m.label}
+                    </dt>
                   </div>
                 ))}
               </motion.dl>
             </div>
 
-            {/* ═══ RIGHT: Leadership Ecosystem Visual ═════ */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex -translate-y-2 flex-col items-center justify-center py-6 sm:py-8 min-[1180px]:-translate-y-4 min-[1180px]:py-0 min-[1180px]:pl-2"
-            >
-              <HeroOrbit />
-            </motion.div>
+            {/* ════════════════════════════════════════════
+                RIGHT — Futuristic AI Ecosystem
+            ════════════════════════════════════════════ */}
+            <div className="relative flex items-center justify-center pb-8 lg:pb-0 min-h-[650px]">
+              <ExecutiveHeroRight />
+            </div>
 
-          </div>
-        </div>
+          </div>{/* /grid */}
+        </div>{/* /container */}
 
-        {/* Bottom fade into next section */}
-        <div
-          className="absolute bottom-0 inset-x-0 h-28 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(8, 12, 20, 0.95) 0%, transparent 100%)" }}
-        />
+        {/* Premium scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.8, duration: 1.2 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:flex"
+        >
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="flex flex-col items-center gap-3"
+          >
+            <span className="text-[9px] uppercase tracking-[0.25em] text-gray-600 dark:text-gray-300 font-semibold">
+              Scroll
+            </span>
+            <div className="w-px h-10 bg-gradient-to-b from-[#C9A227]/50 dark:from-[#C9A227]/30 via-[#C9A227]/20 dark:via-[#C9A227]/10 to-transparent" />
+          </motion.div>
+        </motion.div>
+
       </section>
 
+      {/* ══════════════ EXECUTIVE INTRODUCTION ══════════════ */}
       <div className="font-sans tracking-normal">
-        <section aria-labelledby="executive-introduction" className="section-surface border-t border-border">
-          <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-[0.8fr_1.5fr] md:items-center lg:gap-24 lg:px-10 lg:py-28">
-            <figure className="max-w-[360px]">
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Image src="/profile.jpeg" alt="Aaqib Alvi" fill sizes="(max-width: 767px) 90vw, 360px" className="object-cover object-top" />
-              </div>
-              <figcaption className="mt-4 flex items-center justify-between gap-4 border-t border-white/15 pt-3 text-xs text-slate-400">
-                <span>Aaqib Alvi</span>
-                <span>Singapore / United States</span>
-              </figcaption>
-            </figure>
+        <section aria-labelledby="executive-introduction" className="section-surface border-t border-[var(--border)]">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[0.8fr_1.5fr] md:items-center lg:gap-24 lg:px-10 lg:py-24">
+            <div className="max-w-[340px]">
+              <AnimatedProfilePortrait
+                overlayStyle="caption"
+                badgeText="Executive"
+                name="Aaqib Alvi"
+                extraInfo="Singapore / United States"
+                priority
+              />
+            </div>
+
             <motion.div {...editorialReveal} className="max-w-[680px]">
-              <p className="text-xs text-brand-gold">Executive introduction</p>
-              <h2 id="executive-introduction" className="mt-5 font-display text-4xl leading-[1.12] text-white sm:text-5xl">
+              <p className="text-xs uppercase tracking-widest font-semibold text-gold">Executive Introduction</p>
+              <h2 id="executive-introduction" className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.12] text-[var(--text-primary)]">
                 Connecting technology, education, and sustainable innovation.
               </h2>
-              <p className="mt-7 max-w-[560px] text-base leading-8 text-slate-300">
+              <p className="mt-6 max-w-[580px] text-base leading-8 text-[var(--text-secondary)] sm:text-[17px]">
                 A global program and business leader working across AI and digital readiness,
                 STEAM learning, sustainability, and business development. The focus:
                 human readiness and measurable impact.
               </p>
-              <p className="mt-5 max-w-[560px] text-sm leading-7 text-slate-400">
+              <p className="mt-4 max-w-[580px] text-sm leading-7 text-muted sm:text-base">
                 Chemical Engineering at the National University of Singapore and an Executive
                 MBA at Quantic School of Business and Technology form part of this cross-border journey.
               </p>
@@ -205,323 +311,166 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section aria-labelledby="selected-evidence" className="section-teal px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
+        {/* ══════════════ SELECTED EVIDENCE ══════════════ */}
+        <section aria-labelledby="selected-evidence" className="section-soft px-5 pb-16 sm:px-8 lg:px-10 lg:pb-24">
           <div className="mx-auto max-w-7xl">
-          <motion.div {...editorialReveal} className="border-t border-white/15 pt-10">
-            <div className="grid gap-5 md:grid-cols-[1fr_2fr] md:gap-12">
-              <p className="text-xs text-brand-gold">Selected evidence</p>
-              <div>
-                <h2 id="selected-evidence" className="font-display text-4xl leading-tight text-white sm:text-5xl">
-                  From ambition to delivery.
-                </h2>
-                <p className="mt-5 max-w-[540px] text-base leading-8 text-slate-300">
-                  Work across institutions, learning businesses, and emerging ventures.
-                </p>
-              </div>
-            </div>
-
-            <article className="mt-12 grid gap-6 border-t border-white/10 py-10 md:grid-cols-[1fr_2fr] md:gap-12 lg:py-12">
-              <div className="space-y-2 text-sm leading-6">
-                <p className="text-white">Sustainable Living Lab USA</p>
-                <p className="text-slate-400">General Manager</p>
-              </div>
-              <div className="max-w-[690px]">
-                <h3 className="font-display text-3xl leading-tight text-white sm:text-4xl">Building the U.S. presence.</h3>
-                <p className="mt-5 text-[15px] leading-8 text-slate-300">
-                  Formalized and scaled the U.S. presence of Sustainable Living Laboratory LLC,
-                  providing consultation, AI learning and digital-skills tools, deployment and IT
-                  support, professional training, and AI/GenAI implementation.
-                </p>
-                <p className="mt-5 border-l border-brand-gold/40 pl-5 text-sm leading-7 text-slate-300">
-                  Scaling to 35+ U.S. states, collaborating with 100+ colleges, training 300+
-                  professors, and creating more than 1,000 hours of content.
-                </p>
-              </div>
-            </article>
-
-            <article className="grid gap-6 border-t border-white/10 py-10 md:grid-cols-[1fr_2fr] md:gap-12 lg:py-12">
-              <div className="space-y-2 text-sm leading-6">
-                <p className="text-white">Whizz Kidz / AI Teach U</p>
-                <p className="text-slate-400">Education &amp; business development</p>
-              </div>
-              <div className="max-w-[690px]">
-                <h3 className="font-display text-3xl leading-tight text-white sm:text-4xl">Learning, built for people.</h3>
-                <p className="mt-5 text-[15px] leading-8 text-slate-300">
-                  At Whizz Kidz, supported revenue growth from 200k in late 2013 to more than
-                  700k by early 2019, alongside business operations and STEAM learning.
-                  At AI Teach U / AI Love Venture, work included teacher training, product
-                  development, and instructional design for spoken-language curricula.
-                </p>
-              </div>
-            </article>
-
-            <article className="grid gap-6 border-y border-white/10 py-10 md:grid-cols-[1fr_2fr] md:gap-12">
-              <div className="space-y-2 text-sm leading-6">
-                <p className="text-white">INSEAD AI Venture Lab</p>
-                <p className="text-slate-400">Startup mentorship</p>
-              </div>
-              <div className="max-w-[690px]">
-                <h3 className="font-display text-3xl leading-tight text-white">Supporting emerging ventures.</h3>
-                <p className="mt-5 text-[15px] leading-8 text-slate-300">
-                  Mentor top-selected startups under the INSEAD AI Venture Lab.
-                </p>
-              </div>
-            </article>
-            <div className="flex md:justify-end">
-              <Link href="/ventures" className={editorialLink}>
-                Explore the full track record <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </Link>
-            </div>
-          </motion.div>
-          </div>
-        </section>
-
-        <section aria-labelledby="expertise-preview" className="section-warm px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
-          <div className="mx-auto max-w-7xl">
-          <motion.div {...editorialReveal} className="grid gap-12 border-t border-white/15 pt-10 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
-            <div className="max-w-[430px]">
-              <p className="text-xs text-brand-gold">Leadership &amp; expertise</p>
-              <h2 id="expertise-preview" className="mt-5 font-display text-4xl leading-[1.12] text-white sm:text-5xl">
-                A connected field of practice.
-              </h2>
-              <p className="mt-6 text-base leading-8 text-slate-300">
-                AI skilling, GenAI implementation, Digital Trust, sustainability, futures
-                thinking, and EdTech.
-              </p>
-              <Link href="/expertise" className={editorialLink}>
-                Explore leadership &amp; expertise <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </Link>
-            </div>
-            <dl className="divide-y divide-white/10">
-              <div className="pb-8">
-                <dt className="font-display text-3xl leading-tight text-white">AI &amp; digital readiness</dt>
-                <dd className="mt-4 text-sm leading-7 text-slate-300">
-                  National-level AI skilling, curriculum localization, AI/GenAI implementation,
-                  and Digital Trust.
-                </dd>
-              </div>
-              <div className="py-8">
-                <dt className="font-display text-3xl leading-tight text-white">Education &amp; enterprise</dt>
-                <dd className="mt-4 text-sm leading-7 text-slate-300">
-                  EdTech strategy, STEAM learning, instructional design, business development,
-                  and program and project management.
-                </dd>
-              </div>
-              <div className="pt-8">
-                <dt className="font-display text-3xl leading-tight text-white">Sustainability &amp; foresight</dt>
-                <dd className="mt-4 text-sm leading-7 text-slate-300">
-                  Climate adaptation, SDG-oriented visioning, futures thinking, foresight
-                  planning, corporate innovation, and leadership training.
-                </dd>
-              </div>
-            </dl>
-          </motion.div>
-          </div>
-        </section>
-
-        <section aria-labelledby="institutional-footprint" className="section-soft relative overflow-hidden border-y border-border">
-          {/* Premium background treatment */}
-          <div className="absolute inset-0 pointer-events-none">
-            {/* Subtle radial gradient top-left */}
-            <div
-              className="absolute top-0 left-0 w-[600px] h-[600px]"
-              style={{
-                background: "radial-gradient(circle at top left, rgba(197, 160, 89, 0.07) 0%, transparent 60%)",
-                filter: "blur(40px)",
-              }}
-            />
-            {/* Subtle radial gradient bottom-right */}
-            <div
-              className="absolute bottom-0 right-0 w-[500px] h-[500px]"
-              style={{
-                background: "radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.05) 0%, transparent 60%)",
-                filter: "blur(40px)",
-              }}
-            />
-            {/* Premium grid pattern with mask */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px)",
-                backgroundSize: "48px 48px",
-                maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
-                WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
-              }}
-            />
-          </div>
-
-          <motion.div {...editorialReveal} className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-32">
-            {/* Section header */}
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20">
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse" />
-                <p className="text-[10px] uppercase tracking-widest text-brand-gold font-medium">Global &amp; Institutional Footprint</p>
-              </div>
-              <h2 id="institutional-footprint" className="mt-6 max-w-[820px] font-display text-4xl leading-[1.12] text-white sm:text-5xl lg:text-6xl">
-                International reach.<br />
-                <span className="text-gradient-gold">Local learning contexts.</span>
-              </h2>
-            </div>
-
-            {/* Main content grid */}
-            <div className="mt-12 lg:mt-16 grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-              {/* Left: Key narrative */}
-              <div className="space-y-8">
-                {/* Intel program highlight */}
-                <div className="glass-panel p-8 rounded-2xl border border-white/10 space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-brand-gold/15 flex items-center justify-center">
-                          <svg className="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <span className="text-xs uppercase tracking-wider text-brand-gold font-medium">Intel Global Programs</span>
-                      </div>
-                      <p className="text-base leading-7 text-slate-200">
-                        Managed global AI programs for Intel and launched national-level skilling programs with ministries and partners across multiple continents.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-white/10 grid grid-cols-3 gap-4">
-                    <div>
-                      <div className="text-2xl font-light text-white tabular-nums">35+</div>
-                      <div className="text-xs text-slate-400 mt-1">Governments</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-light text-white tabular-nums">200K+</div>
-                      <div className="text-xs text-slate-400 mt-1">People Reached</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-light text-white tabular-nums">9</div>
-                      <div className="text-xs text-slate-400 mt-1">Countries</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Audiences & localization */}
-                <div className="space-y-4">
-                  <div className="glass-card p-6 rounded-xl border border-white/5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-md bg-brand-gold/15 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg className="w-3.5 h-3.5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-medium text-white mb-1.5">Diverse Audiences</h3>
-                        <p className="text-sm leading-6 text-slate-400">
-                          General public, youth, vocational graduates, and working professionals across institutional and community settings.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="glass-card p-6 rounded-xl border border-white/5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-md bg-brand-gold/15 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg className="w-3.5 h-3.5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                        </svg>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-medium text-white mb-1.5">Curriculum Localization</h3>
-                        <p className="text-sm leading-6 text-slate-400">
-                          AI strategies and curriculum adaptation for regional educational contexts, institutional frameworks, and cultural learning environments.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Countries visualization */}
-              <div className="space-y-6">
-                <div className="glass-panel p-8 rounded-2xl border border-brand-gold/25 relative overflow-hidden">
-                  {/* Decorative element */}
-                  <div
-                    className="absolute top-0 right-0 w-32 h-32 pointer-events-none"
-                    style={{
-                      background: "radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, transparent 70%)",
-                      filter: "blur(20px)",
-                    }}
-                  />
-                  
-                  <div className="relative">
-                    <div className="flex items-center gap-2 mb-6">
-                      <div className="w-7 h-7 rounded-lg bg-brand-gold/20 border border-brand-gold/30 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
-                      </div>
-                      <h3 className="text-sm font-medium text-white uppercase tracking-wider">Program Reach</h3>
-                    </div>
-
-                    <ul className="space-y-3">
-                      {["United States", "Singapore", "India", "Korea", "Japan", "Russia", "Poland", "Germany", "China"].map((country, i) => (
-                        <motion.li
-                          key={country}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: i * 0.05, duration: 0.4 }}
-                          className="group flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-white/[0.04] transition-colors"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/60 group-hover:bg-brand-gold transition-colors" />
-                          <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{country}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Additional scope */}
-                <div className="p-6 rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.02] to-transparent">
-                  <p className="text-xs uppercase tracking-wider text-slate-500 mb-3">Extended Scope</p>
-                  <p className="text-sm leading-6 text-slate-400">
-                    Experience spans SDG-oriented visioning, professional learning certifications, humanitarian relief coordination, and cross-cultural stakeholder engagement.
+            <motion.div {...editorialReveal} className="border-t border-[var(--border)] pt-10">
+              <div className="grid gap-5 md:grid-cols-[1fr_2fr] md:gap-12">
+                <p className="text-xs uppercase tracking-widest font-semibold text-gold">Selected Evidence</p>
+                <div>
+                  <h2 id="selected-evidence" className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight text-[var(--text-primary)]">
+                    From ambition to delivery.
+                  </h2>
+                  <p className="mt-4 max-w-[560px] text-base leading-8 text-[var(--text-secondary)]">
+                    Work across institutions, learning businesses, and emerging ventures.
                   </p>
                 </div>
               </div>
-            </div>
 
-            {/* Bottom CTA */}
-            <div className="mt-12 lg:mt-16 pt-8 border-t border-white/10">
-              <Link href="/global-reach" className="group inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
-                <span className="border-b border-brand-gold/40 group-hover:border-brand-gold text-brand-gold transition-colors">
-                  View complete global reach &amp; community work
-                </span>
-                <ArrowUpRight className="w-4 h-4 text-brand-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-          </motion.div>
+              {/* Article 1: SLL USA */}
+              <article className="mt-10 grid gap-6 border-t border-[var(--border)] py-8 md:grid-cols-[1fr_2fr] md:gap-12 lg:py-10">
+                <div className="space-y-1.5 text-sm leading-6">
+                  <p className="font-medium text-[var(--text-primary)] text-base">Sustainable Living Lab USA</p>
+                  <p className="text-muted text-sm">General Manager</p>
+                </div>
+                <div className="max-w-[690px]">
+                  <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl leading-tight text-[var(--text-primary)]">
+                    Building the U.S. presence.
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-7 text-[var(--text-secondary)] sm:text-base">
+                    Formalized and scaled the U.S. presence of Sustainable Living Laboratory LLC,
+                    providing consultation, AI learning and digital-skills tools, deployment and IT
+                    support, professional training, and AI/GenAI implementation.
+                  </p>
+                  <p className="mt-4 border-l-2 border-gold/60 pl-4 text-sm leading-7 text-[var(--text-secondary)] sm:text-[15px]">
+                    Scaling to 35+ U.S. states, collaborating with 100+ colleges, training 300+
+                    professors, and creating more than 1,000 hours of content.
+                  </p>
+                </div>
+              </article>
+
+              {/* Article 2: Whizz Kidz */}
+              <article className="grid gap-6 border-t border-[var(--border)] py-8 md:grid-cols-[1fr_2fr] md:gap-12 lg:py-10">
+                <div className="space-y-1.5 text-sm leading-6">
+                  <p className="font-medium text-[var(--text-primary)] text-base">Whizz Kidz / AI Teach U</p>
+                  <p className="text-muted text-sm">Education &amp; Business Development</p>
+                </div>
+                <div className="max-w-[690px]">
+                  <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl leading-tight text-[var(--text-primary)]">
+                    Learning, built for people.
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-7 text-[var(--text-secondary)] sm:text-base">
+                    At Whizz Kidz, supported revenue growth from 200k in late 2013 to more than
+                    700k by early 2019, alongside business operations and STEAM learning.
+                    At AI Teach U / AI Love Venture, work included teacher training, product
+                    development, and instructional design for spoken-language curricula.
+                  </p>
+                </div>
+              </article>
+
+              {/* Article 3: INSEAD */}
+              <article className="grid gap-6 border-y border-[var(--border)] py-8 md:grid-cols-[1fr_2fr] md:gap-12">
+                <div className="space-y-1.5 text-sm leading-6">
+                  <p className="font-medium text-[var(--text-primary)] text-base">INSEAD AI Venture Lab</p>
+                  <p className="text-muted text-sm">Startup Mentorship</p>
+                </div>
+                <div className="max-w-[690px]">
+                  <h3 className="font-display text-2xl sm:text-3xl leading-tight text-[var(--text-primary)]">
+                    Supporting emerging ventures.
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-7 text-[var(--text-secondary)] sm:text-base">
+                    Mentor top-selected startups under the INSEAD AI Venture Lab.
+                  </p>
+                </div>
+              </article>
+
+              <div className="flex md:justify-end mt-6">
+                <Link href="/ventures" className={editorialLink}>
+                  Explore the full track record <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </section>
 
-        <section aria-labelledby="conversation-heading" className="section-footer px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        {/* ══════════════ EXPERTISE PREVIEW ══════════════ */}
+        <section aria-labelledby="expertise-preview" className="section-warm px-5 pb-16 sm:px-8 lg:px-10 lg:pb-24">
           <div className="mx-auto max-w-7xl">
-          <motion.div {...editorialReveal} className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end lg:gap-24">
-            <div>
-              <p className="text-xs text-brand-gold uppercase tracking-widest font-medium">Conversation &amp; advisory</p>
-              <h2 id="conversation-heading" className="mt-5 max-w-[660px] font-display text-4xl leading-[1.12] text-white sm:text-5xl">
-                Collaborate on AI skilling &amp; sustainable innovation.
-              </h2>
-            </div>
-            <div>
-              <p className="max-w-[460px] text-sm leading-7 text-slate-300">
-                Available for digital skilling advisory, higher education technology work,
-                GenAI implementation, sustainability, and presentations.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-5">
-                <Link href="/contact" className="inline-flex min-h-11 items-center gap-3 rounded-sm btn-gold px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4">
-                  Start a Conversation <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            <motion.div {...editorialReveal} className="grid gap-12 border-t border-[var(--border)] pt-10 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
+              <div className="max-w-[430px]">
+                <p className="text-xs uppercase tracking-widest font-semibold text-gold">Leadership &amp; Expertise</p>
+                <h2 id="expertise-preview" className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.12] text-[var(--text-primary)]">
+                  A connected field of practice.
+                </h2>
+                <p className="mt-5 text-base leading-8 text-[var(--text-secondary)]">
+                  AI skilling, GenAI implementation, Digital Trust, sustainability, futures
+                  thinking, and EdTech.
+                </p>
+                <Link href="/expertise" className={editorialLink}>
+                  Explore leadership &amp; expertise <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
-                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-slate-300 transition-colors hover:border-gold hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4">
-                  Connect on LinkedIn <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                </a>
               </div>
-            </div>
-          </motion.div>
+
+              <dl className="divide-y divide-[var(--border)]">
+                <div className="pb-6">
+                  <dt className="font-display text-2xl sm:text-3xl leading-tight text-[var(--text-primary)]">AI &amp; digital readiness</dt>
+                  <dd className="mt-3 text-sm sm:text-base leading-7 text-[var(--text-secondary)]">
+                    National-level AI skilling, curriculum localization, AI/GenAI implementation,
+                    and Digital Trust.
+                  </dd>
+                </div>
+                <div className="py-6">
+                  <dt className="font-display text-2xl sm:text-3xl leading-tight text-[var(--text-primary)]">Education &amp; enterprise</dt>
+                  <dd className="mt-3 text-sm sm:text-base leading-7 text-[var(--text-secondary)]">
+                    EdTech strategy, STEAM learning, instructional design, business development,
+                    and program and project management.
+                  </dd>
+                </div>
+                <div className="pt-6">
+                  <dt className="font-display text-2xl sm:text-3xl leading-tight text-[var(--text-primary)]">Sustainability &amp; foresight</dt>
+                  <dd className="mt-3 text-sm sm:text-base leading-7 text-[var(--text-secondary)]">
+                    Climate adaptation, SDG-oriented visioning, futures thinking, foresight
+                    planning, corporate innovation, and leadership training.
+                  </dd>
+                </div>
+              </dl>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════ CONVERSATION & ADVISORY (FOOTER CTA) ══════════════ */}
+        <section aria-labelledby="conversation-heading" className="section-footer bg-[#0A0D14] text-white px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="mx-auto max-w-7xl">
+            <motion.div {...editorialReveal} className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end lg:gap-20">
+              <div>
+                <p className="text-xs text-gold uppercase tracking-widest font-semibold">Conversation &amp; Advisory</p>
+                <h2 id="conversation-heading" className="mt-4 max-w-[660px] font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.12] text-white">
+                  Collaborate on AI skilling &amp; sustainable innovation.
+                </h2>
+              </div>
+              <div>
+                <p className="max-w-[460px] text-base leading-7 text-slate-300">
+                  Available for digital skilling advisory, higher education technology work,
+                  GenAI implementation, sustainability, and presentations.
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+                  <Link
+                    href="/contact"
+                    className="inline-flex min-h-11 items-center gap-2.5 rounded-sm btn-gold px-5 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
+                  >
+                    Start a Conversation <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                  </Link>
+                  <a
+                    href={PERSONAL_INFO.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center gap-2 border-b border-white/25 py-2 text-sm text-slate-300 transition-colors hover:border-gold hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
+                  >
+                    Connect on LinkedIn <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>

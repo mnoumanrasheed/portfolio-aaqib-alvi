@@ -13,6 +13,14 @@ import {
 } from "lucide-react";
 import { PERSONAL_INFO } from "@/data/content";
 import { AmbientLightSweep, CinematicHeroImage } from "@/components/PremiumHeroMotion";
+import {
+  HeroAmbientGlow,
+  HeroDescription,
+  HeroEyebrow,
+  HeroHeading,
+  HeroMotionContainer,
+} from "@/components/HeroAnimations";
+import { HeroAmbientMotion } from "@/components/ContinuousHeroMotion";
 
 const CONVERSATION_CATEGORIES = [
   "AI Skilling & Government Programs",
@@ -104,25 +112,22 @@ export default function ContactPage() {
             background: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(197, 160, 89, 0.12) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(197, 160, 89, 0.06) 0%, transparent 60%)",
           }}
         />
-        <div aria-hidden="true" className="editorial-hero-bottom absolute inset-0 -z-10" />
+        <HeroAmbientMotion variant="streaks" />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-14 font-sans tracking-normal sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-          <motion.h1
-            id="contact-heading"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-xl font-display text-5xl font-normal leading-[1.08] tracking-normal text-white sm:text-6xl lg:text-7xl"
-          >
-            Let&apos;s Connect
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 max-w-[500px] text-base leading-7 text-slate-200 sm:text-lg sm:leading-8"
-          >
-            For ministries, institutions, and organizations seeking advisory on AI, digital readiness, or sustainability initiatives.
-          </motion.p>
+          <HeroMotionContainer>
+            <HeroEyebrow className="mb-6 text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
+              Start a Conversation
+            </HeroEyebrow>
+            <HeroHeading
+              id="contact-heading"
+              className="max-w-xl font-display text-5xl font-normal leading-[1.08] tracking-normal text-white sm:text-6xl lg:text-7xl"
+            >
+              Let&apos;s Connect
+            </HeroHeading>
+            <HeroDescription className="mt-6 max-w-[500px] text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
+              For ministries, institutions, and organizations seeking advisory on AI, digital readiness, or sustainability initiatives.
+            </HeroDescription>
+          </HeroMotionContainer>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 pt-12 sm:px-6 lg:px-8 lg:pt-20">

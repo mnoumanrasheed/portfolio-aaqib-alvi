@@ -1,32 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap");
+/* Fonts loaded via next/font in layout.tsx — no @import needed */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ───────────── Executive Obsidian & Champagne Gold Design Tokens ───────────── */
-:root {
+/* ───────────── Semantic Design Tokens: Dark Theme (Default) ───────────── */
+:root,
+html[data-theme="dark"] {
+  color-scheme: dark;
   --page: #080c14;
   --surface: #0e131f;
   --surface-soft: #121826;
-  --surface-teal: #0d1522;
-  --surface-warm: #131926;
-  --ink: #f8fafc;
-  --text: #94a3b8;
-  --muted: #64748b;
-  --border: rgba(255, 255, 255, 0.08);
+  --surface-elevated: #161f32;
+  --text-primary: #f8fafc;
+  --text-secondary: #aab4c4;
+  --text-muted: #7f8a9d;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.18);
   --accent: #c5a059;
-  --accent-dark: #dfb76c;
-  --gold: #c5a059;
-  --gold-soft: rgba(197, 160, 89, 0.15);
+  --accent-text: #c5a059;
+  --accent-decorative: #c5a059;
+  --gold-soft: rgba(197, 160, 89, 0.14);
+  --navbar-bg: rgba(8, 12, 20, 0.88);
+  --card-bg: rgba(14, 19, 31, 0.78);
+  --card-hover-bg: rgba(18, 24, 38, 0.92);
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --card-hover-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.65);
   --footer: #05080d;
-  --background: var(--page);
-  --foreground: var(--ink);
-  --surface-raised: #161f32;
-  --blue: var(--accent);
-  --font-sans: "Geist", Arial, sans-serif;
-  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: var(--font-geist, "Geist", Arial, sans-serif);
+  --font-display: var(--font-instrument-serif, "Instrument Serif", Georgia, serif);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ───────────── Semantic Design Tokens: Light Theme (Refined Executive Ivory) ───────────── */
+html[data-theme="light"] {
+  color-scheme: light;
+  --page: #f7f5f0;
+  --surface: #ffffff;
+  --surface-soft: #f0ede6;
+  --surface-elevated: #faf8f4;
+  --text-primary: #161a22;
+  --text-secondary: #4b5563;
+  --text-muted: #687182;
+  --border: rgba(22, 26, 34, 0.12);
+  --border-strong: rgba(22, 26, 34, 0.18);
+  --accent: #8a6518;
+  --accent-text: #8a6518;
+  --accent-decorative: #b68a2b;
+  --gold-soft: rgba(182, 138, 43, 0.12);
+  --navbar-bg: rgba(247, 245, 240, 0.90);
+  --card-bg: #ffffff;
+  --card-hover-bg: #faf8f4;
+  --card-shadow: 0 4px 20px -4px rgba(22, 26, 34, 0.07);
+  --card-hover-shadow: 0 10px 28px -6px rgba(22, 26, 34, 0.12);
+  --footer: #0c121d;
 }
 
 * {
@@ -35,18 +62,18 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--text-secondary);
+  background: var(--page);
   font-family: var(--font-sans);
   overflow-x: hidden;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "kern" 1, "liga" 1;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -56,15 +83,33 @@ h3 {
   font-weight: 400 !important;
   letter-spacing: 0 !important;
   text-wrap: balance;
+  color: var(--text-primary);
 }
 
-p { text-wrap: pretty; }
+.hero-name {
+  background: linear-gradient(135deg, #1a1a1a 10%, #3d3000 55%, #C9A227 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+html[data-theme="dark"] .hero-name {
+  background: linear-gradient(135deg, #FFFFFF 10%, #F5F1E8 55%, #C9A227 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+p {
+  text-wrap: pretty;
+}
 
 a,
 button,
 input,
 textarea,
-select { font-family: var(--font-sans); }
+select {
+  font-family: var(--font-sans);
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -72,34 +117,27 @@ select { font-family: var(--font-sans); }
 }
 
 /* ───────────── Scrollbar ─────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--page); }
-::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #334155; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--page);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
 
 /* ───────────── Typography Gradients ──── */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #fef7ec 0%, #d4af37 50%, #a27b32 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #ffffff 0%, #dfb76c 60%, #c5a059 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-white {
-  background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Hero name gradient — dramatic platinum-to-gold */
 .text-gradient-hero {
   background: linear-gradient(125deg, #ffffff 25%, #f1e5cb 65%, #c5a059 100%);
   -webkit-background-clip: text;
@@ -107,88 +145,93 @@ select { font-family: var(--font-sans); }
   background-clip: text;
 }
 
-/* ───────────── Glassmorphism ────────── */
+html[data-theme="light"] .text-gradient-hero {
+  background: linear-gradient(125deg, #161a22 35%, #2d3748 70%, #8a6518 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fef7ec 0%, #d4af37 50%, #a27b32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html[data-theme="light"] .text-gradient-gold {
+  background: linear-gradient(135deg, #8a6518 0%, #b68a2b 60%, #6e4e0d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-white {
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html[data-theme="light"] .text-gradient-white {
+  background: linear-gradient(180deg, #161a22 0%, #4b5563 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ───────────── Glassmorphism & Panels ────────── */
 .glass-panel {
-  background: rgba(14, 19, 31, 0.78);
+  background: var(--card-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
 .glass-card {
-  background: rgba(14, 19, 31, 0.68);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: border-color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border);
+  transition: border-color 0.35s var(--ease-out), background-color 0.35s var(--ease-out), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  box-shadow: var(--card-shadow);
 }
 
 .glass-card:hover {
-  border-color: rgba(197, 160, 89, 0.45);
-  background: rgba(20, 27, 44, 0.85);
+  border-color: var(--accent);
+  background: var(--card-hover-bg);
   transform: translateY(-2px);
-  box-shadow: 0 20px 45px -10px rgba(197, 160, 89, 0.12);
-}
-
-.glass-card-gold:hover {
-  border-color: rgba(197, 160, 89, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 20px 45px -10px rgba(197, 160, 89, 0.15);
-}
-
-/* Hero-specific glass pill */
-.hero-glass-badge {
-  background: rgba(14, 19, 31, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(197, 160, 89, 0.25);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-/* Stat panels */
-.stat-glass {
-  background: rgba(14, 19, 31, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6);
-}
-
-/* ───────────── Grid Pattern ─────────── */
-.bg-grid-pattern {
-  background-size: 64px 64px;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-}
-
-/* ───────────── Glow Utilities ───────── */
-.glow-cyan-sm {
-  box-shadow: 0 12px 35px rgba(197, 160, 89, 0.12);
-}
-
-.glow-gold-sm {
-  box-shadow: 0 12px 35px rgba(197, 160, 89, 0.18);
+  box-shadow: var(--card-hover-shadow);
 }
 
 /* ───────────── CTA Buttons ──────────── */
 .btn-gold {
   background: linear-gradient(135deg, #d4af37 0%, #b88e38 100%);
-  color: #080c14;
+  color: #080c14 !important;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: all 0.35s var(--ease-out);
-  box-shadow: 0 4px 20px rgba(197, 160, 89, 0.25);
+  transition: all 0.3s var(--ease-out);
+  box-shadow: 0 4px 16px rgba(197, 160, 89, 0.25);
+}
+
+html[data-theme="light"] .btn-gold {
+  background: linear-gradient(135deg, #b68a2b 0%, #9a721c 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(182, 138, 43, 0.22);
 }
 
 .btn-gold:hover {
   background: linear-gradient(135deg, #e2c366 0%, #c5a059 100%);
   transform: translateY(-1px);
-  box-shadow: 0 8px 30px rgba(197, 160, 89, 0.4);
-  color: #05080d;
+  box-shadow: 0 6px 22px rgba(197, 160, 89, 0.35);
+}
+
+html[data-theme="light"] .btn-gold:hover {
+  background: linear-gradient(135deg, #c49934 0%, #8a6518 100%);
+  box-shadow: 0 6px 22px rgba(182, 138, 43, 0.32);
 }
 
 .btn-gold:active {
@@ -196,19 +239,92 @@ select { font-family: var(--font-sans); }
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(197, 160, 89, 0.35);
-  color: #e2d3b3;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   font-weight: 500;
   letter-spacing: 0.04em;
-  transition: all 0.35s var(--ease-out);
+  transition: all 0.3s var(--ease-out);
+}
+
+html[data-theme="light"] .btn-ghost {
+  background: rgba(22, 26, 34, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
 }
 
 .btn-ghost:hover {
-  border-color: #c5a059;
-  background: rgba(197, 160, 89, 0.12);
-  color: #ffffff;
+  border-color: var(--accent);
+  background: var(--gold-soft);
+  color: var(--text-primary);
   transform: translateY(-1px);
+}
+
+/* ───────────── Section Background Treatments ─────────── */
+.section-page { background: var(--page); }
+.section-surface { background: var(--surface); }
+.section-soft { background: var(--surface-soft); }
+.section-teal { background: var(--surface-soft); }
+.section-warm { background: var(--surface-elevated); }
+.section-footer {
+  background: var(--footer);
+  color: #f8fafc;
+}
+.section-footer h2,
+.section-footer p {
+  color: #f8fafc !important;
+}
+.section-footer .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+/* ───────────── Editorial Hero & Form Inputs ──────────── */
+.editorial-hero-overlay {
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.05) 0%, rgba(8, 12, 20, 0.40) 65%, rgba(8, 12, 20, 0.98) 100%);
+  pointer-events: none;
+}
+html[data-theme="light"] .editorial-hero-overlay {
+  background: linear-gradient(180deg, rgba(247, 245, 240, 0) 0%, rgba(247, 245, 240, 0.30) 65%, rgba(247, 245, 240, 0.98) 100%);
+}
+
+.editorial-hero-bottom {
+  background: linear-gradient(to top, var(--page) 0%, transparent 35%);
+  pointer-events: none;
+}
+
+.editorial-input {
+  background: var(--surface-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+.editorial-input::placeholder {
+  color: var(--text-muted);
+}
+.editorial-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--gold-soft);
+}
+
+/* ───────────── Subtle Connector Highlight Animations ─────────── */
+@keyframes connectorTravelSlow {
+  0% {
+    top: -15%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+.connector-travel-slow {
+  animation: connectorTravelSlow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* ───────────── Shimmer Loader ────────── */
@@ -217,7 +333,6 @@ select { font-family: var(--font-sans); }
   100% { background-position: 200% 0; }
 }
 
-/* Premium site loader */
 .premium-loader {
   isolation: isolate;
   background: #080c14;
@@ -324,77 +439,45 @@ select { font-family: var(--font-sans); }
   100% { transform: scaleX(1); opacity: 1; }
 }
 
-/* ───────────── Float Animation ────────── */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* ───────────── Light mode global text & element contrast overrides ─────────────── */
+html[data-theme="light"] .text-white {
+  color: var(--text-primary) !important;
 }
 
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-7px) rotate(1deg); }
-  66% { transform: translateY(-4px) rotate(-0.5deg); }
+html[data-theme="light"] .text-slate-200 {
+  color: #1f2937 !important;
 }
 
-/* ───────────── Ambient Glows ─────────── */
-.ambient-glow-cyan {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
-  pointer-events: none;
-  filter: blur(60px);
+html[data-theme="light"] .text-slate-300 {
+  color: var(--text-secondary) !important;
 }
 
-.ambient-glow-gold {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
-  pointer-events: none;
-  filter: blur(60px);
+html[data-theme="light"] .text-slate-400 {
+  color: var(--text-muted) !important;
 }
 
-/* ───────────── Section Background Treatments ─────────── */
-.section-page { background: var(--page); }
-.section-surface { background: var(--surface); }
-.section-soft { background: var(--surface-soft); }
-.section-teal { background: var(--surface-teal); }
-.section-warm { background: var(--surface-warm); }
-.section-footer { background: var(--footer); color: var(--foreground); }
-
-.editorial-hero-overlay {
-  background: linear-gradient(
-    90deg,
-    rgba(8, 12, 20, 0.97) 0%,
-    rgba(8, 12, 20, 0.90) 35%,
-    rgba(8, 12, 20, 0.55) 62%,
-    rgba(8, 12, 20, 0.12) 100%
-  );
+html[data-theme="light"] .text-slate-500 {
+  color: var(--text-muted) !important;
 }
 
-.editorial-hero-bottom {
-  background: linear-gradient(
-    180deg,
-    rgba(8, 12, 20, 0.0) 0%,
-    rgba(8, 12, 20, 0.45) 48%,
-    rgba(8, 12, 20, 0.96) 100%
-  );
+html[data-theme="light"] .border-white\/10,
+html[data-theme="light"] .border-white\/15,
+html[data-theme="light"] .border-white\/20,
+html[data-theme="light"] .border-white\/5 {
+  border-color: var(--border) !important;
 }
 
-.editorial-input {
-  background: rgba(14, 19, 31, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
+html[data-theme="light"] .bg-white\/5,
+html[data-theme="light"] .bg-white\/\[0\.02\],
+html[data-theme="light"] .bg-white\/\[0\.03\],
+html[data-theme="light"] .bg-white\/\[0\.04\] {
+  background-color: rgba(22, 26, 34, 0.04) !important;
 }
 
-.editorial-input::placeholder {
-  color: #64748b;
-}
-
-.editorial-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+/* Maintain dark colors in specific elements */
+.section-footer *,
+.premium-loader * {
+  /* preserved */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -408,4 +491,168 @@ select { font-family: var(--font-sans); }
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ------------- Holographic Panels ---------- */
+.holographic-panel-glow {
+  animation: holoPulse 3s ease-in-out infinite;
+}
+
+@keyframes holoPulse {
+  0%, 100% { box-shadow: 0 0 10px inset, 0 0 10px; }
+  50% { box-shadow: 0 0 20px inset, 0 0 20px; }
+}
+
+/* ─────────── Subpage Light-Theme Overrides ─────────── */
+
+/* Background overrides */
+html[data-theme="light"] .bg-\[\#0A0D14\],
+html[data-theme="light"] .bg-\[\#080c14\],
+html[data-theme="light"] .bg-brand-dark {
+  background-color: var(--surface) !important;
+}
+
+/* Hero text on subpages — force readable color in light */
+html[data-theme="light"] .editorial-hero-overlay {
+  background: linear-gradient(180deg,
+    rgba(247,245,240,0) 0%,
+    rgba(247,245,240,0.30) 65%,
+    rgba(247,245,240,0.98) 100%) !important;
+}
+
+/* Card / article borders on subpages */
+html[data-theme="light"] .border-white\/10,
+html[data-theme="light"] .border-white\/15,
+html[data-theme="light"] .border-white\/20,
+html[data-theme="light"] .border-white\/25,
+html[data-theme="light"] .border-white\/5 {
+  border-color: var(--border) !important;
+}
+
+html[data-theme="light"] .divide-white\/10 {
+  --tw-divide-opacity: 1;
+  border-color: var(--border) !important;
+}
+html[data-theme="light"] .divide-white\/10 > * + * {
+  border-color: var(--border) !important;
+}
+
+/* Subpage section backgrounds */
+html[data-theme="light"] .section-page,
+html[data-theme="light"] .section-soft,
+html[data-theme="light"] .section-surface,
+html[data-theme="light"] .section-warm {
+  background: var(--page);
+}
+
+/* Text overrides for all slate shades used in subpages */
+html[data-theme="light"] .text-white {
+  color: var(--text-primary) !important;
+}
+html[data-theme="light"] .text-slate-100 {
+  color: var(--text-primary) !important;
+}
+html[data-theme="light"] .text-slate-200 {
+  color: var(--text-secondary) !important;
+}
+html[data-theme="light"] .text-slate-300 {
+  color: var(--text-secondary) !important;
+}
+html[data-theme="light"] .text-slate-400 {
+  color: var(--text-muted) !important;
+}
+html[data-theme="light"] .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+
+/* Gradient text on dark backgrounds used in hero areas */
+html[data-theme="light"] .text-gradient-hero {
+  background: linear-gradient(125deg, #161a22 35%, #2d3748 70%, #8a6518 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Force readable text on inline-styled dark bg hero headings */
+html[data-theme="light"] section h1.font-display {
+  color: var(--text-primary) !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+/* Fix border-t/border-y white/10 used in editorial content areas */
+html[data-theme="light"] .border-y.border-white\/10,
+html[data-theme="light"] .border-t.border-white\/10,
+html[data-theme="light"] .border-b.border-white\/10 {
+  border-color: var(--border) !important;
+}
+
+/* Impact/ventures page: number "01 02 03" large display */
+html[data-theme="light"] .text-white\/15 {
+  color: rgba(22, 26, 34, 0.12) !important;
+}
+
+/* Gold accent text – keep consistent gold in light */
+html[data-theme="light"] .text-brand-gold,
+html[data-theme="light"] .text-gold {
+  color: var(--accent-text) !important;
+}
+
+/* Card on focus/expertise subpages */
+html[data-theme="light"] [style*="var(--card-bg)"] {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+
+/* Expertise card grid items - dark card bg override */
+html[data-theme="light"] .rounded-xl.border.border-gold\/20,
+html[data-theme="light"] .rounded-xl[class*="bg-\[#0A0D14\]"] {
+  background-color: var(--surface) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Profile image overlay gradient on about page */
+html[data-theme="light"] .bg-gradient-to-t.from-brand-dark\/75 {
+  background: linear-gradient(to top, rgba(247,245,240,0.85) 0%, transparent 60%) !important;
+}
+
+/* Contact page invitation text */
+html[data-theme="light"] .text-slate-300.leading-relaxed {
+  color: var(--text-secondary) !important;
+}
+html[data-theme="light"] .text-slate-400.text-sm.leading-relaxed {
+  color: var(--text-muted) !important;
+}
+
+/* ────────── Cinematic Hero Text ────────── */
+/* The cinematic hero images are dark photos. We removed the heavy white overlay so the photo is visible.
+   Therefore, the text ON TOP of the photo MUST remain white and readable, even in light theme.
+   This overrides the aggressive slate/text-ink color overrides applied globally for the body. */
+html[data-theme="light"] section.min-h-\[100svh\] .text-white,
+html[data-theme="light"] section.min-h-\[100svh\] .text-ink,
+html[data-theme="light"] section.min-h-\[100svh\] h1.font-display {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+html[data-theme="light"] section.min-h-\[100svh\] .text-slate-200,
+html[data-theme="light"] section.min-h-\[100svh\] .text-slate-300,
+html[data-theme="light"] section.min-h-\[100svh\] .text-text {
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Conversation categories on contact page */
+html[data-theme="light"] li.text-slate-400 {
+  color: var(--text-secondary) !important;
+}
+
+/* FocusClientView card */
+html[data-theme="light"] .rounded-2xl.border {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+
+html[data-theme="light"] .min-h-\[70vh\] .border-2.border-gold\/40 {
+  border-color: var(--border) !important;
 }

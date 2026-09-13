@@ -60,9 +60,9 @@ export function AmbientLightSweep({ tone = "gold" }: { tone?: "gold" | "cyan" })
     <motion.div
       aria-hidden="true"
       initial={{ opacity: 0 }}
-      animate={reducedMotion ? { opacity: 0.12 } : { opacity: [0.06, 0.16, 0.06], x: ["-5%", "5%", "-5%"] }}
-      transition={reducedMotion ? undefined : { duration: tone === "gold" ? 13 : 16, ease: "easeInOut", repeat: Infinity }}
-      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(197,160,89,0.18),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(223,183,108,0.15),transparent_68%)]"}`}
+      animate={reducedMotion ? { opacity: 0.15 } : { opacity: [0.08, 0.22, 0.08], x: ["-5%", "5%", "-5%"] }}
+      transition={reducedMotion ? undefined : { duration: tone === "gold" ? 14 : 16, ease: "easeInOut", repeat: Infinity }}
+      className={`pointer-events-none absolute inset-y-0 -left-[12%] w-[58%] blur-3xl z-10 ${tone === "gold" ? "bg-[radial-gradient(ellipse_at_center,rgba(197,160,89,0.18),transparent_68%)]" : "bg-[radial-gradient(ellipse_at_center,rgba(223,183,108,0.15),transparent_68%)]"}`}
     />
   );
 }

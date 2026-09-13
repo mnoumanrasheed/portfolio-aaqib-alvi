@@ -1,0 +1,24 @@
+{
+  "name": "Aaqib Alvi - Global AI & Innovation Leader",
+  "short_name": "Aaqib Alvi",
+  "description": "Executive platform of Aaqib Alvi — Global Digital Readiness, AI implementation, sustainability, and EdTech leadership",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#C9A227",
+  "background_color": "#05070D",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait"
+}

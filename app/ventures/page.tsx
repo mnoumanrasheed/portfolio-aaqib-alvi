@@ -7,6 +7,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { EXPERIENCES, VOLUNTEERING } from "@/data/content";
 import { AmbientLightSweep, CinematicHeroImage } from "@/components/PremiumHeroMotion";
+import {
+  HeroAmbientGlow,
+  HeroDescription,
+  HeroEyebrow,
+  HeroHeading,
+  HeroMotionContainer,
+  HeroSecondary,
+} from "@/components/HeroAnimations";
+import { HeroAmbientMotion } from "@/components/ContinuousHeroMotion";
 
 function byId(id: string) {
   const item = EXPERIENCES.find((experience) => experience.id === id);
@@ -101,7 +110,7 @@ export default function VenturesPage() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="relative -mt-20 font-sans tracking-normal">
+    <div className="relative -mt-20 font-sans tracking-normal bg-warmWhite dark:bg-charcoal text-charcoal dark:text-warmWhite">
       <section className="section-page relative flex min-h-[100svh] items-center overflow-hidden border-b border-border pt-20">
         <CinematicHeroImage src="/impact-hero.png" objectPosition="object-[center_42%]" />
         <AmbientLightSweep />
@@ -113,47 +122,33 @@ export default function VenturesPage() {
           aria-hidden="true"
           className="editorial-hero-bottom absolute inset-0"
         />
-        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl"
-          >
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
+        <HeroAmbientMotion variant="particles" />
+        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 z-10">
+          <HeroMotionContainer className="max-w-4xl">
+            <HeroEyebrow className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
               Impact
-            </p>
-            <motion.h1
-              initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-              animate={prefersReducedMotion ? undefined : { opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-              transition={{ duration: 1.05, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-7 max-w-4xl font-display text-[clamp(2.7rem,7svh,5.75rem)] font-normal leading-[0.99] text-white sm:text-[clamp(3rem,8svh,6rem)]"
-            >
+            </HeroEyebrow>
+            <HeroHeading className="mt-7 max-w-4xl font-display text-[clamp(2.7rem,7svh,5.75rem)] font-normal leading-[0.99] text-ink sm:text-[clamp(3rem,8svh,6rem)]">
               Evidence of change across learning systems and institutions.
-            </motion.h1>
-            <p className="mt-8 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+            </HeroHeading>
+            <HeroDescription className="mt-8 max-w-2xl text-base leading-8 text-text sm:text-lg">
               From commercial scaling and venture mentorship to AI skilling, EdTech, and sustainable
               innovation work across international programs and organizations.
-            </p>
+            </HeroDescription>
 
-            <dl className="mt-9 grid max-w-3xl grid-cols-3 border-y border-white/10 sm:mt-12">
+            <HeroSecondary as="dl" className="mt-9 grid max-w-3xl grid-cols-3 border-y border-white/10 sm:mt-12">
               {heroMetrics.map((metric, index) => (
                 <div key={metric.label} className="min-w-0 border-r border-white/10 px-2 py-4 first:pl-0 last:border-r-0 last:pr-0 sm:py-5 sm:pr-8">
                   <dt className="text-[9px] font-medium uppercase leading-4 tracking-[0.12em] text-slate-300 sm:text-xs sm:leading-5 sm:tracking-[0.18em]">
                     {metric.label}
                   </dt>
-                  <motion.dd
-                    initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-                    animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.45 + index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                    className="mt-3 font-display text-3xl font-normal text-white sm:text-5xl"
-                  >
+                  <dd className="mt-3 font-display text-3xl font-normal text-white sm:text-5xl">
                     {metric.value}
-                  </motion.dd>
+                  </dd>
                 </div>
               ))}
-            </dl>
-          </motion.div>
+            </HeroSecondary>
+          </HeroMotionContainer>
         </div>
       </section>
 
@@ -163,7 +158,7 @@ export default function VenturesPage() {
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Flagship Impact Stories
             </p>
-            <h2 id="impact-stories" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+            <h2 id="impact-stories" className="mt-5 font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
               Three examples of leadership moving from intent to delivery.
             </h2>
           </motion.div>
@@ -189,7 +184,7 @@ export default function VenturesPage() {
                 </aside>
 
                 <div className="max-w-4xl">
-                  <h3 className="font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+                  <h3 className="font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
                     {story.title}
                   </h3>
 
@@ -243,7 +238,7 @@ export default function VenturesPage() {
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Evidence Index
             </p>
-            <h2 id="evidence-index" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+            <h2 id="evidence-index" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
               Additional signals of credibility.
             </h2>
             <p className="mt-6 max-w-md text-sm leading-7 text-slate-300">
@@ -285,7 +280,7 @@ export default function VenturesPage() {
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
                 From Evidence to Next Mandate
               </p>
-              <h2 id="impact-conversation" className="mt-5 max-w-3xl font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              <h2 id="impact-conversation" className="mt-5 max-w-3xl font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
                 Build programs that are credible in strategy and practical in delivery.
               </h2>
             </div>

@@ -122,7 +122,7 @@ export default function HeroOrbit() {
         <div aria-hidden="true" className="absolute inset-[16%] rounded-full bg-gold/15 blur-3xl" />
         <div aria-hidden="true" className="absolute inset-[25%] rounded-full bg-amber-500/10 blur-2xl" />
         <motion.div className="absolute inset-0" style={{ x: reducedMotion ? 0 : x, y: reducedMotion ? 0 : y }}>
-          <svg role="group" aria-label="Six expertise nodes" viewBox="0 0 520 520" className="block h-full w-full overflow-hidden">
+          <svg role="group" aria-label="Six expertise nodes" viewBox="0 0 520 520" className="block h-full w-full overflow-hidden text-black dark:text-white">
             <defs>
               <radialGradient id="aaCoreGlow" cx="50%" cy="45%" r="62%">
                 <stop offset="0%" stopColor="#C5A059" stopOpacity="0.25" />
@@ -184,8 +184,8 @@ export default function HeroOrbit() {
             <circle cx="260" cy="260" r="66" fill="#0E131F" stroke="#F8FAFC" strokeOpacity="0.12" strokeWidth="1.15" />
             <circle cx="260" cy="260" r="55" fill="none" stroke="#C5A059" strokeOpacity="0.4" strokeWidth="0.8" />
             <path d="M 206 226 A 68 68 0 0 1 292 203" fill="none" stroke="#DFB76C" strokeOpacity="0.3" strokeWidth="1" />
-            <text x="260" y="257" textAnchor="middle" dominantBaseline="middle" fontFamily="Instrument Serif, Georgia, serif" fontSize="64" fontWeight="400" letterSpacing="0" fill="#F8FAFC">AA</text>
-            <text x="260" y="304" textAnchor="middle" dominantBaseline="middle" fontFamily="Geist, Arial, sans-serif" fontSize="10" fontWeight="500" letterSpacing="1.8" fill="#C5A059" opacity="0.9">LEADERSHIP</text>
+            <text x="260" y="257" textAnchor="middle" dominantBaseline="middle" fontFamily="Instrument Serif, Georgia, serif" fontSize="64" fontWeight="400" letterSpacing="0" fill="currentColor">AA</text>
+            <text x="260" y="304" textAnchor="middle" dominantBaseline="middle" fontFamily="Geist, Arial, sans-serif" fontSize="10" fontWeight="500" letterSpacing="1.8" fill="currentColor" opacity="0.9">LEADERSHIP</text>
           </svg>
         </motion.div>
       </div>

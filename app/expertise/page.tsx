@@ -13,6 +13,14 @@ import {
   VOLUNTEERING,
 } from "@/data/content";
 import { AmbientLightSweep, CinematicHeroImage, LeadershipNetworkTrace } from "@/components/PremiumHeroMotion";
+import {
+  HeroAmbientGlow,
+  HeroDescription,
+  HeroEyebrow,
+  HeroHeading,
+  HeroMotionContainer,
+} from "@/components/HeroAnimations";
+import { HeroAmbientMotion } from "@/components/ContinuousHeroMotion";
 
 const primaryExpertise = CORE_PILLARS.slice(0, 3);
 const supportingExpertise = CORE_PILLARS.slice(3);
@@ -60,7 +68,7 @@ function mostImportantOutcome(description: string[]) {
 
 export default function ExpertisePage() {
   return (
-    <div className="relative -mt-20 font-sans tracking-normal">
+    <div className="relative -mt-20 font-sans tracking-normal bg-warmWhite dark:bg-charcoal text-charcoal dark:text-warmWhite">
       <section className="section-page relative flex min-h-[100svh] items-center overflow-hidden border-b border-border pt-20">
         <CinematicHeroImage src="/leadership-expertise-hero.png" objectPosition="object-center" intensity="calm" />
         <LeadershipNetworkTrace />
@@ -73,24 +81,20 @@ export default function ExpertisePage() {
           aria-hidden="true"
           className="editorial-hero-bottom absolute inset-0"
         />
-        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl"
-          >
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
-              Leadership & Expertise
-            </p>
-            <h1 className="mt-7 max-w-4xl font-display text-[clamp(3rem,8svh,6rem)] font-normal leading-[0.99] text-white">
+        <HeroAmbientMotion variant="network" />
+        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 z-10">
+          <HeroMotionContainer className="max-w-4xl">
+            <HeroEyebrow className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-brand-gold">
+              Leadership &amp; Expertise
+            </HeroEyebrow>
+            <HeroHeading className="mt-7 max-w-4xl font-display text-[clamp(3rem,8svh,6rem)] font-normal leading-[0.99] text-white">
               Where AI readiness becomes institutional capability.
-            </h1>
-            <p className="mt-8 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+            </HeroHeading>
+            <HeroDescription className="mt-8 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
               A practical portfolio of AI, digital readiness, sustainability, EdTech, and business
               development experience across programs, institutions, and communities.
-            </p>
-          </motion.div>
+            </HeroDescription>
+          </HeroMotionContainer>
         </div>
       </section>
 
@@ -101,7 +105,7 @@ export default function ExpertisePage() {
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
                 Core Expertise
               </p>
-              <h2 id="core-expertise" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              <h2 id="core-expertise" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
                 Strategic domains with delivery depth.
               </h2>
               <p className="mt-6 max-w-md text-sm leading-7 text-slate-300">
@@ -168,7 +172,7 @@ export default function ExpertisePage() {
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Professional Journey
             </p>
-            <h2 id="professional-journey" className="mt-5 font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+            <h2 id="professional-journey" className="mt-5 font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
               A progression from learning ventures to global AI programs.
             </h2>
               <p className="mt-6 text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
@@ -196,7 +200,7 @@ export default function ExpertisePage() {
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-medium leading-tight text-white sm:text-2xl">
+                    <h3 className="text-xl font-medium leading-tight text-ink sm:text-2xl">
                       {experience.role}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-brand-gold">
@@ -232,7 +236,7 @@ export default function ExpertisePage() {
             <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
               Institutional & Community Contribution
             </p>
-            <h2 id="institutional-contribution" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+            <h2 id="institutional-contribution" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
               Selected contributions beyond core roles.
             </h2>
           </motion.div>
@@ -278,12 +282,12 @@ export default function ExpertisePage() {
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.26em] text-brand-gold">
                 Selected Education & Credentials
               </p>
-              <h2 id="selected-credentials" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-white sm:text-5xl">
+              <h2 id="selected-credentials" className="mt-5 max-w-md font-display text-4xl font-normal leading-tight text-ink sm:text-5xl">
                 Academic grounding with continued professional learning.
               </h2>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-white/25 py-2 text-sm text-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
+                className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-border py-2 text-sm text-ink transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold focus-visible:outline-offset-4"
               >
                 Start a Conversation
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
