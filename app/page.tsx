@@ -34,80 +34,33 @@ export default function HomePage() {
     <div className="relative -mt-20 min-h-screen overflow-x-hidden">
 
       {/* ══════════════════════════════════════════════════════
-          PREMIUM EXECUTIVE HERO — 100vh, interactive 3D cards
+          PREMIUM EXECUTIVE HERO — responsive & high performance
       ══════════════════════════════════════════════════════ */}
       <section
         aria-label="Executive profile introduction"
-        className="relative flex h-[100svh] max-h-[100svh] items-center overflow-hidden bg-white dark:bg-[#05070D]"
+        className="relative flex min-h-[100svh] lg:h-[100svh] lg:max-h-[100svh] items-center overflow-hidden bg-[#FAF9F6] dark:bg-[#05070D] transition-colors duration-500"
       >
         {/* ── Premium subtle animated background ── */}
         <HomepageHeroBackground />
 
-        {/* ── Premium animated background atmosphere ── */}
-        <motion.div
-          animate={{
-            opacity: [0.015, 0.04, 0.015],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 30%, rgba(201,162,39,0.08) 0px, transparent 450px), radial-gradient(circle at 80% 70%, rgba(201,162,39,0.05) 0px, transparent 550px), radial-gradient(circle at 50% 50%, rgba(201,162,39,0.03) 0px, transparent 600px)",
-          }}
-        />
-
-        {/* Ambient gradient meshes */}
-        <motion.div
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"],
-            opacity: [0.08, 0.15, 0.08],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(201,162,39,0.15) 90deg, transparent 180deg, rgba(201,162,39,0.1) 270deg, transparent 360deg)",
-            backgroundSize: "200% 200%",
-            filter: "blur(80px)",
-          }}
-        />
-
-        {/* Premium grain texture overlay */}
+        {/* ── Hardware-accelerated soft background atmosphere ── */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.02]"
+          className="absolute inset-0 pointer-events-none transform-gpu"
           style={{
             backgroundImage:
-              "url(data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E)",
+              "radial-gradient(circle at 20% 30%, rgba(201,162,39,0.07) 0px, transparent 450px), radial-gradient(circle at 80% 70%, rgba(201,162,39,0.05) 0px, transparent 550px)",
           }}
         />
 
-        {/* Futuristic AI particles */}
-        <motion.div
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"],
-          }}
-          transition={{
-            duration: 90,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+        {/* Subtle AI particle grid overlay */}
+        <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.12]"
+          className="absolute inset-0 pointer-events-none opacity-[0.1] dark:opacity-[0.15] transform-gpu"
           style={{
             backgroundImage:
               "radial-gradient(circle, rgba(201,162,39,0.5) 1px, transparent 1px)",
-            backgroundSize: "90px 90px",
+            backgroundSize: "80px 80px",
             maskImage:
               "radial-gradient(ellipse 65% 55% at 70% 50%, black 0%, transparent 100%)",
             WebkitMaskImage:
@@ -115,43 +68,23 @@ export default function HomePage() {
           }}
         />
 
-        {/* Noise texture movement */}
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 40,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "url(data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)'/%3E%3C/svg%3E)",
-            backgroundSize: "400px 400px",
-          }}
-        />
-
         {/* ── Main content grid ─────────────────────────── */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-12">
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[46%_54%] lg:gap-20 xl:gap-24 items-center min-h-[calc(100svh-8rem)]">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-10 xl:px-12 pt-24 sm:pt-28 lg:pt-24 pb-12 lg:pb-8">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[46%_54%] lg:gap-20 xl:gap-24 items-center min-h-0 lg:min-h-[calc(100svh-8rem)]">
 
             {/* ════════════════════════════════════════════
                 LEFT — Executive identity & impact
             ════════════════════════════════════════════ */}
-            <div className="flex flex-col justify-center pt-24 pb-8 lg:pt-0 lg:pb-0">
+            <div className="flex flex-col justify-center pt-2 sm:pt-4 lg:pt-0 pb-4 lg:pb-0">
 
               {/* Badge */}
-              <motion.div {...fadeUp(0.1, 15)} className="mb-7">
-                <div className="inline-flex items-center gap-2.5 rounded-full border border-[#C9A227]/20 bg-[#C9A227]/5 px-5 py-2.5 backdrop-blur-sm">
+              <motion.div {...fadeUp(0.1, 15)} className="mb-4 sm:mb-7">
+                <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-[#C9A227]/30 dark:border-[#C9A227]/20 bg-[#C9A227]/10 dark:bg-[#C9A227]/5 px-3.5 sm:px-5 py-2 sm:py-2.5 backdrop-blur-md">
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-[#C9A227]"
-                    style={{ boxShadow: "0 0 10px rgba(201,162,39,0.9)" }}
+                    className="h-1.5 w-1.5 rounded-full bg-[#967410] dark:bg-[#C9A227]"
+                    style={{ boxShadow: "0 0 8px rgba(201,162,39,0.7)" }}
                   />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A227]">
+                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-[#8E6E12] dark:text-[#C9A227]">
                     Global AI &amp; Innovation Leader
                   </span>
                 </div>
@@ -160,7 +93,7 @@ export default function HomePage() {
               {/* Name — large editorial heading */}
               <motion.h1
                 {...fadeUp(0.2, 20)}
-                className="hero-name font-display text-[clamp(3.8rem,9vh,7rem)] font-normal leading-[0.92] tracking-[-0.025em] mb-7"
+                className="hero-name font-display text-[clamp(2.75rem,8vw,7rem)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 sm:mb-7"
                 style={{ letterSpacing: "-0.02em" }}
               >
                 Aaqib Alvi
@@ -169,18 +102,18 @@ export default function HomePage() {
               {/* Main headline — strong statement */}
               <motion.p
                 {...fadeUp(0.3, 18)}
-                className="text-[clamp(1.2rem,2.6vh,1.65rem)] font-semibold leading-[1.35] text-gray-900 dark:text-white max-w-[560px] mb-5"
+                className="text-[clamp(1.1rem,2.4vh,1.65rem)] font-semibold leading-[1.3] lg:leading-[1.35] text-slate-900 dark:text-white max-w-[560px] mb-3 sm:mb-5"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 Turning emerging technology into institutional capability.
               </motion.p>
 
               {/* Supporting paragraph */}
-                <motion.p
-                  {...fadeUp(0.4, 16)}
-                  className="text-[clamp(0.95rem,1.85vh,1.1rem)] leading-[1.75] text-gray-800 dark:text-gray-400 max-w-[560px] mb-9"
-                  style={{ letterSpacing: "-0.002em" }}
-                >
+              <motion.p
+                {...fadeUp(0.4, 16)}
+                className="text-xs sm:text-base lg:text-[clamp(0.95rem,1.85vh,1.1rem)] leading-[1.65] lg:leading-[1.75] text-slate-700 dark:text-gray-400 max-w-[560px] mb-6 sm:mb-9"
+                style={{ letterSpacing: "-0.002em" }}
+              >
                 Advancing workforce readiness and measurable impact through AI,
                 digital transformation and education technology across governments,
                 universities, organizations and communities.
@@ -189,11 +122,11 @@ export default function HomePage() {
               {/* CTAs — premium buttons */}
               <motion.div
                 {...fadeUp(0.5, 14)}
-                className="flex flex-wrap items-center gap-4 mb-12"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
               >
                 <Link
                   href="/expertise"
-                  className="group inline-flex items-center gap-2.5 rounded-lg px-8 py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white dark:text-[#05070D] transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(201,162,39,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-gradient-to-r from-[#b58c2a] to-[#8a6518] dark:from-[#E8D9A6] dark:to-[#C9A227] shadow-[0_8px_25px_-5px_rgba(138,101,24,0.3)] dark:shadow-[0_10px_30px_-5px_rgba(201,162,39,0.3)]"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-lg px-6 sm:px-8 py-3.5 sm:py-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white dark:text-[#05070D] transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(160,123,30,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-gradient-to-r from-[#9A7B1C] to-[#785E10] dark:from-[#E8D9A6] dark:to-[#C9A227] shadow-[0_8px_25px_-5px_rgba(154,123,28,0.35)] dark:shadow-[0_10px_30px_-5px_rgba(201,162,39,0.3)]"
                 >
                   <span>Explore Leadership</span>
                   <ArrowRight
@@ -205,10 +138,10 @@ export default function HomePage() {
                 <a
                   href="/aaqib-alvi-profile.pdf"
                   download="Aaqib-Alvi-Executive-Profile.pdf"
-                  className="group inline-flex items-center gap-2.5 rounded-lg border border-[#C9A227]/40 dark:border-[#C9A227]/25 px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-800 dark:text-white backdrop-blur-sm transition-all duration-500 hover:border-[#C9A227] dark:hover:border-[#C9A227]/50 hover:bg-[#C9A227]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-white/40 dark:bg-[#101522]/50 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.4)]"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-lg border border-slate-300 dark:border-[#C9A227]/25 px-6 sm:px-7 py-3.5 sm:py-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-800 dark:text-white backdrop-blur-sm transition-all duration-500 hover:border-[#9A7B1C] dark:hover:border-[#C9A227]/50 hover:bg-slate-100 dark:hover:bg-[#C9A227]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C9A227] focus-visible:outline-offset-4 bg-white/80 dark:bg-[#101522]/50 shadow-sm dark:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.4)]"
                 >
                   <Download
-                    className="h-4 w-4 text-[#C9A227] transition-transform duration-500 group-hover:translate-y-0.5"
+                    className="h-4 w-4 text-[#8E6E12] dark:text-[#C9A227] transition-transform duration-500 group-hover:translate-y-0.5"
                     aria-hidden="true"
                   />
                   <span>Download Profile</span>
@@ -216,22 +149,21 @@ export default function HomePage() {
               </motion.div>
 
               {/* Impact metrics — refined presentation */}
-                <motion.dl
-                  {...fadeUp(0.6, 12)}
-                  aria-label="Career reach and impact metrics"
-                  className="grid grid-cols-3 gap-7 border-t border-[#C9A227]/8 pt-9"
-                >
-                  {[
-                    { value: "35+", label: "Governments" },
-                    { value: "200K+", label: "People Reached" },
-                    { value: "12+", label: "Years Experience" },
-                  ].map((m, i) => (
-                    <div key={m.label} className="flex flex-col"
-                    >
-                      <dd className="font-display text-[clamp(2.2rem,4.5vh,3.5rem)] font-normal leading-none tabular-nums text-black dark:text-white mb-2">
-                        {m.value}
-                      </dd>
-                    <dt className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-gray-500">
+              <motion.dl
+                {...fadeUp(0.6, 12)}
+                aria-label="Career reach and impact metrics"
+                className="grid grid-cols-3 gap-2 sm:gap-6 border-t border-slate-200 dark:border-[#C9A227]/8 pt-6 lg:pt-9"
+              >
+                {[
+                  { value: "35+", label: "Governments" },
+                  { value: "200K+", label: "People Reached" },
+                  { value: "12+", label: "Years Experience" },
+                ].map((m) => (
+                  <div key={m.label} className="flex flex-col text-left">
+                    <dd className="font-display text-xl sm:text-3xl lg:text-[clamp(2.2rem,4.5vh,3.5rem)] font-normal leading-none tabular-nums text-slate-900 dark:text-white mb-1.5 sm:mb-2">
+                      {m.value}
+                    </dd>
+                    <dt className="text-[9px] sm:text-[10.5px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.16em] text-slate-600 dark:text-gray-400">
                       {m.label}
                     </dt>
                   </div>
@@ -242,7 +174,7 @@ export default function HomePage() {
             {/* ════════════════════════════════════════════
                 RIGHT — Futuristic AI Ecosystem
             ════════════════════════════════════════════ */}
-            <div className="relative flex items-center justify-center pb-8 lg:pb-0 min-h-[650px]">
+            <div className="relative flex items-center justify-center pb-4 lg:pb-0 min-h-0 lg:min-h-[650px] w-full">
               <ExecutiveHeroRight />
             </div>
 

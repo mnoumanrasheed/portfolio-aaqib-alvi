@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -89,8 +89,8 @@ export default function Navbar() {
       />
       <div className="relative mx-auto flex h-16 lg:h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
         <Link href="/" aria-label="Aaqib Alvi homepage" className={cn("group flex shrink-0 items-center gap-3", focus)}>
-          <div className="relative h-9 w-9 lg:h-10 lg:w-10 overflow-hidden rounded-full border border-white/15 transition-colors duration-300 group-hover:border-gold/80 [html[data-theme='light']_&]:border-slate-300">
-            <Image src="/logo.png" alt="Aaqib Alvi Emblem" fill sizes="40px" className="object-cover" priority />
+          <div className="relative h-9 w-9 lg:h-10 lg:w-10 overflow-hidden rounded-full border border-slate-300 dark:border-white/15 transition-colors duration-300 group-hover:border-[#C9A227]">
+            <Image src="/logo.png" alt="Aaqib Alvi Emblem" width={40} height={40} quality={85} className="h-full w-full object-cover" priority />
           </div>
           <div className="flex flex-col gap-0.5">
             <span className="font-display text-[20px] sm:text-[22px] font-normal leading-none text-[var(--text-primary)]">
@@ -130,20 +130,6 @@ export default function Navbar() {
 
         {/* Right CTA & Controls */}
         <div className="flex items-center gap-3 sm:gap-4">
-          {/* PDF Download Button (desktop) */}
-          <a
-            href="/aaqib-alvi-profile.pdf"
-            download="Aaqib-Alvi-Executive-Profile.pdf"
-            title="Download Executive Profile PDF"
-            className={cn(
-              "group hidden min-h-10 items-center gap-2 rounded-sm border border-gold/40 px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-text transition-all duration-300 hover:border-gold hover:bg-gold/10 hover:text-gold xl:inline-flex",
-              focus
-            )}
-          >
-            <Download className="h-3.5 w-3.5 text-gold transition-transform duration-300 group-hover:translate-y-0.5" />
-            <span>Profile PDF</span>
-          </a>
-
           {/* Theme Toggle Button */}
           <ThemeToggle />
 
@@ -211,16 +197,6 @@ export default function Navbar() {
               ))}
 
               <div className="mt-8 flex flex-col gap-4">
-                <a
-                  href="/aaqib-alvi-profile.pdf"
-                  download="Aaqib-Alvi-Executive-Profile.pdf"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-sm border border-gold/50 bg-gold/10 px-5 py-3 text-xs font-semibold uppercase tracking-wider text-gold transition-colors hover:bg-gold/20"
-                >
-                  <Download className="h-4 w-4" />
-                  <span>Download Executive Profile (PDF)</span>
-                </a>
-
                 <Link
                   href="/contact"
                   onClick={() => setOpen(false)}

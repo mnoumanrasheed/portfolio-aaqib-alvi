@@ -75,7 +75,7 @@ export default function ExecutiveHeroRight() {
 
   return (
     <div 
-      className="relative w-full h-full min-h-[600px] flex items-center justify-center"
+      className="relative w-full h-auto lg:h-full min-h-0 lg:min-h-[600px] flex items-center justify-center"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -144,7 +144,7 @@ export default function ExecutiveHeroRight() {
       </div>
 
       {/* Mobile/Tablet Fallback Stack */}
-      <div className="flex flex-col gap-6 w-full lg:hidden relative z-20">
+      <div className="flex flex-col gap-4 sm:gap-6 w-full lg:hidden relative z-20 pt-2 lg:pt-0">
         {expertiseData.map((card, index) => (
           <motion.div
             key={card.id}
@@ -166,15 +166,11 @@ function ExpertiseCard({ card, isHovered }: { card: any, isHovered: boolean }) {
   return (
     <Link 
       href={card.href}
-      className="group relative block w-full rounded-[24px] bg-white/90 dark:bg-[#0A0D14]/90 p-7 sm:p-8 cursor-pointer overflow-hidden border transition-all duration-500"
-      style={{
-        borderColor: isHovered ? "rgba(201,162,39,0.3)" : "rgba(255,255,255,0.08)",
-        boxShadow: isHovered ? "0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,162,39,0.2)" : "0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
-      }}
+      className="group relative block w-full rounded-2xl sm:rounded-[24px] bg-white/95 dark:bg-[#0A0D14]/95 p-5 sm:p-8 cursor-pointer overflow-hidden border border-slate-200/90 dark:border-white/10 transition-all duration-500 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-xl dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:border-[#C9A227]/60 dark:hover:border-[#C9A227]/40"
     >
       {/* Surface Noise Texture */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] pointer-events-none mix-blend-overlay"
         style={{
           backgroundImage: "url(data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E)",
         }}
@@ -193,36 +189,37 @@ function ExpertiseCard({ card, isHovered }: { card: any, isHovered: boolean }) {
 
       <div className="relative z-10 flex flex-col h-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <span className="text-[10px] font-mono font-medium tracking-[0.2em] text-[#C9A227]/70">
+        <div className="flex items-center justify-between mb-4 sm:mb-8">
+          <span className="text-[10px] font-mono font-medium tracking-[0.2em] text-[#967410] dark:text-[#C9A227]/70">
             {card.id}
           </span>
-          <div className="p-2 rounded-xl bg-white/5 border border-white/5 backdrop-blur-md">
-            <Icon size={18} className="text-gray-900/70 dark:text-white/70" />
+          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/5 backdrop-blur-md">
+            <Icon size={16} className="text-slate-800 dark:text-white/70 sm:hidden" />
+            <Icon size={18} className="text-slate-800 dark:text-white/70 hidden sm:block" />
           </div>
         </div>
 
         {/* Content */}
         <div>
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: card.accent }}>
+          <h4 className="text-[10px] font-bold uppercase tracking-widest mb-1.5 sm:mb-2" style={{ color: card.accent }}>
             {card.category}
           </h4>
-          <h3 className="text-xl sm:text-2xl font-display text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#C9A227] transition-colors duration-300">
+          <h3 className="text-lg sm:text-2xl font-display text-slate-900 dark:text-white mb-2 sm:mb-3 leading-tight group-hover:text-[#967410] dark:group-hover:text-[#C9A227] transition-colors duration-300">
             {card.title}
           </h3>
-          <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 mb-8 line-clamp-2 sm:line-clamp-3">
+          <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-gray-400 mb-4 sm:mb-8 line-clamp-2 sm:line-clamp-3">
             {card.description}
           </p>
         </div>
 
         {/* CTA */}
-        <div className="mt-auto flex items-center gap-3 pt-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-900 dark:text-white group-hover:text-[#C9A227] transition-colors duration-300">
+        <div className="mt-auto flex items-center gap-3 pt-1 sm:pt-2">
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-[#967410] dark:group-hover:text-[#C9A227] transition-colors duration-300">
             Explore Expertise
           </span>
-          <ArrowRight className="w-4 h-4 text-gray-500 dark:text-white/50 group-hover:text-[#C9A227] group-hover:translate-x-1.5 transition-all duration-300" />
-          <div className="h-[1px] flex-grow bg-gray-200/10 dark:bg-white/10 group-hover:bg-[#C9A227]/30 transition-colors duration-300 relative overflow-hidden">
-             <div className="absolute inset-0 bg-[#C9A227] w-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 dark:text-white/50 group-hover:text-[#967410] dark:group-hover:text-[#C9A227] group-hover:translate-x-1.5 transition-all duration-300" />
+          <div className="h-[1px] flex-grow bg-slate-200 dark:bg-white/10 group-hover:bg-[#C9A227]/40 transition-colors duration-300 relative overflow-hidden">
+             <div className="absolute inset-0 bg-[#967410] dark:bg-[#C9A227] w-full -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 /* Fonts loaded via next/font in layout.tsx — no @import needed */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* ───────────── Semantic Design Tokens: Dark Theme (Default) ───────────── */
 :root,
@@ -87,16 +87,31 @@ h3 {
 }
 
 .hero-name {
-  background: linear-gradient(135deg, #1a1a1a 10%, #3d3000 55%, #C9A227 95%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: inline-block;
+  padding-bottom: 0.12em;
+  line-height: 1.05;
+  overflow: visible;
+  color: #0F172A !important;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #947214 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
+
+html[data-theme="light"] .hero-name {
+  color: #0F172A !important;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #947214 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
 html[data-theme="dark"] .hero-name {
-  background: linear-gradient(135deg, #FFFFFF 10%, #F5F1E8 55%, #C9A227 95%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #FFFFFF !important;
+  background: linear-gradient(135deg, #FFFFFF 15%, #F5F1E8 60%, #C9A227 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
 p {
@@ -474,11 +489,7 @@ html[data-theme="light"] .bg-white\/\[0\.04\] {
   background-color: rgba(22, 26, 34, 0.04) !important;
 }
 
-/* Maintain dark colors in specific elements */
-.section-footer *,
-.premium-loader * {
-  /* preserved */
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
